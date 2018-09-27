@@ -1,0 +1,36 @@
+//
+//  CustomServerSelectionCoordinator.swift
+//  Emby Player
+//
+//  Created by Mats Mollestad on 24/09/2018.
+//  Copyright © 2018 Mats Mollestad. All rights reserved.
+//
+
+import UIKit
+
+class CustomServerSelectionCoordinator: Coordinating, CustomServerSelectionViewControllerDelegate {
+    
+    let presenter: UINavigationController
+    
+    lazy var selectionController = CustomServerSelectionViewController()
+    
+    init(presenter: UINavigationController) {
+        self.presenter = presenter
+    }
+    
+    func start() {
+        selectionController.delegate = self
+        presenter.pushViewController(selectionController, animated: true)
+    }
+    
+    
+    func connectToServer(_ server: ServerConnection) {
+        do {
+            try ServerManager.shared.connect(to: server)
+            UserManager.shared.logout()
+            presenter.dismiss(animated: true, completion: nil)
+        } catch {
+            selectionController.presentError(error)
+        }
+    }
+}

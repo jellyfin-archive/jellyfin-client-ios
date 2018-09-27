@@ -1,0 +1,1249 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		037AEFF4D9FAC2F85480FAE9 /* Pods_Emby_PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33F5BE93C32C14CD853811C /* Pods_Emby_PlayerTests.framework */; };
+		351715D72156943200765C4D /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715D62156943200765C4D /* UserView.swift */; };
+		351715D92156A8A000765C4D /* VisibleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715D82156A8A000765C4D /* VisibleTextField.swift */; };
+		351715E52158FE9000765C4D /* EmbyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E42158FE9000765C4D /* EmbyLoginViewController.swift */; };
+		351715E8215933CC00765C4D /* CustomServerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E7215933CC00765C4D /* CustomServerSelectionViewController.swift */; };
+		351715EA2159367400765C4D /* EmbyLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E92159367400765C4D /* EmbyLoginCoordinator.swift */; };
+		351715EC2159369C00765C4D /* CustomServerSelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715EB2159369C00765C4D /* CustomServerSelectionCoordinator.swift */; };
+		351715EE21593E9600765C4D /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715ED21593E9600765C4D /* ServerManager.swift */; };
+		351715F0215A1F4300765C4D /* EmbyConnectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715EF215A1F4300765C4D /* EmbyConnectAPI.swift */; };
+		351715F2215A6F4500765C4D /* EmbyConnectUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715F1215A6F4500765C4D /* EmbyConnectUserManager.swift */; };
+		351A80F221454C8C0028AC73 /* SubtitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80F121454C8C0028AC73 /* SubtitleViewController.swift */; };
+		351A80F821455F1C0028AC73 /* SubtitleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80F721455F1C0028AC73 /* SubtitleFactory.swift */; };
+		351A80F921455FC50028AC73 /* SubtitleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80F721455F1C0028AC73 /* SubtitleFactory.swift */; };
+		351A80FB214574920028AC73 /* PlayerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80FA214574920028AC73 /* PlayerSettingViewController.swift */; };
+		351A80FD2145C04F0028AC73 /* UIColor+hexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */; };
+		351A80FE2145C0FF0028AC73 /* UIColor+hexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */; };
+		351A81002146A3F60028AC73 /* PlayableOfflineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */; };
+		351A81032146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81022146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift */; };
+		351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */; };
+		351A81072147C03D0028AC73 /* HLSDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81062147C03D0028AC73 /* HLSDownloadManager.swift */; };
+		351A81092147C0AA0028AC73 /* HLSDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81082147C0AA0028AC73 /* HLSDecoder.swift */; };
+		351A810A2147C20A0028AC73 /* HLSDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81082147C0AA0028AC73 /* HLSDecoder.swift */; };
+		351A810C2148E8330028AC73 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A810B2148E8330028AC73 /* Stack.swift */; };
+		351CDB5D215BE44600ACB83A /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB5C215BE44600ACB83A /* LoadingViewController.swift */; };
+		351CDB5F215BE46F00ACB83A /* FetcherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB5E215BE46F00ACB83A /* FetcherResponse.swift */; };
+		351CDB61215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB60215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift */; };
+		351CDB63215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB62215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift */; };
+		351CDB65215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB64215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift */; };
+		351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB66215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift */; };
+		351CDB69215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB68215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift */; };
+		351ECB17215CE2F8003020C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 351ECB16215CE2F8003020C4 /* README.md */; };
+		352B5F28213165A300E346C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F27213165A300E346C6 /* AppDelegate.swift */; };
+		352B5F2F213165A500E346C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 352B5F2E213165A500E346C6 /* Assets.xcassets */; };
+		352B5F32213165A500E346C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 352B5F30213165A500E346C6 /* LaunchScreen.storyboard */; };
+		352B5F3D213165A500E346C6 /* Emby_PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F3C213165A500E346C6 /* Emby_PlayerTests.swift */; };
+		352B5F48213165A500E346C6 /* Emby_PlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F47213165A500E346C6 /* Emby_PlayerUITests.swift */; };
+		352B5F56213165B500E346C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F55213165B500E346C6 /* LoginViewController.swift */; };
+		352B5F582131720900E346C6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F572131720900E346C6 /* UIViewExtension.swift */; };
+		352B5F5E21318B4100E346C6 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F5D21318B4100E346C6 /* UserListViewController.swift */; };
+		352B60722132DF5200E346C6 /* NetworkRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B60712132DF5100E346C6 /* NetworkRequester.swift */; };
+		35667BEB2136741C000A20A0 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEA2136741C000A20A0 /* PlayerViewController.swift */; };
+		35667BED2136B3C2000A20A0 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEC2136B3C2000A20A0 /* ItemViewController.swift */; };
+		35667BEF2136C9EE000A20A0 /* TvShowLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEE2136C9EE000A20A0 /* TvShowLibraryViewController.swift */; };
+		35667BF12136CAAB000A20A0 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BF02136CAAB000A20A0 /* EpisodeTableViewCell.swift */; };
+		35667BF32136F9EF000A20A0 /* ImageLoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BF22136F9EF000A20A0 /* ImageLoaderViewController.swift */; };
+		35667BF52137465A000A20A0 /* UIImageView+fetchUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BF42137465A000A20A0 /* UIImageView+fetchUrl.swift */; };
+		35667BF72137C66D000A20A0 /* EmbyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BF62137C66D000A20A0 /* EmbyAPI.swift */; };
+		35667BF9213809A3000A20A0 /* CatagoryLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BF8213809A3000A20A0 /* CatagoryLibraryViewController.swift */; };
+		35667BFB213827EF000A20A0 /* MediaStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BFA213827EF000A20A0 /* MediaStream.swift */; };
+		35667C1121396DDC000A20A0 /* MediaFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667C1021396DDC000A20A0 /* MediaFolder.swift */; };
+		35667C13213DE63C000A20A0 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667C12213DE63C000A20A0 /* UserData.swift */; };
+		357428302140351800713FC5 /* VideoPlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3574282F2140351800713FC5 /* VideoPlayerControls.swift */; };
+		357428332140642400713FC5 /* VideoSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357428322140642400713FC5 /* VideoSlider.swift */; };
+		357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357428342141174500713FC5 /* VideoInformationViewController.swift */; };
+		3574283721415DAA00713FC5 /* DeviceRotateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3574283621415DAA00713FC5 /* DeviceRotateManager.swift */; };
+		3574283B2141728100713FC5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3574283A2141728100713FC5 /* SearchViewController.swift */; };
+		35742841214188A000713FC5 /* FilterLibraryStoreEmbyCatagoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35742840214188A000713FC5 /* FilterLibraryStoreEmbyCatagoryFetcher.swift */; };
+		357428442141DDCC00713FC5 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357428432141DDCC00713FC5 /* DownloadManager.swift */; };
+		35897AA2214A55E2005A1D07 /* Coordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AA1214A55E2005A1D07 /* Coordinating.swift */; };
+		35897AA4214A9208005A1D07 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AA3214A9208005A1D07 /* ApplicationCoordinator.swift */; };
+		35897AA6214A9348005A1D07 /* UserListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AA5214A9348005A1D07 /* UserListCoordinator.swift */; };
+		35897AA8214A96CC005A1D07 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AA7214A96CC005A1D07 /* LoginCoordinator.swift */; };
+		35897AAB214AA3E9005A1D07 /* TopLevelCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AAA214AA3E9005A1D07 /* TopLevelCoordinator.swift */; };
+		35897AAD214AAC8A005A1D07 /* LocalItemCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AAC214AAC8A005A1D07 /* LocalItemCoordinator.swift */; };
+		35897AAF214AADC4005A1D07 /* VideoPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AAE214AADC4005A1D07 /* VideoPlayerCoordinator.swift */; };
+		35897AB1214AB393005A1D07 /* MediaLibraryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB0214AB393005A1D07 /* MediaLibraryCoordinator.swift */; };
+		35897AB3214ABA78005A1D07 /* TvShowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB2214ABA78005A1D07 /* TvShowCoordinator.swift */; };
+		35897AB5214ABC91005A1D07 /* EmbyItemCoordiantor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB4214ABC91005A1D07 /* EmbyItemCoordiantor.swift */; };
+		35897AB7214ACE02005A1D07 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB6214ACE02005A1D07 /* SearchCoordinator.swift */; };
+		35897AB9214AD0D5005A1D07 /* LocalLibraryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB8214AD0D5005A1D07 /* LocalLibraryCoordinator.swift */; };
+		3593959E2135F0EA00374D91 /* BaseItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */; };
+		35DDA1522133006E00840B95 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1512133006E00840B95 /* UserManager.swift */; };
+		35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15321330AAD00840B95 /* ErrorViewController.swift */; };
+		35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */; };
+		35DDA15921331BAD00840B95 /* ContentStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15821331BAD00840B95 /* ContentStateViewController.swift */; };
+		35DDA15C21331C0700840B95 /* UserListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15B21331C0700840B95 /* UserListStore.swift */; };
+		35DDA15E21331C2A00840B95 /* CellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15D21331C2A00840B95 /* CellRegister.swift */; };
+		35DDA16221331CE000840B95 /* AuthenticationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA16121331CE000840B95 /* AuthenticationResult.swift */; };
+		35DDA16421331CF600840B95 /* AuthenticateUserByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA16321331CF600840B95 /* AuthenticateUserByName.swift */; };
+		35DDA16821331D1100840B95 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA16721331D1100840B95 /* User.swift */; };
+		35DDA16B2133203F00840B95 /* TopLevelLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA16A2133203F00840B95 /* TopLevelLibraryViewController.swift */; };
+		35DDA16E2133207C00840B95 /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA16D2133207C00840B95 /* LibraryStore.swift */; };
+		35DDA1712133209F00840B95 /* BaseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1702133209F00840B95 /* BaseItem.swift */; };
+		35DDA1732133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */; };
+		35DDA17621335AF900840B95 /* MediaFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */; };
+		485D3C875F9CF93AFE4C26C9 /* Pods_Emby_PlayerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750445B871A56DC5558172D2 /* Pods_Emby_PlayerUITests.framework */; };
+		B8F8DAFD9BC332389EFFB38F /* Pods_Emby_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1799B14B665EACDC88A913A /* Pods_Emby_Player.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		352B5F39213165A500E346C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 352B5F1C213165A300E346C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 352B5F23213165A300E346C6;
+			remoteInfo = "Emby Player";
+		};
+		352B5F44213165A500E346C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 352B5F1C213165A300E346C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 352B5F23213165A300E346C6;
+			remoteInfo = "Emby Player";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		05EBC01BFAC6E70F0462B93D /* Pods-Emby PlayerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerUITests/Pods-Emby PlayerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		0BFA8F431F1D967359C19D6D /* Pods-Emby PlayerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerUITests/Pods-Emby PlayerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		14CAAA0CC80E6576C35A3668 /* Pods-Emby PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerTests/Pods-Emby PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
+		351715D62156943200765C4D /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		351715D82156A8A000765C4D /* VisibleTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VisibleTextField.swift; path = ../../../Frameworks/Views/VisibleTextField.swift; sourceTree = "<group>"; };
+		351715E42158FE9000765C4D /* EmbyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyLoginViewController.swift; sourceTree = "<group>"; };
+		351715E7215933CC00765C4D /* CustomServerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerSelectionViewController.swift; sourceTree = "<group>"; };
+		351715E92159367400765C4D /* EmbyLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyLoginCoordinator.swift; sourceTree = "<group>"; };
+		351715EB2159369C00765C4D /* CustomServerSelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerSelectionCoordinator.swift; sourceTree = "<group>"; };
+		351715ED21593E9600765C4D /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		351715EF215A1F4300765C4D /* EmbyConnectAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyConnectAPI.swift; sourceTree = "<group>"; };
+		351715F1215A6F4500765C4D /* EmbyConnectUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyConnectUserManager.swift; sourceTree = "<group>"; };
+		351A80F121454C8C0028AC73 /* SubtitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleViewController.swift; sourceTree = "<group>"; };
+		351A80F721455F1C0028AC73 /* SubtitleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleFactory.swift; sourceTree = "<group>"; };
+		351A80FA214574920028AC73 /* PlayerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingViewController.swift; sourceTree = "<group>"; };
+		351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexColor.swift"; sourceTree = "<group>"; };
+		351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableOfflineManager.swift; sourceTree = "<group>"; };
+		351A81022146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreOfflineItemFetcher.swift; sourceTree = "<group>"; };
+		351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemOfflineFetcher.swift; sourceTree = "<group>"; };
+		351A81062147C03D0028AC73 /* HLSDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSDownloadManager.swift; sourceTree = "<group>"; };
+		351A81082147C0AA0028AC73 /* HLSDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSDecoder.swift; sourceTree = "<group>"; };
+		351A810B2148E8330028AC73 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		351CDB5C215BE44600ACB83A /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		351CDB5E215BE46F00ACB83A /* FetcherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherResponse.swift; sourceTree = "<group>"; };
+		351CDB60215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListStoreEmbyPublicFetcher.swift; sourceTree = "<group>"; };
+		351CDB62215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreEmbyCatagoryFetcher.swift; sourceTree = "<group>"; };
+		351CDB64215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestLibraryStoreEmbyCatagoryFetcher.swift; sourceTree = "<group>"; };
+		351CDB66215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreEmbyTopLevelFetcher.swift; sourceTree = "<group>"; };
+		351CDB68215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowLigraryStoreEmbyFetcher.swift; sourceTree = "<group>"; };
+		351ECB16215CE2F8003020C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		352B5F24213165A300E346C6 /* Emby Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emby Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		352B5F27213165A300E346C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		352B5F2E213165A500E346C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		352B5F31213165A500E346C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		352B5F33213165A500E346C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		352B5F38213165A500E346C6 /* Emby PlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Emby PlayerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		352B5F3C213165A500E346C6 /* Emby_PlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emby_PlayerTests.swift; sourceTree = "<group>"; };
+		352B5F3E213165A500E346C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		352B5F43213165A500E346C6 /* Emby PlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Emby PlayerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		352B5F47213165A500E346C6 /* Emby_PlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emby_PlayerUITests.swift; sourceTree = "<group>"; };
+		352B5F49213165A500E346C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		352B5F55213165B500E346C6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		352B5F572131720900E346C6 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../../../Frameworks/Views/UIViewExtension.swift; sourceTree = "<group>"; };
+		352B5F5D21318B4100E346C6 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		352B60712132DF5100E346C6 /* NetworkRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequester.swift; sourceTree = "<group>"; };
+		35667BEA2136741C000A20A0 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		35667BEC2136B3C2000A20A0 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		35667BEE2136C9EE000A20A0 /* TvShowLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowLibraryViewController.swift; sourceTree = "<group>"; };
+		35667BF02136CAAB000A20A0 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
+		35667BF22136F9EF000A20A0 /* ImageLoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderViewController.swift; sourceTree = "<group>"; };
+		35667BF42137465A000A20A0 /* UIImageView+fetchUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+fetchUrl.swift"; sourceTree = "<group>"; };
+		35667BF62137C66D000A20A0 /* EmbyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyAPI.swift; sourceTree = "<group>"; };
+		35667BF8213809A3000A20A0 /* CatagoryLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatagoryLibraryViewController.swift; sourceTree = "<group>"; };
+		35667BFA213827EF000A20A0 /* MediaStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaStream.swift; sourceTree = "<group>"; };
+		35667C1021396DDC000A20A0 /* MediaFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFolder.swift; sourceTree = "<group>"; };
+		35667C12213DE63C000A20A0 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		3574282F2140351800713FC5 /* VideoPlayerControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerControls.swift; sourceTree = "<group>"; };
+		357428322140642400713FC5 /* VideoSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSlider.swift; sourceTree = "<group>"; };
+		357428342141174500713FC5 /* VideoInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInformationViewController.swift; sourceTree = "<group>"; };
+		3574283621415DAA00713FC5 /* DeviceRotateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRotateManager.swift; sourceTree = "<group>"; };
+		3574283A2141728100713FC5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		35742840214188A000713FC5 /* FilterLibraryStoreEmbyCatagoryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLibraryStoreEmbyCatagoryFetcher.swift; sourceTree = "<group>"; };
+		357428432141DDCC00713FC5 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		35897AA1214A55E2005A1D07 /* Coordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinating.swift; sourceTree = "<group>"; };
+		35897AA3214A9208005A1D07 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		35897AA5214A9348005A1D07 /* UserListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCoordinator.swift; sourceTree = "<group>"; };
+		35897AA7214A96CC005A1D07 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		35897AAA214AA3E9005A1D07 /* TopLevelCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelCoordinator.swift; sourceTree = "<group>"; };
+		35897AAC214AAC8A005A1D07 /* LocalItemCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalItemCoordinator.swift; sourceTree = "<group>"; };
+		35897AAE214AADC4005A1D07 /* VideoPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCoordinator.swift; sourceTree = "<group>"; };
+		35897AB0214AB393005A1D07 /* MediaLibraryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryCoordinator.swift; sourceTree = "<group>"; };
+		35897AB2214ABA78005A1D07 /* TvShowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowCoordinator.swift; sourceTree = "<group>"; };
+		35897AB4214ABC91005A1D07 /* EmbyItemCoordiantor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyItemCoordiantor.swift; sourceTree = "<group>"; };
+		35897AB6214ACE02005A1D07 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		35897AB8214AD0D5005A1D07 /* LocalLibraryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLibraryCoordinator.swift; sourceTree = "<group>"; };
+		3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		35DDA1512133006E00840B95 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		35DDA15321330AAD00840B95 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+childViewController.swift"; sourceTree = "<group>"; };
+		35DDA15821331BAD00840B95 /* ContentStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStateViewController.swift; sourceTree = "<group>"; };
+		35DDA15B21331C0700840B95 /* UserListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListStore.swift; sourceTree = "<group>"; };
+		35DDA15D21331C2A00840B95 /* CellRegister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellRegister.swift; path = ../../../Frameworks/Views/CellRegister.swift; sourceTree = "<group>"; };
+		35DDA16121331CE000840B95 /* AuthenticationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResult.swift; sourceTree = "<group>"; };
+		35DDA16321331CF600840B95 /* AuthenticateUserByName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUserByName.swift; sourceTree = "<group>"; };
+		35DDA16721331D1100840B95 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		35DDA16A2133203F00840B95 /* TopLevelLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelLibraryViewController.swift; sourceTree = "<group>"; };
+		35DDA16D2133207C00840B95 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
+		35DDA1702133209F00840B95 /* BaseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItem.swift; sourceTree = "<group>"; };
+		35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCatagoryLatestLibraryViewController.swift; sourceTree = "<group>"; };
+		35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFolderTableViewCell.swift; sourceTree = "<group>"; };
+		3BFCD38A397298BD7646CA90 /* Pods-Emby PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerTests/Pods-Emby PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		44CC976103F2E07BB47587C0 /* Pods-Emby Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player.debug.xcconfig"; sourceTree = "<group>"; };
+		48D0C8A94A643FC8E967A534 /* Pods-Emby Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player.release.xcconfig"; sourceTree = "<group>"; };
+		750445B871A56DC5558172D2 /* Pods_Emby_PlayerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emby_PlayerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1799B14B665EACDC88A913A /* Pods_Emby_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emby_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E33F5BE93C32C14CD853811C /* Pods_Emby_PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emby_PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		352B5F21213165A300E346C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8F8DAFD9BC332389EFFB38F /* Pods_Emby_Player.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F35213165A500E346C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037AEFF4D9FAC2F85480FAE9 /* Pods_Emby_PlayerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F40213165A500E346C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				485D3C875F9CF93AFE4C26C9 /* Pods_Emby_PlayerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		351715DA2158F81D00765C4D /* Playable Item View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				35667BEC2136B3C2000A20A0 /* ItemViewController.swift */,
+				351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */,
+				351715DB2158F8FB00765C4D /* Coordinators */,
+			);
+			path = "Playable Item View Controller";
+			sourceTree = "<group>";
+		};
+		351715DB2158F8FB00765C4D /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				35897AB4214ABC91005A1D07 /* EmbyItemCoordiantor.swift */,
+				35897AAC214AAC8A005A1D07 /* LocalItemCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		351715DD2158F94B00765C4D /* Item Collection View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				351A81022146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift */,
+				351CDB62215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift */,
+				35667BF8213809A3000A20A0 /* CatagoryLibraryViewController.swift */,
+				351715DE2158F99C00765C4D /* Coordinators */,
+			);
+			path = "Item Collection View Controller";
+			sourceTree = "<group>";
+		};
+		351715DE2158F99C00765C4D /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				35897AB8214AD0D5005A1D07 /* LocalLibraryCoordinator.swift */,
+				35897AB0214AB393005A1D07 /* MediaLibraryCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		351715DF2158FA0C00765C4D /* Top Level View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				35897AAA214AA3E9005A1D07 /* TopLevelCoordinator.swift */,
+				351CDB66215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift */,
+				35DDA16A2133203F00840B95 /* TopLevelLibraryViewController.swift */,
+			);
+			path = "Top Level View Controller";
+			sourceTree = "<group>";
+		};
+		351715E02158FB9200765C4D /* Tv Show View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				35667BEE2136C9EE000A20A0 /* TvShowLibraryViewController.swift */,
+				351CDB68215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift */,
+				35897AB2214ABA78005A1D07 /* TvShowCoordinator.swift */,
+			);
+			path = "Tv Show View Controller";
+			sourceTree = "<group>";
+		};
+		351715E12158FBA000765C4D /* Horizontal Item Collection */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */,
+				351CDB64215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift */,
+			);
+			path = "Horizontal Item Collection";
+			sourceTree = "<group>";
+		};
+		351715E22158FE3B00765C4D /* Server Selection */ = {
+			isa = PBXGroup;
+			children = (
+				351715E6215933B000765C4D /* Custom Server Selection */,
+				351715E32158FE4500765C4D /* Emby Login */,
+			);
+			path = "Server Selection";
+			sourceTree = "<group>";
+		};
+		351715E32158FE4500765C4D /* Emby Login */ = {
+			isa = PBXGroup;
+			children = (
+				351715E42158FE9000765C4D /* EmbyLoginViewController.swift */,
+				351715E92159367400765C4D /* EmbyLoginCoordinator.swift */,
+			);
+			path = "Emby Login";
+			sourceTree = "<group>";
+		};
+		351715E6215933B000765C4D /* Custom Server Selection */ = {
+			isa = PBXGroup;
+			children = (
+				351715E7215933CC00765C4D /* CustomServerSelectionViewController.swift */,
+				351715EB2159369C00765C4D /* CustomServerSelectionCoordinator.swift */,
+			);
+			path = "Custom Server Selection";
+			sourceTree = "<group>";
+		};
+		351A80F421455EFC0028AC73 /* Subtitles */ = {
+			isa = PBXGroup;
+			children = (
+				351A80F621455F0A0028AC73 /* Factory */,
+				351A80F521455F020028AC73 /* ViewController */,
+			);
+			path = Subtitles;
+			sourceTree = "<group>";
+		};
+		351A80F521455F020028AC73 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				351A80F121454C8C0028AC73 /* SubtitleViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		351A80F621455F0A0028AC73 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				351A80F721455F1C0028AC73 /* SubtitleFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		352B5F1B213165A300E346C6 = {
+			isa = PBXGroup;
+			children = (
+				352B5F26213165A300E346C6 /* Emby Player */,
+				352B5F3B213165A500E346C6 /* Emby PlayerTests */,
+				352B5F46213165A500E346C6 /* Emby PlayerUITests */,
+				352B5F25213165A300E346C6 /* Products */,
+				BB7494443E19B4D84EB4B173 /* Pods */,
+				73A207A05364DE328AC0CA98 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		352B5F25213165A300E346C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				352B5F24213165A300E346C6 /* Emby Player.app */,
+				352B5F38213165A500E346C6 /* Emby PlayerTests.xctest */,
+				352B5F43213165A500E346C6 /* Emby PlayerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		352B5F26213165A300E346C6 /* Emby Player */ = {
+			isa = PBXGroup;
+			children = (
+				351ECB16215CE2F8003020C4 /* README.md */,
+				352B5F27213165A300E346C6 /* AppDelegate.swift */,
+				35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */,
+				352B5F572131720900E346C6 /* UIViewExtension.swift */,
+				35DDA15D21331C2A00840B95 /* CellRegister.swift */,
+				35667BF22136F9EF000A20A0 /* ImageLoaderViewController.swift */,
+				35667BF42137465A000A20A0 /* UIImageView+fetchUrl.swift */,
+				35667BF62137C66D000A20A0 /* EmbyAPI.swift */,
+				351715EF215A1F4300765C4D /* EmbyConnectAPI.swift */,
+				3574283621415DAA00713FC5 /* DeviceRotateManager.swift */,
+				351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */,
+				351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */,
+				351A81082147C0AA0028AC73 /* HLSDecoder.swift */,
+				351A810B2148E8330028AC73 /* Stack.swift */,
+				35897AA1214A55E2005A1D07 /* Coordinating.swift */,
+				35897AA3214A9208005A1D07 /* ApplicationCoordinator.swift */,
+				351715D82156A8A000765C4D /* VisibleTextField.swift */,
+				351CDB5E215BE46F00ACB83A /* FetcherResponse.swift */,
+				351715ED21593E9600765C4D /* ServerManager.swift */,
+				351715F1215A6F4500765C4D /* EmbyConnectUserManager.swift */,
+				351715E22158FE3B00765C4D /* Server Selection */,
+				351A80F421455EFC0028AC73 /* Subtitles */,
+				357428422141DDB900713FC5 /* DownloadManager */,
+				357428382141726100713FC5 /* Search */,
+				35667BE8213673E2000A20A0 /* Player */,
+				35DDA1692133201F00840B95 /* Library */,
+				35DDA16521331D0200840B95 /* UserManager */,
+				35DDA15F21331CC400840B95 /* LoginViewController */,
+				35DDA15A21331BF400840B95 /* UserListViewController */,
+				35DDA15721331B8700840B95 /* ContentStateViewController */,
+				352B60712132DF5100E346C6 /* NetworkRequester.swift */,
+				352B5F2E213165A500E346C6 /* Assets.xcassets */,
+				352B5F30213165A500E346C6 /* LaunchScreen.storyboard */,
+				352B5F33213165A500E346C6 /* Info.plist */,
+			);
+			path = "Emby Player";
+			sourceTree = "<group>";
+		};
+		352B5F3B213165A500E346C6 /* Emby PlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				352B5F3C213165A500E346C6 /* Emby_PlayerTests.swift */,
+				352B5F3E213165A500E346C6 /* Info.plist */,
+			);
+			path = "Emby PlayerTests";
+			sourceTree = "<group>";
+		};
+		352B5F46213165A500E346C6 /* Emby PlayerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				352B5F47213165A500E346C6 /* Emby_PlayerUITests.swift */,
+				352B5F49213165A500E346C6 /* Info.plist */,
+			);
+			path = "Emby PlayerUITests";
+			sourceTree = "<group>";
+		};
+		35667BE8213673E2000A20A0 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				3574282E214034EE00713FC5 /* SubControllers */,
+				35667BE921367407000A20A0 /* PlayerViewController */,
+				35667BFA213827EF000A20A0 /* MediaStream.swift */,
+				357428312140641600713FC5 /* Views */,
+				351A80FA214574920028AC73 /* PlayerSettingViewController.swift */,
+				35897AAE214AADC4005A1D07 /* VideoPlayerCoordinator.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		35667BE921367407000A20A0 /* PlayerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				35667BEA2136741C000A20A0 /* PlayerViewController.swift */,
+			);
+			path = PlayerViewController;
+			sourceTree = "<group>";
+		};
+		3574282E214034EE00713FC5 /* SubControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3574282F2140351800713FC5 /* VideoPlayerControls.swift */,
+				357428342141174500713FC5 /* VideoInformationViewController.swift */,
+			);
+			path = SubControllers;
+			sourceTree = "<group>";
+		};
+		357428312140641600713FC5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				357428322140642400713FC5 /* VideoSlider.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		357428382141726100713FC5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3574283F2141888000713FC5 /* Fetcher */,
+				357428392141726A00713FC5 /* VIewController */,
+				35897AB6214ACE02005A1D07 /* SearchCoordinator.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		357428392141726A00713FC5 /* VIewController */ = {
+			isa = PBXGroup;
+			children = (
+				3574283A2141728100713FC5 /* SearchViewController.swift */,
+			);
+			path = VIewController;
+			sourceTree = "<group>";
+		};
+		3574283F2141888000713FC5 /* Fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				35742840214188A000713FC5 /* FilterLibraryStoreEmbyCatagoryFetcher.swift */,
+			);
+			path = Fetcher;
+			sourceTree = "<group>";
+		};
+		357428422141DDB900713FC5 /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				357428432141DDCC00713FC5 /* DownloadManager.swift */,
+				351A81062147C03D0028AC73 /* HLSDownloadManager.swift */,
+			);
+			path = DownloadManager;
+			sourceTree = "<group>";
+		};
+		35DDA15721331B8700840B95 /* ContentStateViewController */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA15321330AAD00840B95 /* ErrorViewController.swift */,
+				351CDB5C215BE44600ACB83A /* LoadingViewController.swift */,
+				35DDA15821331BAD00840B95 /* ContentStateViewController.swift */,
+			);
+			path = ContentStateViewController;
+			sourceTree = "<group>";
+		};
+		35DDA15A21331BF400840B95 /* UserListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA15B21331C0700840B95 /* UserListStore.swift */,
+				351CDB60215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift */,
+				352B5F5D21318B4100E346C6 /* UserListViewController.swift */,
+				35897AA5214A9348005A1D07 /* UserListCoordinator.swift */,
+				351715D62156943200765C4D /* UserView.swift */,
+			);
+			path = UserListViewController;
+			sourceTree = "<group>";
+		};
+		35DDA15F21331CC400840B95 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				352B5F55213165B500E346C6 /* LoginViewController.swift */,
+				35897AA7214A96CC005A1D07 /* LoginCoordinator.swift */,
+				35DDA16021331CD000840B95 /* Models */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		35DDA16021331CD000840B95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA16121331CE000840B95 /* AuthenticationResult.swift */,
+				35DDA16321331CF600840B95 /* AuthenticateUserByName.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35DDA16521331D0200840B95 /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA1512133006E00840B95 /* UserManager.swift */,
+				35DDA16621331D0900840B95 /* Models */,
+			);
+			path = UserManager;
+			sourceTree = "<group>";
+		};
+		35DDA16621331D0900840B95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA16721331D1100840B95 /* User.swift */,
+				35667C12213DE63C000A20A0 /* UserData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35DDA1692133201F00840B95 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				351715E12158FBA000765C4D /* Horizontal Item Collection */,
+				351715E02158FB9200765C4D /* Tv Show View Controller */,
+				351715DF2158FA0C00765C4D /* Top Level View Controller */,
+				351715DD2158F94B00765C4D /* Item Collection View Controller */,
+				351715DA2158F81D00765C4D /* Playable Item View Controller */,
+				35DDA16F2133208800840B95 /* Models */,
+				35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */,
+				35DDA16D2133207C00840B95 /* LibraryStore.swift */,
+				35667BF02136CAAB000A20A0 /* EpisodeTableViewCell.swift */,
+				3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		35DDA16F2133208800840B95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35DDA1702133209F00840B95 /* BaseItem.swift */,
+				35667C1021396DDC000A20A0 /* MediaFolder.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		73A207A05364DE328AC0CA98 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1799B14B665EACDC88A913A /* Pods_Emby_Player.framework */,
+				E33F5BE93C32C14CD853811C /* Pods_Emby_PlayerTests.framework */,
+				750445B871A56DC5558172D2 /* Pods_Emby_PlayerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB7494443E19B4D84EB4B173 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				44CC976103F2E07BB47587C0 /* Pods-Emby Player.debug.xcconfig */,
+				48D0C8A94A643FC8E967A534 /* Pods-Emby Player.release.xcconfig */,
+				3BFCD38A397298BD7646CA90 /* Pods-Emby PlayerTests.debug.xcconfig */,
+				14CAAA0CC80E6576C35A3668 /* Pods-Emby PlayerTests.release.xcconfig */,
+				0BFA8F431F1D967359C19D6D /* Pods-Emby PlayerUITests.debug.xcconfig */,
+				05EBC01BFAC6E70F0462B93D /* Pods-Emby PlayerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		352B5F23213165A300E346C6 /* Emby Player */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 352B5F4C213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby Player" */;
+			buildPhases = (
+				80EA6F73C9C06413B23C39B7 /* [CP] Check Pods Manifest.lock */,
+				352B5F20213165A300E346C6 /* Sources */,
+				352B5F21213165A300E346C6 /* Frameworks */,
+				352B5F22213165A300E346C6 /* Resources */,
+				724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Emby Player";
+			productName = "Emby Player";
+			productReference = 352B5F24213165A300E346C6 /* Emby Player.app */;
+			productType = "com.apple.product-type.application";
+		};
+		352B5F37213165A500E346C6 /* Emby PlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 352B5F4F213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby PlayerTests" */;
+			buildPhases = (
+				89371B69EB4545AF185A9A6B /* [CP] Check Pods Manifest.lock */,
+				352B5F34213165A500E346C6 /* Sources */,
+				352B5F35213165A500E346C6 /* Frameworks */,
+				352B5F36213165A500E346C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				352B5F3A213165A500E346C6 /* PBXTargetDependency */,
+			);
+			name = "Emby PlayerTests";
+			productName = "Emby PlayerTests";
+			productReference = 352B5F38213165A500E346C6 /* Emby PlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		352B5F42213165A500E346C6 /* Emby PlayerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 352B5F52213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby PlayerUITests" */;
+			buildPhases = (
+				9B1610CB3DD194C3B13A06D4 /* [CP] Check Pods Manifest.lock */,
+				352B5F3F213165A500E346C6 /* Sources */,
+				352B5F40213165A500E346C6 /* Frameworks */,
+				352B5F41213165A500E346C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				352B5F45213165A500E346C6 /* PBXTargetDependency */,
+			);
+			name = "Emby PlayerUITests";
+			productName = "Emby PlayerUITests";
+			productReference = 352B5F43213165A500E346C6 /* Emby PlayerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		352B5F1C213165A300E346C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Mats Mollestad";
+				TargetAttributes = {
+					352B5F23213165A300E346C6 = {
+						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					352B5F37213165A500E346C6 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 352B5F23213165A300E346C6;
+					};
+					352B5F42213165A500E346C6 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 352B5F23213165A300E346C6;
+					};
+				};
+			};
+			buildConfigurationList = 352B5F1F213165A300E346C6 /* Build configuration list for PBXProject "Emby Player" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 352B5F1B213165A300E346C6;
+			productRefGroup = 352B5F25213165A300E346C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				352B5F23213165A300E346C6 /* Emby Player */,
+				352B5F37213165A500E346C6 /* Emby PlayerTests */,
+				352B5F42213165A500E346C6 /* Emby PlayerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		352B5F22213165A300E346C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				351ECB17215CE2F8003020C4 /* README.md in Resources */,
+				352B5F32213165A500E346C6 /* LaunchScreen.storyboard in Resources */,
+				352B5F2F213165A500E346C6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F36213165A500E346C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F41213165A500E346C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80EA6F73C9C06413B23C39B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Emby Player-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89371B69EB4545AF185A9A6B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Emby PlayerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B1610CB3DD194C3B13A06D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Emby PlayerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		352B5F20213165A300E346C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				351715EE21593E9600765C4D /* ServerManager.swift in Sources */,
+				35DDA16E2133207C00840B95 /* LibraryStore.swift in Sources */,
+				35897AB1214AB393005A1D07 /* MediaLibraryCoordinator.swift in Sources */,
+				35DDA1712133209F00840B95 /* BaseItem.swift in Sources */,
+				35742841214188A000713FC5 /* FilterLibraryStoreEmbyCatagoryFetcher.swift in Sources */,
+				35667C13213DE63C000A20A0 /* UserData.swift in Sources */,
+				35667C1121396DDC000A20A0 /* MediaFolder.swift in Sources */,
+				351CDB5D215BE44600ACB83A /* LoadingViewController.swift in Sources */,
+				351CDB63215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift in Sources */,
+				351CDB65215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift in Sources */,
+				35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */,
+				35667BED2136B3C2000A20A0 /* ItemViewController.swift in Sources */,
+				35897AAD214AAC8A005A1D07 /* LocalItemCoordinator.swift in Sources */,
+				351715EC2159369C00765C4D /* CustomServerSelectionCoordinator.swift in Sources */,
+				35897AAB214AA3E9005A1D07 /* TopLevelCoordinator.swift in Sources */,
+				352B5F56213165B500E346C6 /* LoginViewController.swift in Sources */,
+				35DDA15E21331C2A00840B95 /* CellRegister.swift in Sources */,
+				351A810C2148E8330028AC73 /* Stack.swift in Sources */,
+				357428302140351800713FC5 /* VideoPlayerControls.swift in Sources */,
+				351715F2215A6F4500765C4D /* EmbyConnectUserManager.swift in Sources */,
+				35667BFB213827EF000A20A0 /* MediaStream.swift in Sources */,
+				35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */,
+				35897AB7214ACE02005A1D07 /* SearchCoordinator.swift in Sources */,
+				351715F0215A1F4300765C4D /* EmbyConnectAPI.swift in Sources */,
+				35DDA16221331CE000840B95 /* AuthenticationResult.swift in Sources */,
+				35667BEF2136C9EE000A20A0 /* TvShowLibraryViewController.swift in Sources */,
+				351CDB69215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift in Sources */,
+				35DDA1522133006E00840B95 /* UserManager.swift in Sources */,
+				35897AB5214ABC91005A1D07 /* EmbyItemCoordiantor.swift in Sources */,
+				35897AA4214A9208005A1D07 /* ApplicationCoordinator.swift in Sources */,
+				351A80FB214574920028AC73 /* PlayerSettingViewController.swift in Sources */,
+				35667BF52137465A000A20A0 /* UIImageView+fetchUrl.swift in Sources */,
+				351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */,
+				351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */,
+				357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */,
+				351A80F221454C8C0028AC73 /* SubtitleViewController.swift in Sources */,
+				351715D92156A8A000765C4D /* VisibleTextField.swift in Sources */,
+				35667BF32136F9EF000A20A0 /* ImageLoaderViewController.swift in Sources */,
+				35667BEB2136741C000A20A0 /* PlayerViewController.swift in Sources */,
+				351CDB5F215BE46F00ACB83A /* FetcherResponse.swift in Sources */,
+				351CDB61215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift in Sources */,
+				35DDA16421331CF600840B95 /* AuthenticateUserByName.swift in Sources */,
+				351A81092147C0AA0028AC73 /* HLSDecoder.swift in Sources */,
+				351A80FD2145C04F0028AC73 /* UIColor+hexColor.swift in Sources */,
+				35DDA16821331D1100840B95 /* User.swift in Sources */,
+				352B5F582131720900E346C6 /* UIViewExtension.swift in Sources */,
+				35897AB3214ABA78005A1D07 /* TvShowCoordinator.swift in Sources */,
+				35DDA16B2133203F00840B95 /* TopLevelLibraryViewController.swift in Sources */,
+				35667BF12136CAAB000A20A0 /* EpisodeTableViewCell.swift in Sources */,
+				351715EA2159367400765C4D /* EmbyLoginCoordinator.swift in Sources */,
+				35897AA2214A55E2005A1D07 /* Coordinating.swift in Sources */,
+				35897AA8214A96CC005A1D07 /* LoginCoordinator.swift in Sources */,
+				351A81032146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift in Sources */,
+				35667BF72137C66D000A20A0 /* EmbyAPI.swift in Sources */,
+				352B5F28213165A300E346C6 /* AppDelegate.swift in Sources */,
+				35897AAF214AADC4005A1D07 /* VideoPlayerCoordinator.swift in Sources */,
+				3574283B2141728100713FC5 /* SearchViewController.swift in Sources */,
+				357428442141DDCC00713FC5 /* DownloadManager.swift in Sources */,
+				352B5F5E21318B4100E346C6 /* UserListViewController.swift in Sources */,
+				35DDA1732133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift in Sources */,
+				3593959E2135F0EA00374D91 /* BaseItemCollectionViewCell.swift in Sources */,
+				351A80F821455F1C0028AC73 /* SubtitleFactory.swift in Sources */,
+				351715E8215933CC00765C4D /* CustomServerSelectionViewController.swift in Sources */,
+				35667BF9213809A3000A20A0 /* CatagoryLibraryViewController.swift in Sources */,
+				35DDA15921331BAD00840B95 /* ContentStateViewController.swift in Sources */,
+				352B60722132DF5200E346C6 /* NetworkRequester.swift in Sources */,
+				351A81002146A3F60028AC73 /* PlayableOfflineManager.swift in Sources */,
+				35897AB9214AD0D5005A1D07 /* LocalLibraryCoordinator.swift in Sources */,
+				35DDA15C21331C0700840B95 /* UserListStore.swift in Sources */,
+				35897AA6214A9348005A1D07 /* UserListCoordinator.swift in Sources */,
+				351A81072147C03D0028AC73 /* HLSDownloadManager.swift in Sources */,
+				357428332140642400713FC5 /* VideoSlider.swift in Sources */,
+				351715D72156943200765C4D /* UserView.swift in Sources */,
+				351715E52158FE9000765C4D /* EmbyLoginViewController.swift in Sources */,
+				3574283721415DAA00713FC5 /* DeviceRotateManager.swift in Sources */,
+				35DDA17621335AF900840B95 /* MediaFolderTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F34213165A500E346C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				351A810A2147C20A0028AC73 /* HLSDecoder.swift in Sources */,
+				351A80FE2145C0FF0028AC73 /* UIColor+hexColor.swift in Sources */,
+				351A80F921455FC50028AC73 /* SubtitleFactory.swift in Sources */,
+				352B5F3D213165A500E346C6 /* Emby_PlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		352B5F3F213165A500E346C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				352B5F48213165A500E346C6 /* Emby_PlayerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		352B5F3A213165A500E346C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 352B5F23213165A300E346C6 /* Emby Player */;
+			targetProxy = 352B5F39213165A500E346C6 /* PBXContainerItemProxy */;
+		};
+		352B5F45213165A500E346C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 352B5F23213165A300E346C6 /* Emby Player */;
+			targetProxy = 352B5F44213165A500E346C6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		352B5F30213165A500E346C6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				352B5F31213165A500E346C6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		352B5F4A213165A500E346C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		352B5F4B213165A500E346C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		352B5F4D213165A500E346C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44CC976103F2E07BB47587C0 /* Pods-Emby Player.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby Player/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-Player";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		352B5F4E213165A500E346C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48D0C8A94A643FC8E967A534 /* Pods-Emby Player.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby Player/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-Player";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		352B5F50213165A500E346C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BFCD38A397298BD7646CA90 /* Pods-Emby PlayerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby PlayerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-PlayerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Emby Player.app/Emby Player";
+			};
+			name = Debug;
+		};
+		352B5F51213165A500E346C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14CAAA0CC80E6576C35A3668 /* Pods-Emby PlayerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby PlayerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-PlayerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Emby Player.app/Emby Player";
+			};
+			name = Release;
+		};
+		352B5F53213165A500E346C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BFA8F431F1D967359C19D6D /* Pods-Emby PlayerUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby PlayerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-PlayerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Emby Player";
+			};
+			name = Debug;
+		};
+		352B5F54213165A500E346C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05EBC01BFAC6E70F0462B93D /* Pods-Emby PlayerUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M276UPEHPQ;
+				INFOPLIST_FILE = "Emby PlayerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mem.Emby-PlayerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Emby Player";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		352B5F1F213165A300E346C6 /* Build configuration list for PBXProject "Emby Player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				352B5F4A213165A500E346C6 /* Debug */,
+				352B5F4B213165A500E346C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		352B5F4C213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby Player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				352B5F4D213165A500E346C6 /* Debug */,
+				352B5F4E213165A500E346C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		352B5F4F213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby PlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				352B5F50213165A500E346C6 /* Debug */,
+				352B5F51213165A500E346C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		352B5F52213165A500E346C6 /* Build configuration list for PBXNativeTarget "Emby PlayerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				352B5F53213165A500E346C6 /* Debug */,
+				352B5F54213165A500E346C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 352B5F1C213165A300E346C6 /* Project object */;
+}
