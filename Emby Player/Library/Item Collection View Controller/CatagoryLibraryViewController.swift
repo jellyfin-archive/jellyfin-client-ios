@@ -150,7 +150,6 @@ class CatagoryLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewContr
         cell.superController = self
         cell.imageUrl = ServerManager.currentServer?.imageUrl(of: .primary, itemId: item.id)
         cell.playedUserData = item.userData
-        cell.unplayedCountLabel.text = item.userData.unplayedItemCount == nil ? "" : "\(item.userData.unplayedItemCount ?? 0)"
         return cell
     }
     

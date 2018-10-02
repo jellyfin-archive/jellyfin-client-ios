@@ -96,7 +96,8 @@ extension PlayableIteming {
         
         var urlPathString = "emby/Videos/\(id)/"
         
-        if player.supports(format: mediaSource.container) {
+        if player.supports(format: mediaSource.container),
+            videoStream.codec != "mpeg4" {  // AVPlayerLayer do not play mpeg4
             
             urlPathString += "stream.\(mediaSource.container)"
             let urlPath = baseUrl.appendingPathComponent(urlPathString)
@@ -111,26 +112,14 @@ extension PlayableIteming {
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)
         } else {
-//            urlPathString += "stream.mpeg"
-//            let urlPath = baseUrl.appendingPathComponent(urlPathString)
-//            guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }
-//            urlComponents.queryItems = [
-//                URLQueryItem(name: "Static", value: "false"),
-//                URLQueryItem(name: "mediaSourceId", value: mediaSource.id),
-//                URLQueryItem(name: "deviceId", value: "xxxx"),
-//                URLQueryItem(name: "VideoCodec", value: "mpeg4"),
-//            ]
-//            guard let url = urlComponents.url else { return nil }
-//            return Video(url: url)
             urlPathString += "main.m3u8"
             let urlPath = baseUrl.appendingPathComponent(urlPathString)
             guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }
             urlComponents.queryItems = [
-//                URLQueryItem(name: "PlaySessionId", value: ""),
                 URLQueryItem(name: "MediaSourceId", value: mediaSource.id),
                 URLQueryItem(name: "DeviceId", value: UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"),
-                URLQueryItem(name: "AudioCodec", value: audioStream.codec),
-                URLQueryItem(name: "VideoCodec", value: videoStream.codec),
+                URLQueryItem(name: "AudioCodec", value: "mp3"),
+                URLQueryItem(name: "VideoCodec", value: "h264"),
             ]
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)

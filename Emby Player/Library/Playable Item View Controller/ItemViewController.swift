@@ -64,17 +64,15 @@ class ItemViewController: UIViewController, ContentViewControlling {
     var store: SingleItemStore
     
     
-    lazy var scrollView: UIScrollView = self.setUpScrollView()
-    lazy var contentView: UIStackView = self.setUpContentView()
-    lazy var imageView: UIImageView = self.setUpImageView()
-    lazy var titleLabel: UILabel = self.setUpTitleLabel()
-    lazy var playButton: UIButton = self.setUpPlayButton()
-    lazy var downloadButton: UIButton = self.setUpDownloadButton()
-    lazy var downloadLabel: UILabel = self.setUpDownloadLabel()
-    lazy var overviewTextView: UITextView = self.setUpOverviewTextView()
-    lazy var seasonLabel: UILabel = self.setUpSeasonLabel()
-    lazy var durationLabel: UILabel = self.setUpQualityLabel()
-    lazy var qualityLabel: UILabel = self.setUpQualityLabel()
+    lazy var scrollView: UIScrollView                       = self.setUpScrollView()
+    lazy var contentView: UIStackView                       = self.setUpContentView()
+    lazy var imageView: UIImageView                         = self.setUpImageView()
+    lazy var titleLabel: UILabel                            = self.setUpTitleLabel()
+    lazy var actionsController: ItemActionsViewController   = self.createActionController()
+    lazy var overviewTextView: UITextView                   = self.setUpOverviewTextView()
+    lazy var seasonLabel: UILabel                           = self.setUpSeasonLabel()
+    lazy var durationLabel: UILabel                         = self.setUpQualityLabel()
+    lazy var qualityLabel: UILabel                          = self.setUpQualityLabel()
     
     
     weak var delegate: ItemViewControllerDelegate?
@@ -115,21 +113,17 @@ class ItemViewController: UIViewController, ContentViewControlling {
         overviewTextView.text = item.overview
         seasonLabel.text = (item.seriesName ?? "") + " - " + (item.seasonName ?? "")
         durationLabel.text = "Duration: " + timeString(for: Double(item.runTime) / 10000000)
-        downloadLabel.isHidden = true
         
         if let videoStream = item.mediaStreams.first(where: { $0.type == "Video" }) {
             qualityLabel.text = "Video Quality: \(videoStream.displayTitle ?? ""), \(videoStream.aspectRatio ?? "")"
-        }
-        
-        if item.diskUrlPath != nil {
-            downloadButton.setTitle("You have downloaded this item", for: .normal)
-            downloadButton.isEnabled = false
         }
         
         seasonLabel.isHidden = item.seriesName == nil
         overviewTextView.isHidden = item.overview == nil
         qualityLabel.isHidden = item.mediaStreams.first == nil
         imageView.isHidden = true
+        
+        actionsController.itemId = item.id
         
         if let imageUrl = item.imageUrl(with: .primary) {
             imageView.isHidden = false
@@ -138,33 +132,6 @@ class ItemViewController: UIViewController, ContentViewControlling {
                     self?.imageView.isHidden = true
                 }
             }
-        }
-    }
-    
-    
-    @objc
-    private func playItem() {
-        
-        guard let item = store.item else { return }
-        guard (item.mediaSource.first) != nil else { return }
-        
-        delegate?.playItem(item)
-    }
-    
-    @objc
-    private func downloadItem() {
-        guard let item = store.item else { return }
-        delegate?.downloadItem(item)
-        
-        downloadButton.isEnabled = false
-        downloadButton.setTitle("Downloading", for: .normal)
-        downloadLabel.text = "Download started"
-        downloadLabel.isHidden = false
-    }
-    
-    private func update(with downloadProgress: DownloadProgress) {
-        DispatchQueue.main.async { [weak self] in
-            self?.downloadLabel.text = "Download Progress: \(Double(Int(downloadProgress.progress*1000))/10)%"
         }
     }
     
@@ -190,7 +157,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
     }
     
     private func setUpContentView() -> UIStackView {
-        let views = [imageView, titleLabel, seasonLabel, playButton, downloadButton, downloadLabel, durationLabel, qualityLabel, overviewTextView]
+        let views: [UIView] = [imageView, titleLabel, seasonLabel, actionsController.view, durationLabel, qualityLabel, overviewTextView]
         let view = UIStackView(arrangedSubviews: views)
         view.axis = .vertical
         view.spacing = 10
@@ -199,36 +166,12 @@ class ItemViewController: UIViewController, ContentViewControlling {
         return view
     }
     
-    private func setUpPlayButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle("Play", for: .normal)
-        button.backgroundColor = .green
-        button.layer.cornerRadius = 8
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.addTarget(self, action: #selector(playItem), for: .touchUpInside)
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        return button
-    }
-    
-    private func setUpDownloadButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle("Download", for: .normal)
-        button.backgroundColor = .orange
-        button.layer.cornerRadius = 8
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.addTarget(self, action: #selector(downloadItem), for: .touchUpInside)
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        return button
-    }
-    
-    private func setUpDownloadLabel() -> UILabel {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .white
-        label.numberOfLines = 0
-        return label
+    private func createActionController() -> ItemActionsViewController {
+        let controller = ItemActionsViewController()
+        controller.delegate = self
+        self.addChild(controller)
+        controller.didMove(toParent: self)
+        return controller
     }
     
     private func setUpTitleLabel() -> UILabel {
@@ -284,30 +227,44 @@ extension ItemViewController: PlayerViewControllerDelegate {
     }
 }
 
-extension ItemViewController: DownloadManagerDelegate {
-    
-    func downloadDidUpdate(_ progress: DownloadProgress) {
-        DispatchQueue.main.async { [weak self] in
-            self?.downloadLabel.text = "Downloading: \((progress.progress * 1000).rounded(.down)/10)%"
-        }
+extension ItemViewController: ItemActionViewControllerDelegate {
+    func playItem() {
+        guard let item = store.item else { return }
+        delegate?.playItem(item)
     }
     
-    func downloadWasCompleted(_ response: FetcherResponse<String>) {
-        DispatchQueue.main.async { [weak self] in
-            switch response {
-            case .failed(let error):
-                self?.downloadLabel.text = "Ups, an error occured. This may be because the original file is unsupported\nError: \(error.localizedDescription)"
-            case .success(let url):
-                self?.downloadButton.setTitle("Download Completed", for: .normal)
-                guard var item = self?.store.item else { return }
-                print("Successfully downloaded: \(item.name)")
-                do {
-                    item.diskUrlPath = url
-                    try PlayableOfflineManager.shared.add(item)
-                } catch {
-                    print("Error adding item:", error)
-                }
-            }
-        }
+    func downloadItem() {
+        guard let item = store.item else { return }
+        delegate?.downloadItem(item)
     }
 }
+
+//
+//extension ItemViewController: DownloadManagerDelegate {
+//
+//    func downloadDidUpdate(_ progress: DownloadRequest) {
+//        DispatchQueue.main.async { [weak self] in
+//            self?.downloadLabel.text = "Downloading: \((progress.progress * 1000).rounded(.down)/10)%"
+//        }
+//    }
+//
+//    func downloadWasCompleted(for downloadPath: String, response: FetcherResponse<String>) {
+//        DispatchQueue.main.async { [weak self] in
+//            switch response {
+//            case .failed(_):
+//                self?.downloadButton.setTitle("Download Failed", for: .normal)
+//                self?.downloadLabel.text = "Ups, an error occured. This may be because the original file is unsupported as of now."
+//            case .success(let url):
+//                self?.downloadButton.setTitle("Download Completed", for: .normal)
+//                guard var item = self?.store.item else { return }
+//                print("Successfully downloaded: \(item.name)")
+//                do {
+//                    item.diskUrlPath = url
+//                    try PlayableOfflineManager.shared.add(item)
+//                } catch {
+//                    print("Error adding item:", error)
+//                }
+//            }
+//        }
+//    }
+//}

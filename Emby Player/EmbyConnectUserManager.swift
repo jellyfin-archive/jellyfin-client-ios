@@ -9,7 +9,7 @@
 import Foundation
 
 
-
+/// A class saving and keeping track of the status for Emby Connect
 class EmbyConnectUserManager {
     
     private struct Strings {
@@ -18,6 +18,8 @@ class EmbyConnectUserManager {
     
     static let shared = EmbyConnectUserManager()
     
+    
+    /// A saved object that contains access token and some user info.
     var connectLogin: EmbyConnectLogin? {
         get {
             do {
@@ -37,6 +39,7 @@ class EmbyConnectUserManager {
         }
     }
     
+    /// Deletes all Emby Connect user info
     func logout() {
         connectLogin = nil
     }

@@ -23,7 +23,7 @@ class CustomServerSelectionViewController: UIViewController {
     private struct Strings {
         static let missingIPTitle       = "Missing IP Address"
         static let missingPortTitle     = "Missing Server Port"
-        static let ipAddressPlaceholder = "10.0.0.27"
+        static let ipAddressPlaceholder = "https://your-server.com"
         static let portPlaceholder      = "8096"
         static let connectTitle         = "Connect to Server"
     }

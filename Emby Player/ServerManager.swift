@@ -33,14 +33,18 @@ struct EmbyConnectLogin: Codable {
 }
 
 
+/// A class that has controll over which emby server to use
 class ServerManager {
     
     private struct Strings {
-        static let currentServerConnection = "currentServerConnectionKey"
+        static let currentServerConnection      = "currentServerConnectionKey"
+        static let unableToConnectToServerError = "Unable to connect to server. Check that the url is correct."
     }
     
-    enum Errors: Error {
+    enum Errors: LocalizedError {
         case unableToConnectToServer
+        
+        var errorDescription: String? { return Strings.unableToConnectToServerError }
     }
     
     static let shared = ServerManager()
@@ -53,11 +57,12 @@ class ServerManager {
     
     init() {
         if let server = currentServerConnection {
-            _ = try? connect(to: server)
+            try? connect(to: server)
         }
     }
     
     
+    /// A saved instance of a ServerConnection
     var currentServerConnection: ServerConnection? {
         get {
             do {
@@ -77,17 +82,24 @@ class ServerManager {
             }
         }
     }
+    
+    /// The current server that is connected
     var currentServer: EmbyAPI?
     
     
+    /// Connects to a server
+    /// - parameter server: The server to connect to
+    /// - throws: if the server connection is not a valid url this will throw a ServerManager.Errors.unableToConnectToServer error
     func connect(to server: ServerConnection) throws {
-        let urlString = (server.ipAddress.hasPrefix("http") ? "" : "https") + server.ipAddress + ":\(server.port)/"
+        let lowercaseAddress = server.ipAddress.lowercased()
+        let urlString = (lowercaseAddress.hasPrefix("http") ? "" : "https://") + lowercaseAddress + ":\(server.port)/"
         guard let url = URL(string: urlString) else { throw Errors.unableToConnectToServer }
         currentServerConnection = server
         currentServer = EmbyAPI(baseUrl: url)
     }
     
     
+    /// Deletes all saved data and cached data
     func disconnect() {
         currentServer = nil
         currentServerConnection = nil

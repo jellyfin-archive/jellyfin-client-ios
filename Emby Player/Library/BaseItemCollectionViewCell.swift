@@ -15,11 +15,23 @@ class BaseItemCollectionViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = self.setUpTitleLabel()
     lazy var imageView: UIImageView = self.setUpImageView()
     lazy var imageLoaderController = ImageLoaderViewController()
-    lazy var unplayedView = self.setUpUnplayedView()
-    lazy var unplayedCountLabel = self.setUpUnplayedConutLabel()
-    var controller: ContentStateViewController?
     
-    var superController: UIViewController?
+    lazy var playStatusView = self.setUpUnplayedView()
+    lazy var unplayedCountLabel = self.setUpUnplayedConutLabel()
+    lazy var playedImageView = self.createPlayedImageView()
+    
+    var superController: UIViewController? {
+        willSet {
+            if superController != nil {
+                imageLoaderController.remove()
+            }
+            if newValue != nil {
+                stackView.insertArrangedSubview(imageLoaderController.view, at: 0)
+                newValue?.addChild(imageLoaderController)
+                imageLoaderController.didMove(toParent: newValue)
+            }
+        }
+    }
     
     var imageUrl: URL? {
         didSet {
@@ -47,9 +59,9 @@ class BaseItemCollectionViewCell: UICollectionViewCell {
     private func setUpCell() {
         backgroundColor = .clear
         addSubview(stackView)
-        addSubview(unplayedView)
+        addSubview(playStatusView)
         stackView.fillSuperView()
-        unplayedView.anchorWithConstantTo(top: topAnchor, topConstant: 3, trailing: trailingAnchor, trailingConstant: -8)
+        playStatusView.anchorWithConstantTo(top: topAnchor, topConstant: 3, trailing: trailingAnchor, trailingConstant: -8)
     }
     
     private func setUpStackView() -> UIStackView {
@@ -83,8 +95,13 @@ class BaseItemCollectionViewCell: UICollectionViewCell {
         view.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1).isActive = true
         view.layer.cornerRadius = size / 2
         view.isHidden = true
+        
         view.addSubview(unplayedCountLabel)
+        view.addSubview(playedImageView)
+        
         unplayedCountLabel.fillSuperView()
+        playedImageView.fillSuperView(topConstant: 2, leadingConstant: 2, trailingConstant: -2, bottomConstant: -2)
+        
         return view
     }
     
@@ -95,26 +112,29 @@ class BaseItemCollectionViewCell: UICollectionViewCell {
         return label
     }
     
+    private func createPlayedImageView() -> UIImageView {
+        let view = UIImageView(image: UIImage(named: "tick"))
+        view.contentMode = .scaleAspectFit
+        return view
+    }
+    
     private func loadImage() {
         guard let url = imageUrl else { return }
         
         imageLoaderController.imageUrl = url
-        
-        if controller == nil,
-            let superController = superController {
-            
-            controller = ContentStateViewController(contentController: imageLoaderController, fetchMode: .none)
-            controller?.view?.backgroundColor = .clear
-            stackView.insertArrangedSubview(controller!.view, at: 0)
-            superController.addChild(controller!)
-            controller?.didMove(toParent: superController)
-        } else {
-            controller?.transition(to: .loading)
-        }
-        controller?.fetchContent()
+        imageLoaderController.fetchContent()
     }
     
     private func update(with userData: UserData) {
-        unplayedView.isHidden = userData.played
+        
+        unplayedCountLabel.text = ""
+        playedImageView.isHidden = userData.unplayedItemCount != nil
+        playStatusView.isHidden = !userData.played
+        
+        if let unplayedItemCount = userData.unplayedItemCount {
+            playStatusView.isHidden = false
+            unplayedCountLabel.text = "\(unplayedItemCount)"
+        }
+        
     }
 }

@@ -26,10 +26,6 @@
 		351A81002146A3F60028AC73 /* PlayableOfflineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */; };
 		351A81032146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81022146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift */; };
 		351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */; };
-		351A81072147C03D0028AC73 /* HLSDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81062147C03D0028AC73 /* HLSDownloadManager.swift */; };
-		351A81092147C0AA0028AC73 /* HLSDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81082147C0AA0028AC73 /* HLSDecoder.swift */; };
-		351A810A2147C20A0028AC73 /* HLSDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A81082147C0AA0028AC73 /* HLSDecoder.swift */; };
-		351A810C2148E8330028AC73 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351A810B2148E8330028AC73 /* Stack.swift */; };
 		351CDB5D215BE44600ACB83A /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB5C215BE44600ACB83A /* LoadingViewController.swift */; };
 		351CDB5F215BE46F00ACB83A /* FetcherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB5E215BE46F00ACB83A /* FetcherResponse.swift */; };
 		351CDB61215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB60215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift */; };
@@ -37,6 +33,8 @@
 		351CDB65215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB64215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift */; };
 		351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB66215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift */; };
 		351CDB69215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDB68215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift */; };
+		351CFF1121621F27005743CE /* AppCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CFF1021621F27005743CE /* AppCache.swift */; };
+		351CFF14216227B5005743CE /* ItemActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CFF13216227B5005743CE /* ItemActionsViewController.swift */; };
 		351ECB17215CE2F8003020C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 351ECB16215CE2F8003020C4 /* README.md */; };
 		352B5F28213165A300E346C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F27213165A300E346C6 /* AppDelegate.swift */; };
 		352B5F2F213165A500E346C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 352B5F2E213165A500E346C6 /* Assets.xcassets */; };
@@ -78,6 +76,8 @@
 		35897AB7214ACE02005A1D07 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB6214ACE02005A1D07 /* SearchCoordinator.swift */; };
 		35897AB9214AD0D5005A1D07 /* LocalLibraryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35897AB8214AD0D5005A1D07 /* LocalLibraryCoordinator.swift */; };
 		3593959E2135F0EA00374D91 /* BaseItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */; };
+		3598CF06215E380D00E390FD /* ItemDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF05215E380D00E390FD /* ItemDownloadManager.swift */; };
+		3598CF08215E42ED00E390FD /* OngoingDownloadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */; };
 		35DDA1522133006E00840B95 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1512133006E00840B95 /* UserManager.swift */; };
 		35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15321330AAD00840B95 /* ErrorViewController.swift */; };
 		35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */; };
@@ -92,6 +92,8 @@
 		35DDA1712133209F00840B95 /* BaseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1702133209F00840B95 /* BaseItem.swift */; };
 		35DDA1732133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */; };
 		35DDA17621335AF900840B95 /* MediaFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */; };
+		35F59671215E1B9500E3117D /* OngoingDownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */; };
+		35F59673215E2B1700E3117D /* OngoingDownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */; };
 		485D3C875F9CF93AFE4C26C9 /* Pods_Emby_PlayerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750445B871A56DC5558172D2 /* Pods_Emby_PlayerUITests.framework */; };
 		B8F8DAFD9BC332389EFFB38F /* Pods_Emby_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1799B14B665EACDC88A913A /* Pods_Emby_Player.framework */; };
 /* End PBXBuildFile section */
@@ -133,9 +135,6 @@
 		351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableOfflineManager.swift; sourceTree = "<group>"; };
 		351A81022146BFFA0028AC73 /* LibraryStoreOfflineItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreOfflineItemFetcher.swift; sourceTree = "<group>"; };
 		351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemOfflineFetcher.swift; sourceTree = "<group>"; };
-		351A81062147C03D0028AC73 /* HLSDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSDownloadManager.swift; sourceTree = "<group>"; };
-		351A81082147C0AA0028AC73 /* HLSDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSDecoder.swift; sourceTree = "<group>"; };
-		351A810B2148E8330028AC73 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		351CDB5C215BE44600ACB83A /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		351CDB5E215BE46F00ACB83A /* FetcherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherResponse.swift; sourceTree = "<group>"; };
 		351CDB60215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListStoreEmbyPublicFetcher.swift; sourceTree = "<group>"; };
@@ -143,6 +142,8 @@
 		351CDB64215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestLibraryStoreEmbyCatagoryFetcher.swift; sourceTree = "<group>"; };
 		351CDB66215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreEmbyTopLevelFetcher.swift; sourceTree = "<group>"; };
 		351CDB68215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowLigraryStoreEmbyFetcher.swift; sourceTree = "<group>"; };
+		351CFF1021621F27005743CE /* AppCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCache.swift; sourceTree = "<group>"; };
+		351CFF13216227B5005743CE /* ItemActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemActionsViewController.swift; sourceTree = "<group>"; };
 		351ECB16215CE2F8003020C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		352B5F24213165A300E346C6 /* Emby Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emby Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		352B5F27213165A300E346C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +191,8 @@
 		35897AB6214ACE02005A1D07 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		35897AB8214AD0D5005A1D07 /* LocalLibraryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLibraryCoordinator.swift; sourceTree = "<group>"; };
 		3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		3598CF05215E380D00E390FD /* ItemDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDownloadManager.swift; sourceTree = "<group>"; };
+		3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadCoordinator.swift; sourceTree = "<group>"; };
 		35DDA1512133006E00840B95 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		35DDA15321330AAD00840B95 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+childViewController.swift"; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 		35DDA1702133209F00840B95 /* BaseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItem.swift; sourceTree = "<group>"; };
 		35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCatagoryLatestLibraryViewController.swift; sourceTree = "<group>"; };
 		35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFolderTableViewCell.swift; sourceTree = "<group>"; };
+		35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadsViewController.swift; sourceTree = "<group>"; };
+		35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadTableViewCell.swift; sourceTree = "<group>"; };
 		3BFCD38A397298BD7646CA90 /* Pods-Emby PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerTests/Pods-Emby PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44CC976103F2E07BB47587C0 /* Pods-Emby Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player.debug.xcconfig"; sourceTree = "<group>"; };
 		48D0C8A94A643FC8E967A534 /* Pods-Emby Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player.release.xcconfig"; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 		351715DA2158F81D00765C4D /* Playable Item View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				351CFF122162279E005743CE /* ActionsViewController */,
 				35667BEC2136B3C2000A20A0 /* ItemViewController.swift */,
 				351A81042146FA370028AC73 /* SingleItemOfflineFetcher.swift */,
 				351715DB2158F8FB00765C4D /* Coordinators */,
@@ -360,6 +366,14 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		351CFF122162279E005743CE /* ActionsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				351CFF13216227B5005743CE /* ItemActionsViewController.swift */,
+			);
+			path = ActionsViewController;
+			sourceTree = "<group>";
+		};
 		352B5F1B213165A300E346C6 = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +401,7 @@
 			children = (
 				351ECB16215CE2F8003020C4 /* README.md */,
 				352B5F27213165A300E346C6 /* AppDelegate.swift */,
+				351CFF1021621F27005743CE /* AppCache.swift */,
 				35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */,
 				352B5F572131720900E346C6 /* UIViewExtension.swift */,
 				35DDA15D21331C2A00840B95 /* CellRegister.swift */,
@@ -397,8 +412,6 @@
 				3574283621415DAA00713FC5 /* DeviceRotateManager.swift */,
 				351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */,
 				351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */,
-				351A81082147C0AA0028AC73 /* HLSDecoder.swift */,
-				351A810B2148E8330028AC73 /* Stack.swift */,
 				35897AA1214A55E2005A1D07 /* Coordinating.swift */,
 				35897AA3214A9208005A1D07 /* ApplicationCoordinator.swift */,
 				351715D82156A8A000765C4D /* VisibleTextField.swift */,
@@ -508,8 +521,9 @@
 		357428422141DDB900713FC5 /* DownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				35F5966F215E1B7900E3117D /* Ongoing Downloads */,
 				357428432141DDCC00713FC5 /* DownloadManager.swift */,
-				351A81062147C03D0028AC73 /* HLSDownloadManager.swift */,
+				3598CF05215E380D00E390FD /* ItemDownloadManager.swift */,
 			);
 			path = DownloadManager;
 			sourceTree = "<group>";
@@ -597,6 +611,16 @@
 				35667C1021396DDC000A20A0 /* MediaFolder.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		35F5966F215E1B7900E3117D /* Ongoing Downloads */ = {
+			isa = PBXGroup;
+			children = (
+				35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */,
+				35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */,
+				3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */,
+			);
+			path = "Ongoing Downloads";
 			sourceTree = "<group>";
 		};
 		73A207A05364DE328AC0CA98 /* Frameworks */ = {
@@ -845,6 +869,7 @@
 				35667C13213DE63C000A20A0 /* UserData.swift in Sources */,
 				35667C1121396DDC000A20A0 /* MediaFolder.swift in Sources */,
 				351CDB5D215BE44600ACB83A /* LoadingViewController.swift in Sources */,
+				35F59671215E1B9500E3117D /* OngoingDownloadsViewController.swift in Sources */,
 				351CDB63215BE5A900ACB83A /* LibraryStoreEmbyCatagoryFetcher.swift in Sources */,
 				351CDB65215BE5C700ACB83A /* LatestLibraryStoreEmbyCatagoryFetcher.swift in Sources */,
 				35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */,
@@ -854,7 +879,6 @@
 				35897AAB214AA3E9005A1D07 /* TopLevelCoordinator.swift in Sources */,
 				352B5F56213165B500E346C6 /* LoginViewController.swift in Sources */,
 				35DDA15E21331C2A00840B95 /* CellRegister.swift in Sources */,
-				351A810C2148E8330028AC73 /* Stack.swift in Sources */,
 				357428302140351800713FC5 /* VideoPlayerControls.swift in Sources */,
 				351715F2215A6F4500765C4D /* EmbyConnectUserManager.swift in Sources */,
 				35667BFB213827EF000A20A0 /* MediaStream.swift in Sources */,
@@ -865,13 +889,17 @@
 				35667BEF2136C9EE000A20A0 /* TvShowLibraryViewController.swift in Sources */,
 				351CDB69215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift in Sources */,
 				35DDA1522133006E00840B95 /* UserManager.swift in Sources */,
+				3598CF08215E42ED00E390FD /* OngoingDownloadCoordinator.swift in Sources */,
 				35897AB5214ABC91005A1D07 /* EmbyItemCoordiantor.swift in Sources */,
 				35897AA4214A9208005A1D07 /* ApplicationCoordinator.swift in Sources */,
+				3598CF06215E380D00E390FD /* ItemDownloadManager.swift in Sources */,
 				351A80FB214574920028AC73 /* PlayerSettingViewController.swift in Sources */,
 				35667BF52137465A000A20A0 /* UIImageView+fetchUrl.swift in Sources */,
 				351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */,
 				351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */,
+				35F59673215E2B1700E3117D /* OngoingDownloadTableViewCell.swift in Sources */,
 				357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */,
+				351CFF14216227B5005743CE /* ItemActionsViewController.swift in Sources */,
 				351A80F221454C8C0028AC73 /* SubtitleViewController.swift in Sources */,
 				351715D92156A8A000765C4D /* VisibleTextField.swift in Sources */,
 				35667BF32136F9EF000A20A0 /* ImageLoaderViewController.swift in Sources */,
@@ -879,7 +907,6 @@
 				351CDB5F215BE46F00ACB83A /* FetcherResponse.swift in Sources */,
 				351CDB61215BE4F100ACB83A /* UserListStoreEmbyPublicFetcher.swift in Sources */,
 				35DDA16421331CF600840B95 /* AuthenticateUserByName.swift in Sources */,
-				351A81092147C0AA0028AC73 /* HLSDecoder.swift in Sources */,
 				351A80FD2145C04F0028AC73 /* UIColor+hexColor.swift in Sources */,
 				35DDA16821331D1100840B95 /* User.swift in Sources */,
 				352B5F582131720900E346C6 /* UIViewExtension.swift in Sources */,
@@ -907,9 +934,9 @@
 				35897AB9214AD0D5005A1D07 /* LocalLibraryCoordinator.swift in Sources */,
 				35DDA15C21331C0700840B95 /* UserListStore.swift in Sources */,
 				35897AA6214A9348005A1D07 /* UserListCoordinator.swift in Sources */,
-				351A81072147C03D0028AC73 /* HLSDownloadManager.swift in Sources */,
 				357428332140642400713FC5 /* VideoSlider.swift in Sources */,
 				351715D72156943200765C4D /* UserView.swift in Sources */,
+				351CFF1121621F27005743CE /* AppCache.swift in Sources */,
 				351715E52158FE9000765C4D /* EmbyLoginViewController.swift in Sources */,
 				3574283721415DAA00713FC5 /* DeviceRotateManager.swift in Sources */,
 				35DDA17621335AF900840B95 /* MediaFolderTableViewCell.swift in Sources */,
@@ -920,7 +947,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				351A810A2147C20A0028AC73 /* HLSDecoder.swift in Sources */,
 				351A80FE2145C0FF0028AC73 /* UIColor+hexColor.swift in Sources */,
 				351A80F921455FC50028AC73 /* SubtitleFactory.swift in Sources */,
 				352B5F3D213165A500E346C6 /* Emby_PlayerTests.swift in Sources */,

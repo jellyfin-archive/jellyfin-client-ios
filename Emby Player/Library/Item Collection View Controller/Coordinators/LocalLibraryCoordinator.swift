@@ -17,7 +17,10 @@ class LocalLibraryCoordinator: Coordinating, CatagoryLibraryViewControllerDelega
     lazy var localContentViewController: CatagoryLibraryViewController<LibraryStoreOfflineItemFetcher> = self.setUpLoaclContentController()
     lazy var contentViewController = ContentStateViewController(contentController: self.localContentViewController, fetchMode: .onAppeare)
     lazy var navigationController = UINavigationController(rootViewController: self.contentViewController)
+    
+    lazy var ongoingBarButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "cloud-download"), style: .done, target: self, action: #selector(self.presentOngoingViewController))
 
+    /// Used so the coordinator do not go out of memory
     var coordinator: Coordinating?
     
     init(tabBarController: UITabBarController) {
@@ -35,11 +38,19 @@ class LocalLibraryCoordinator: Coordinating, CatagoryLibraryViewControllerDelega
     func start() {
         var viewControllers = tabBarController.viewControllers ?? []
         viewControllers.append(navigationController)
+        contentViewController.rightBarButton = ongoingBarButton
         tabBarController.setViewControllers(viewControllers, animated: true)
     }
     
     func itemWasSelected(_ item: BaseItem) {
         coordinator = LocalItemCoordinator(presenter: navigationController, item: item)
+        coordinator?.start()
+    }
+    
+    
+    @objc
+    func presentOngoingViewController() {
+        coordinator = OngoingDownloadCoordinator(presenter: navigationController)
         coordinator?.start()
     }
 }

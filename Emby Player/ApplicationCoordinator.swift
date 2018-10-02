@@ -9,17 +9,18 @@
 import UIKit
 
 
+/// Coordinates all the view controllers that should be presented at startup
 class ApplicationCoordinator: Coordinating {
     
     let window: UIWindow
 
-    private let tabBarController = UITabBarController(nibName: nil, bundle: nil)
+    private let tabBarController            = UITabBarController(nibName: nil, bundle: nil)
     
-    private lazy var topLevelCoordinator = TopLevelCoordinator(tabBarController: self.tabBarController)
-    private lazy var searchCoordinator = SearchCoordinator(tabBarController: self.tabBarController)
-    private lazy var downloadCoordinator = LocalLibraryCoordinator(tabBarController: self.tabBarController)
+    private lazy var topLevelCoordinator    = TopLevelCoordinator(tabBarController: self.tabBarController)
+    private lazy var searchCoordinator      = SearchCoordinator(tabBarController: self.tabBarController)
+    private lazy var downloadCoordinator    = LocalLibraryCoordinator(tabBarController: self.tabBarController)
     
-    private lazy var authCoordinator = UserListCoordinator(presenter: self.tabBarController)
+    private lazy var authCoordinator        = UserListCoordinator(presenter: self.tabBarController)
     
     init(window: UIWindow) {
         self.window = window

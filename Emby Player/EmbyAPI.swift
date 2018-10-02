@@ -61,9 +61,10 @@ struct PlaybackStart: Codable {
 
 class EmbyAPI {
     
-    enum Errors: String, Error {
+    enum Errors: Error {
         case urlComponents
         case dataDecoding
+        case unsupportedFile(String)
     }
         
     let baseUrl: URL
@@ -273,37 +274,19 @@ class EmbyAPI {
         NetworkRequester().post(at: authUrl, header: headers, body: login, completion: completion)
     }
     
-    func downloadFile<T: PlayableIteming>(_ item: T, delegate: DownloadManagerDelegate) {
-        do {
-            guard let video = startPlaybackSession(for: item, in: PlayerViewController()) else { throw Errors.urlComponents }
-            
-            guard !video.isHLS else { throw Errors.urlComponents }
-            
-            var headers = NetworkRequester.defaultHeader
-            headers.insert(userManager.embyAuthHeader)
-            headers.insert(userManager.embyTokenHeader)
-            
-            var saveUrl = item.id
-            
-            if video.isHLS {
-                let documentDirectoryUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                let directoryUrl = documentDirectoryUrl.appendingPathComponent("\(item.id)")
-                if FileManager.default.fileExists(atPath: directoryUrl.path) {
-                    try FileManager.default.removeItem(at: directoryUrl)
-                }
-                try FileManager.default.createDirectory(at: directoryUrl, withIntermediateDirectories: false, attributes: nil)
-                saveUrl += "/main.m3u8"
-                DownloadManager.shared.startDownload(from: video.url, to: saveUrl, with: headers)
-            } else {
-                guard let container = item.mediaSource.first?.container else { throw Errors.dataDecoding }
-                saveUrl += "." + container
-                DownloadManager.shared.startDownload(from: video.url, to: saveUrl, with: headers)
-                DownloadManager.shared.addDelegate(delegate, forKey: video.url.path)
-            }
-        } catch {
-            print("Error:", error)
-            delegate.downloadWasCompleted(.failed(error))
-        }
+    func downloadFile<T: PlayableIteming>(_ item: T) throws {
+        
+        guard let video = startPlaybackSession(for: item, in: PlayerViewController()) else { throw Errors.urlComponents }
+        
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+        headers.insert(userManager.embyTokenHeader)
+        
+        var savePath = item.id
+        
+        guard let container = item.mediaSource.first?.container else { throw Errors.dataDecoding }
+        savePath += "." + container
+        try ItemDownloadManager.shared.startDownload(for: item, with: video, to: savePath, headers: headers)
     }
     
     

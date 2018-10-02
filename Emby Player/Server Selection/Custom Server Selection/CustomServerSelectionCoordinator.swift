@@ -20,6 +20,7 @@ class CustomServerSelectionCoordinator: Coordinating, CustomServerSelectionViewC
     
     func start() {
         selectionController.delegate = self
+        selectionController.errorTextLabel.isHidden = true
         presenter.pushViewController(selectionController, animated: true)
     }
     

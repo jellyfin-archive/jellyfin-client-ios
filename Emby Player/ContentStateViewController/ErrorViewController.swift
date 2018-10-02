@@ -59,6 +59,7 @@ class ErrorViewController: UIViewController {
         let textView = UITextView()
         textView.textAlignment = .center
         textView.isScrollEnabled = false
+        textView.isEditable = false
         textView.text = error.localizedDescription
         textView.backgroundColor = .clear
         textView.textColor = .white
@@ -68,6 +69,7 @@ class ErrorViewController: UIViewController {
     private func setUpResolvButton() -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle("Try Again", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.addTarget(self, action: #selector(resolvWasTapped), for: .touchUpInside)
         return button
     }

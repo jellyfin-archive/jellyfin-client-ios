@@ -52,7 +52,7 @@ class MediaFolderTableViewCell: UITableViewCell {
         controller?.removeFromParent()
         catagoryController = HorizontalCatagoryLatestLibraryViewController(catagory: catagory)
         catagoryController?.delegate = delegate
-        controller = ContentStateViewController(contentController: catagoryController!, fetchMode: .onInit)
+        controller = ContentStateViewController(contentController: catagoryController!, fetchMode: .onAppeare)
         
         guard let subView = controller?.view else { return }
         subView.heightAnchor.constraint(equalToConstant: 200).isActive = true

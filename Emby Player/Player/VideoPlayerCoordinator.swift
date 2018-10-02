@@ -11,9 +11,10 @@ import UIKit
 
 class VideoPlayerCoordinator: Coordinating, PlayerViewControllerDelegate {
     
-    var item: PlayableItem?
+    var info: (item: PlayableIteming, video: Video)?
     
     let presenter: UIViewController
+    lazy var playerController = PlayerViewController()
     
     init(presenter: UIViewController) {
         self.presenter = presenter
@@ -23,14 +24,12 @@ class VideoPlayerCoordinator: Coordinating, PlayerViewControllerDelegate {
         
         DeviceRotateManager.shared.allowedOrientations = .landscape
         
-        guard let item = item,
-            let server = ServerManager.currentServer else { return }
+        guard let info = info else { return }
         
-        let playerController = PlayerViewController()
         playerController.delegate = self
         
-        playerController.playableItem = item
-        playerController.video = item.playableVideo(in: playerController, from: server)
+        playerController.playableItem = info.item
+        playerController.video = info.video
         
         presenter.present(playerController, animated: true) { [weak playerController] in
             playerController?.playVideo()
@@ -40,7 +39,7 @@ class VideoPlayerCoordinator: Coordinating, PlayerViewControllerDelegate {
     
     func playerWillDisappear(_ player: PlayerViewController) {
         DeviceRotateManager.shared.allowedOrientations = .allButUpsideDown
-        guard let item = item,
+        guard let item = info?.item,
             let userId = UserManager.shared.current?.id else { return }
         
         let fraction = player.currentTime.seconds / player.duration.seconds

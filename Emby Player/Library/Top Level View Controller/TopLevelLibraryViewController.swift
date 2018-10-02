@@ -21,7 +21,7 @@ class TopLevelLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewContr
     let topCatagoryStore: LibraryStore<Fetcher>
     
     lazy var tableView: UITableView = self.setUpTableView()
-    lazy var logoutBarButton = UIBarButtonItem(title: "Logg ut", style: .done, target: self, action: #selector(logout))
+    lazy var logoutBarButton = UIBarButtonItem(title: "Log out", style: .done, target: self, action: #selector(logout))
     
     weak var delegate: TopLevelLibraryViewControllerDelegate? {
         didSet { tableView.reloadData() }
@@ -45,8 +45,6 @@ class TopLevelLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewContr
         view.addSubview(tableView)
         
         tableView.fillSuperView()
-        
-//        navigationItem.rightBarButtonItem = logoutBarButton
     }
     
     

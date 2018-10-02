@@ -81,6 +81,8 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     private lazy var playerInfoViewController: VideoInformationViewController = VideoInformationViewController()
     private lazy var overlayView: UIView = self.setUpOverlayView()
     private lazy var subtitleViewController: SubtitleViewController = SubtitleViewController(playerController: self)
+    
+    private var errorViewController: ErrorViewController?
     private var playerLayer = AVPlayerLayer()
     
     private var hideTimer: Timer?
@@ -125,14 +127,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
                                                  bottom: view.bottomAnchor, bottomConstant: -20)
         
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidUpdate), name: UIDevice.orientationDidChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleError), name: .AVPlayerItemNewErrorLogEntry, object: nil)
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        player?.removeObserver(self, forKeyPath: "rate")
-    }
-    
     
     
     override func viewDidLoad() {
@@ -141,11 +136,15 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        playerLayer.frame = view.bounds
+    }
     
     
     
     private func updatePlayer() {
         self.player?.removeObserver(self, forKeyPath: "rate")
+        self.player?.removeObserver(self, forKeyPath: "error")
         guard let video = video else { return }
         print("Playing video at:", video.url)
         let player = AVPlayer(url: video.url)
@@ -154,6 +153,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
         view.layer.insertSublayer(playerLayer, at: 0)
         playerLayer.frame = view.bounds
         player.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
+        player.addObserver(self, forKeyPath: "error", options: .new, context: nil)
     }
     
     func playVideo() {
@@ -186,15 +186,29 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "rate" {
-            playerControls.updateTimeLabels()
+        switch keyPath {
+        case "rate": playerControls.updateTimeLabels()
+        case "error": handleError()
+        default: break
         }
     }
     
     
-    @objc
+    
     func handleError() {
         print("Error: ", player?.error?.localizedDescription ?? "nil")
+        errorViewController?.remove()
+        let error = player?.error ?? DownloadManager.Errors.unknownError
+        errorViewController = ErrorViewController(error: error) { [weak self] in
+            self?.errorViewController?.remove()
+            self?.updateHideTimer()
+        }
+        errorViewController?.view.backgroundColor = .black
+        add(errorViewController!)
+        errorViewController?.view.fillSuperView()
+        view.bringSubviewToFront(genericControlsView)
+        hideTimer?.invalidate()
+        hideTimer = nil
     }
     
     @objc
@@ -219,6 +233,9 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     
     @objc
     private func dismissViewController() {
+        NotificationCenter.default.removeObserver(self)
+        player?.removeObserver(self, forKeyPath: "rate")
+        player?.removeObserver(self, forKeyPath: "error")
         delegate?.playerWillDisappear(self)
         playerLayer.player = nil
         subtitleViewController.playerController = nil

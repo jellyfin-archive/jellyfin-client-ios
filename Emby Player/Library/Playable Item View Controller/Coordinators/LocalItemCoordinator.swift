@@ -9,6 +9,7 @@
 import UIKit
 
 
+/// A class coordinating a segue to view a localy stored video item
 class LocalItemCoordinator: Coordinating, ItemViewControllerDelegate {
     
     let presenter: UINavigationController
@@ -31,16 +32,26 @@ class LocalItemCoordinator: Coordinating, ItemViewControllerDelegate {
         guard let item = item else { return }
         itemFetcher.itemId = item.id
         itemController.delegate = self
+        contentController.title = item.name
         presenter.pushViewController(contentController, animated: true)
     }
     
     
     func playItem(_ item: PlayableItem) {
-        playerCoordinator.item = item
-        playerCoordinator.start()
+        do {
+            let documentDir = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            guard let videoPath = item.diskUrlPath else { return }
+            let videoUrl = documentDir.appendingPathComponent(videoPath)
+            let video = Video(url: videoUrl)
+            
+            playerCoordinator.info = (item, video)
+            playerCoordinator.start()
+        } catch {
+            print("Error playing local item: ", error)
+        }
     }
     
     func downloadItem(_ item: PlayableItem) {
-        
+        PlayableOfflineManager.shared.deleteItem(withId: item.id)
     }
 }
