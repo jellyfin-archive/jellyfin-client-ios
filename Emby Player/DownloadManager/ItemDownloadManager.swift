@@ -12,8 +12,10 @@ import Foundation
 /// A class used to coordinate the downloads of a PlayableItem object
 class ItemDownloadManager {
     
-    enum Errors: Error {
+    enum Errors: LocalizedError {
         case unsupportedFormat
+        
+        var errorDescription: String? { return "Unsupported format" }
     }
     
     
@@ -55,6 +57,12 @@ class ItemDownloadManager {
         DownloadManager.shared.add(observer: self, forPath: video.url.path)
     }
     
+    func cancleDownload(forItemId itemId: String) {
+        guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }
+        DownloadManager.shared.cancleTask(withUrlPath: urlPath)
+        activeDownloads[itemId] = nil
+        downloadPathAssociation[urlPath] = nil
+    }
     
     func add(_ observer: DownloadManagerObserverable, forItemId itemId: String)  {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }

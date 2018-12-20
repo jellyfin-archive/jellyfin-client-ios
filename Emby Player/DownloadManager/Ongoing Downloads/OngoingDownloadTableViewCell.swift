@@ -19,8 +19,9 @@ class OngoingDownloadTableViewCell: UITableViewCell {
     lazy var totalSizeLabel: UILabel = self.createLabel(fontSize: 16, fontWeight: .medium, alpha: 0.8)
     lazy var progressView: UIProgressView = self.createProgressView()
     lazy var progressLabel: UILabel = self.createLabel(fontSize: 16, fontWeight: .medium, alpha: 0.8)
+    lazy var stopButton: UIButton = self.createStopButton()
     
-    lazy var horizontalStackView: UIStackView = self.createContentView(subviews: [self.progressView, self.progressLabel], axis: .horizontal, alignment: .center)
+    lazy var horizontalStackView: UIStackView = self.createContentView(subviews: [self.progressView, self.progressLabel, self.stopButton], axis: .horizontal, alignment: .center)
     lazy var verticalStackView: UIStackView = self.createContentView(subviews: [self.titleLabel, self.totalSizeLabel, self.horizontalStackView], axis: .vertical, alignment: .fill)
     
     
@@ -62,6 +63,12 @@ class OngoingDownloadTableViewCell: UITableViewCell {
         return ByteCountFormatter().string(fromByteCount: Int64(truncating: NSNumber(value: bytes)))
     }
     
+    @objc func stopButtonWasTapped() {
+        guard let itemId = item?.id else { return }
+        ItemDownloadManager.shared.cancleDownload(forItemId: itemId)
+        totalSizeLabel.text = "Stopped"
+    }
+    
     
     // MARK: - View Setup
     
@@ -77,7 +84,8 @@ class OngoingDownloadTableViewCell: UITableViewCell {
     
     private func createProgressView() -> UIProgressView {
         let view = UIProgressView()
-        view.tintColor = .green
+        view.progressTintColor = .green
+        view.trackTintColor = .white
         return view
     }
     
@@ -102,6 +110,16 @@ class OngoingDownloadTableViewCell: UITableViewCell {
         view.font = UIFont.systemFont(ofSize: 16)
         view.textColor = .white
         view.alpha = 0.8
+        view.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        return view
+    }
+    
+    private func createStopButton() -> UIButton {
+        let view = UIButton(type: .system)
+        let image = UIImage(named: "stop")
+        view.setImage(image, for: .normal)
+        view.tintColor = .red
+        view.addTarget(self, action: #selector(stopButtonWasTapped), for: .touchUpInside)
         return view
     }
 }

@@ -53,7 +53,7 @@ struct ImageLoaderStoreEmbyFetcher: ImageLoaderStoreFetchable {
                     completion(.failed(Errors.invalidImageData))
                     return
                 }
-                AppCache.shared.set(image, key: url.absoluteString)
+//                AppCache.shared.set(image, key: url.absoluteString)
                 completion(.success(image))
             case .failed(let error):
                 completion(.failed(error))
@@ -71,13 +71,8 @@ struct ImageLoaderStoreCacheFetcher: ImageLoaderStoreFetchable {
     
     func fetchImage(in store: ImageLoaderStore, completion: @escaping (FetcherResponse<UIImage>) -> Void) -> URLSessionTask? {
         
-        if let image = AppCache.shared.imageFor(key: url.absoluteString) {
-            completion(.success(image))
-        } else {
-            store.fetcherState = ImageLoaderStoreEmbyFetcher(url: url, maxSize: maxSize)
-            return store.fetcherState.fetchImage(in: store, completion: completion)
-        }
-        return nil
+        store.fetcherState = ImageLoaderStoreEmbyFetcher(url: url, maxSize: maxSize)
+        return store.fetcherState.fetchImage(in: store, completion: completion)
     }
 }
 

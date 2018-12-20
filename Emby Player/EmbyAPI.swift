@@ -61,10 +61,18 @@ struct PlaybackStart: Codable {
 
 class EmbyAPI {
     
-    enum Errors: Error {
+    enum Errors: LocalizedError {
         case urlComponents
         case dataDecoding
         case unsupportedFile(String)
+        
+        var errorDescription: String? {
+            switch self {
+            case .urlComponents: return "Invalid url"
+            case .dataDecoding: return "Not able to decode content"
+            case .unsupportedFile(let file): return "Unsupported file: \(file)"
+            }
+        }
     }
         
     let baseUrl: URL
@@ -311,5 +319,11 @@ class EmbyAPI {
                 }
             }
         }
+    }
+    
+    func subtitleUrl(for subtitleStream: MediaStream, in item: PlayableIteming) -> String {
+        guard let mediaSource = item.mediaSource.first,
+            let streamIndex = subtitleStream.index else { return "" }
+        return baseUrl.appendingPathComponent("emby/Videos/\(item.id)/\(mediaSource.id)/Subtitles/\(streamIndex)/Stream.vtt").absoluteString
     }
 }

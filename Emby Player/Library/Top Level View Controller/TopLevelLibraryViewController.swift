@@ -17,7 +17,6 @@ protocol TopLevelLibraryViewControllerDelegate: HorizontalCatagoryLibraryViewCon
 
 class TopLevelLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewController, ContentViewControlling, UITableViewDelegate, UITableViewDataSource where Fetcher.LibraryItem == MediaFolder {
     
-    var contentViewController: UIViewController { return self }
     let topCatagoryStore: LibraryStore<Fetcher>
     
     lazy var tableView: UITableView = self.setUpTableView()

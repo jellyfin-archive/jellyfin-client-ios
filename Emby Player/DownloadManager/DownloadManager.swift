@@ -31,7 +31,7 @@ typealias DownloadManagerLocalPath = String
 typealias DownloadManagerDownloadPath = String
 
 
-class DownloadRequest: DownloadProgressable, Hashable {
+class DownloadRequest: DownloadProgressable {
     
     /// The url used to download the item
     /// Used to id which DownloadRequest to update on URLSessionDelegate
@@ -57,15 +57,6 @@ class DownloadRequest: DownloadProgressable, Hashable {
         self.downloadPath = downloadPath
         self.expectedContentLength = expectedContentLength
         self.saveUrlPath = saveUrlPath
-    }
-    
-    static func == (lhs: DownloadRequest, rhs: DownloadRequest) -> Bool {
-        return lhs.downloadPath == rhs.downloadPath && lhs.saveUrl == rhs.saveUrl
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(downloadPath)
-        hasher.combine(saveUrl)
     }
 }
 
@@ -95,12 +86,14 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
     static let shared = DownloadManager()
     
     var activeDownloads = [String : DownloadRequest]()
+    private var tasks = [DownloadManagerDownloadPath : URLSessionDownloadTask]()
     private var observers = [DownloadManagerDownloadPath : [DownloadManagerObserverable]]()
     private let sessionConfig = URLSessionConfiguration.background(withIdentifier: String(describing: DownloadManager.self))
+    private lazy var session = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: nil)
     
     override init() {
         super.init()
-        URLSession(configuration: sessionConfig, delegate: self, delegateQueue: nil).getAllTasks { (tasks) in
+        session.getAllTasks { (tasks) in
             tasks.forEach { $0.cancel() }
         }
     }
@@ -117,11 +110,19 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         
         let body: String? = nil
         let requester = NetworkRequester()
-        requester.sessionDelegate = self
-        requester.sessionConfig = sessionConfig
-        requester.downloadFile(from: downloadUrl, header: headers, body: body)
+        requester.session = session
+        tasks[progress.downloadPath] = requester.downloadFile(from: downloadUrl, header: headers, body: body)
     }
     
+    func stateFor(urlPath: DownloadManagerDownloadPath) -> URLSessionTask.State? {
+        return tasks[urlPath]?.state
+    }
+    
+    func cancleTask(withUrlPath path: DownloadManagerDownloadPath) {
+        tasks[path]?.cancel()
+        tasks[path] = nil
+        activeDownloads[path] = nil
+    }
     
     func add(observer: DownloadManagerObserverable, forPath path: DownloadManagerDownloadPath) {
         observers[path] = (observers[path] ?? []) + [observer]

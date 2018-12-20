@@ -58,7 +58,7 @@ class UserManager: UserManaging {
         return NetworkRequestHeaderValue(header: "X-Emby-Token", value: accessToken ?? "")
     }
     
-    func loginWith(_ authResult: AuthenticationResult) {
+    func login(with authResult: AuthenticationResult) {
         current = authResult.user
         accessToken = authResult.accessToken
     }

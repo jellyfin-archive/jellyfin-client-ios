@@ -112,7 +112,7 @@ class EpisodeTableViewCell: UITableViewCell {
         descriptionTextView.text = episode.overview
         
         if let url = ServerManager.currentServer?.imageUrl(of: .primary, itemId: episode.id) {
-            previewImageView.fetch(url, with: AppCache.shared.imageCache)
+            previewImageView.fetch(url)
         }
     }
 }

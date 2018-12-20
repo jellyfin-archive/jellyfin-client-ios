@@ -21,7 +21,7 @@ class VideoPlayerControls: UIViewController {
     
     lazy var verticalStackView: UIStackView = self.setUpVerticalStackView()
     
-    lazy var progressSliderView: VideoSlider = self.setUpProgressSliderView()
+    lazy var progressSliderView: UISlider = self.setUpProgressSliderView()
     
     lazy var horizontalStackView: UIStackView = self.setUpHorizontalStackView()
     
@@ -75,7 +75,6 @@ class VideoPlayerControls: UIViewController {
         currentTimeLabel.text = timeString(for: currentTime.seconds)
         totalTimeLabel.text = timeString(for: duration.seconds)
         
-        progressSliderView.loadingTrackValue = Float(loaded/duration.seconds)
         progressSliderView.value = Float(currentTime.seconds/duration.seconds)
     }
     
@@ -150,8 +149,8 @@ class VideoPlayerControls: UIViewController {
         return view
     }
     
-    private func setUpProgressSliderView() -> VideoSlider {
-        let view = VideoSlider()
+    private func setUpProgressSliderView() -> UISlider {
+        let view = UISlider()
         view.minimumValue = 0
         view.maximumValue = 1
         view.minimumTrackTintColor = .green

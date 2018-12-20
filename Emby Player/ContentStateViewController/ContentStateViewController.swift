@@ -9,60 +9,117 @@
 import UIKit
 
 
+/// A protocol needed to use the ContentStateViewContoller
 protocol ContentViewControlling: class {
+    
+    /// A methode to be called when loading data.
+    /// Used to delegate the fetch
+    ///
+    /// - parameter completion: A closure to be when completed the fetch
     func fetchContent(completion: @escaping (FetcherResponse<Void>) -> Void)
+    
+    /// The view controller used to present the loaded data.
     var contentViewController: UIViewController { get }
 }
 
+
+/// Making it easier to use the protocol when the instance is of UIVewController
+extension ContentViewControlling where Self: UIViewController {
+    var contentViewController: UIViewController { return self }
+}
+
+
+
+/// A view controller simplifying loading content from a source
 class ContentStateViewController: UIViewController {
     
+    
+    /// An enum for the different states
     enum State {
+        
+        /// Loading the content
         case loading
+        
+        /// An error occured
         case failed(Error)
+        
+        /// The content is presented
         case present
     }
     
+    
+    /// The different times to fetch the data
     enum FetchMode {
+        
+        /// Load when the view appeare
         case onAppeare
-        case onInit
+        
+        /// Load on init
+        case onLoad
+        
+        /// Define manualy when to load
         case none
     }
     
     
+    
+    /// The current state
     private var state: State = .loading
-    private var currentViewController: UIViewController?
+    
+    /// The current controller to be displayed
+    private lazy var currentViewController: UIViewController = self.viewController(for: self.state)
+    
+    /// The delegated responsebilities
     let contentController: ContentViewControlling
+    
+    /// The fetch mode
     var fetchMode: FetchMode
     
+    /// Left bar button item if needed
     var leftBarButton: UIBarButtonItem?
+    
+    /// Right bar button item if needed
     var rightBarButton: UIBarButtonItem?
+    
+    
     
     init(contentController: ContentViewControlling, fetchMode: FetchMode, backgroundColor: UIColor = .clear) {
         self.contentController = contentController
         self.fetchMode = fetchMode
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = backgroundColor
-        transition(to: .loading)
-        
-        let controller = contentController.contentViewController
-        title = controller.title
-        tabBarItem = controller.tabBarItem
-        
-        if fetchMode == .onInit {
-            fetchContent()
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        transition(to: .loading)
+        let controller  = contentController.contentViewController
+        title           = controller.title
+        tabBarItem      = controller.tabBarItem
+        
+        if fetchMode == .onLoad {
+            fetchContent()
+        }
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if fetchMode == .onAppeare {
             fetchContent()
         }
     }
     
+    
+    
+    /// Start loading from the source
     func fetchContent() {
         contentController.fetchContent { [weak self] (response) in
             DispatchQueue.main.async {
@@ -74,20 +131,28 @@ class ContentStateViewController: UIViewController {
         }
     }
     
-    func transition(to newState: State) {
-        currentViewController?.remove()
+    
+    /// Tranition to a state
+    ///
+    /// - parameter newState: The state to be presented
+    private func transition(to newState: State) {
+        state = newState
+        currentViewController.remove()
         let newVC = viewController(for: newState)
         add(newVC)
         newVC.view.fillSuperView()
-        currentViewController = newVC
-        navigationItem.leftBarButtonItem = newVC.navigationItem.leftBarButtonItem ?? leftBarButton
-        navigationItem.rightBarButtonItem = newVC.navigationItem.rightBarButtonItem ?? rightBarButton
+        currentViewController               = newVC
+        navigationItem.leftBarButtonItem    = newVC.navigationItem.leftBarButtonItem    ?? leftBarButton
+        navigationItem.rightBarButtonItem   = newVC.navigationItem.rightBarButtonItem   ?? rightBarButton
         if #available(iOS 11, *) {
             navigationItem.searchController = newVC.navigationItem.searchController
         }
-        state = newState
     }
     
+    
+    /// A function returning the different view controllers to present in the differnet states
+    ///
+    /// - parameter state: The state to present
     private func viewController(for state: State) -> UIViewController {
         switch state {
         case .loading:              return LoadingViewController()

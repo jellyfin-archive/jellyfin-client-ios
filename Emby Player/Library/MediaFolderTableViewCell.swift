@@ -11,6 +11,14 @@ import UIKit
 
 class MediaFolderTableViewCell: UITableViewCell {
     
+    private struct ViewConstants {
+        static let titleContentViewSpacing: CGFloat = 10
+        static let titleContentViewMargins: UIEdgeInsets = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 0)
+        
+        static let contentStackViewSpacing: CGFloat = 20
+        static let contentStackViewMargins: UIEdgeInsets = .zero
+    }
+    
     var catagoryController: HorizontalCatagoryLatestLibraryViewController?
     var controller: ContentStateViewController?
     
@@ -21,7 +29,15 @@ class MediaFolderTableViewCell: UITableViewCell {
     }
     
     lazy var titleLabel: UILabel = self.setUpTitleLabel()
-    lazy var contentStackView: UIStackView = self.setUpContentStackView()
+    lazy var accessoryImageView: UIImageView = self.createAccessoryImageView()
+    lazy var titleContentView: UIStackView = self.setUpContentStackView(views: [self.titleLabel, self.accessoryImageView, UIView()],
+                                                                        axis: .horizontal,
+                                                                        spacing: ViewConstants.titleContentViewSpacing,
+                                                                        margins: ViewConstants.titleContentViewMargins)
+    lazy var contentStackView: UIStackView = self.setUpContentStackView(views: [self.titleContentView],
+                                                                        axis: .vertical,
+                                                                        spacing: ViewConstants.contentStackViewSpacing,
+                                                                        margins: ViewConstants.contentStackViewMargins)
     
     var superViewController: UIViewController?
     weak var delegate: HorizontalCatagoryLibraryViewControllerDelegate? {
@@ -76,11 +92,20 @@ class MediaFolderTableViewCell: UITableViewCell {
         return label
     }
     
-    private func setUpContentStackView() -> UIStackView {
-        let view = UIStackView(arrangedSubviews: [titleLabel])
-        view.axis = .vertical
-        view.spacing = 20
-        view.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    private func createAccessoryImageView() -> UIImageView {
+        let image = UIImage(named: "chevron-right")?.withRenderingMode(.alwaysTemplate)
+        let view = UIImageView(image: image)
+        view.tintColor = self.titleLabel.textColor
+        view.alpha = 0.8
+        view.contentMode = .scaleAspectFit
+        return view
+    }
+    
+    private func setUpContentStackView(views: [UIView], axis: NSLayoutConstraint.Axis, spacing: CGFloat, margins: UIEdgeInsets) -> UIStackView {
+        let view = UIStackView(arrangedSubviews: views)
+        view.axis = axis
+        view.spacing = spacing
+        view.layoutMargins = margins
         view.isLayoutMarginsRelativeArrangement = true
         return view
     }

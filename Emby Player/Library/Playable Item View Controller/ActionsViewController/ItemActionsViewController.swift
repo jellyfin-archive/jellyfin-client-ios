@@ -62,7 +62,6 @@ class ItemActionsViewController: UIViewController {
     
     @objc func downloadWasTapped() {
         delegate?.downloadItem()
-        updateDownloadStatus()
     }
     
     
@@ -71,9 +70,10 @@ class ItemActionsViewController: UIViewController {
         contentView.fillSuperView()
     }
     
-    private func updateDownloadStatus() {
+    func updateDownloadStatus() {
         guard let itemId = itemId else { return }
         downloadLabel.isHidden = true
+        downloadLabel.textColor = .white
         
         if downloadedItemManager.getItemWith(id: itemId) != nil {
             downloadButton.setTitle(Strings.deleteTitle, for: .normal)
@@ -84,6 +84,13 @@ class ItemActionsViewController: UIViewController {
         }
     }
     
+    func present(_ error: Error) {
+        updateDownloadStatus()
+        downloadLabel.isHidden = false
+        downloadLabel.textColor = .red
+        downloadLabel.text = "Error: \(error.localizedDescription)"
+    }
+    
     // MARK: - Creating the views
     
     private func createDownloadLabel() -> UILabel {
@@ -91,6 +98,7 @@ class ItemActionsViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         view.textColor = .white
         view.isHidden = true
+        view.numberOfLines = 2
         return view
     }
     
@@ -127,8 +135,14 @@ extension ItemActionsViewController: DownloadManagerObserverable {
     
     func downloadWasCompleted(for downloadPath: String, response: FetcherResponse<String>) {
         DispatchQueue.main.async { [weak self] in
-            self?.downloadLabel.isHidden = true
-            self?.updateDownloadStatus()
+            switch response {
+            case .success(_):
+                self?.downloadLabel.isHidden = true
+                self?.updateDownloadStatus()
+                
+            case .failed(let error):
+                self?.present(error)
+            }
         }
     }
 }

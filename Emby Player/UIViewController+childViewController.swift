@@ -11,6 +11,8 @@ import UIKit
 
 extension UIViewController {
     
+    /// Addes a subviewcontroller on the called instance
+    /// - parameter chiled: The view controller to be added
     func add(_ child: UIViewController) {
         addChild(child)
         view.addSubview(child.view)
@@ -18,6 +20,7 @@ extension UIViewController {
     }
     
     
+    /// Removes itself as a subviewcontroller
     func remove() {
         guard parent != nil else { return }
         

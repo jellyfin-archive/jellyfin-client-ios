@@ -16,10 +16,17 @@ protocol UserListViewControllerDelegate: class {
 
 class UserListViewContentController: UIViewController, ContentViewControlling {
     
+    private struct LayoutConstants {
+        static let collectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        static let collectionSpacing: CGFloat = 20
+        static let minCompactCellWidth: CGFloat = 150
+        static let minCellHeightPadding: CGFloat = 30
+    }
     
     var contentViewController: UIViewController { return self }
     
     lazy var collectionView: UICollectionView = self.createCollectionView()
+    private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = self.createCollectionFlowLayout()
     lazy var disconnectBarButton = UIBarButtonItem(title: "Disconnect", style: .done, target: self, action: #selector(disconnectFromServer))
     
     let store: UserListStore
@@ -46,27 +53,54 @@ class UserListViewContentController: UIViewController, ContentViewControlling {
     }
     
     
+    private func updateForTraitCollection() {
+        
+        let usableCollectionWidth = view.frame.width - LayoutConstants.collectionInsets.left - LayoutConstants.collectionInsets.right + LayoutConstants.collectionSpacing
+        if traitCollection.horizontalSizeClass == .compact {
+            let width = (view.frame.width - LayoutConstants.collectionSpacing * 3)/2
+            let height = width + LayoutConstants.minCellHeightPadding
+            collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
+        } else {
+            let numberOfItems = floor(usableCollectionWidth/(LayoutConstants.minCompactCellWidth + LayoutConstants.collectionSpacing))
+            let width = usableCollectionWidth/numberOfItems
+            let height = width + LayoutConstants.minCellHeightPadding
+            collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
+        }
+        collectionView.reloadData()
+    }
+    
+    
     private func setUpViewController() {
         title = "Users"
         view.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionView.fillSuperView()
         navigationItem.leftBarButtonItem = disconnectBarButton
+        updateForTraitCollection()
+    }
+    
+    private func createCollectionFlowLayout() -> UICollectionViewFlowLayout {
+        let viewLayout = UICollectionViewFlowLayout()
+        viewLayout.minimumLineSpacing = LayoutConstants.collectionSpacing
+        return viewLayout
     }
     
     private func createCollectionView() -> UICollectionView {
-        let width = (self.view.frame.width - 20 * 3)/2
-        let height = width + 30
-        let viewLayout = UICollectionViewFlowLayout()
-        viewLayout.itemSize = CGSize(width: width, height: height)
         
-        let view = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         view.dataSource = self
         view.delegate = self
         view.backgroundColor = .clear
         view.register(UserCollectionViewCell.self)
-        view.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        view.contentInset = LayoutConstants.collectionInsets
         return view
+    }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+            updateForTraitCollection()
+        }
     }
 }
 

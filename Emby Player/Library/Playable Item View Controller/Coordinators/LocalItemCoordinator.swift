@@ -18,7 +18,7 @@ class LocalItemCoordinator: Coordinating, ItemViewControllerDelegate {
     
     lazy var itemFetcher = SingleItemOfflineFetcher(itemId: self.item?.id ?? "")
     lazy var itemController = ItemViewController(fetcher: self.itemFetcher)
-    lazy var contentController = ContentStateViewController(contentController: self.itemController, fetchMode: .onInit, backgroundColor: .black)
+    lazy var contentController = ContentStateViewController(contentController: self.itemController, fetchMode: .onLoad, backgroundColor: .black)
     
     lazy var playerCoordinator = VideoPlayerCoordinator(presenter: self.itemController)
     
@@ -48,10 +48,12 @@ class LocalItemCoordinator: Coordinating, ItemViewControllerDelegate {
             playerCoordinator.start()
         } catch {
             print("Error playing local item: ", error)
+            itemController.actionsController.present(error)
         }
     }
     
     func downloadItem(_ item: PlayableItem) {
         PlayableOfflineManager.shared.deleteItem(withId: item.id)
+        itemController.actionsController.updateDownloadStatus()
     }
 }

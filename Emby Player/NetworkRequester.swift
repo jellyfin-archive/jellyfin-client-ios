@@ -42,6 +42,7 @@ class NetworkRequester {
     
     var sessionConfig: URLSessionConfiguration = .default
     var sessionDelegate: URLSessionDelegate? = nil
+    var session: URLSession?
     var timeoutInterval: TimeInterval = 20
     let jsonDecoder = JSONDecoder()
     let jsonEncoder = JSONEncoder()
@@ -162,7 +163,7 @@ class NetworkRequester {
     }
     
     
-    func downloadFile<T: Codable>(from url: URL, header: NetworkRequesterHeader, body: T?) {
+    func downloadFile<T: Codable>(from url: URL, header: NetworkRequesterHeader, body: T?) -> URLSessionDownloadTask? {
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -180,16 +181,17 @@ class NetworkRequester {
             }
         }
         
-        let session = URLSession(configuration: sessionConfig, delegate: sessionDelegate, delegateQueue: nil)
+        let session = self.session ?? URLSession(configuration: sessionConfig, delegate: sessionDelegate, delegateQueue: nil)
         
-        guard sessionDelegate != nil else {
+        guard session.delegate != nil else {
             print("Session Delegate is not set when downloading: \(url.absoluteString)\n\nSET THE DELEGATE IN ORDER TO HANDLE ON SUCCESS!")
-            return
+            return nil
         }
         
         print("📲 Downloading file from: \(url.absoluteString)")
         
         let task = session.downloadTask(with: request)
         task.resume()
+        return task
     }
 }

@@ -80,11 +80,12 @@ class LoginViewController: UIViewController {
     }
     
     private func handleSuccess(with result: AuthenticationResult) {
-        UserManager.shared.loginWith(result)
+        UserManager.shared.login(with: result)
         delegate?.loginWasSuccessfull(for: user)
     }
     
     
+    // MARK: - View Setup
     
     private func setUpScrollView() -> UIScrollView {
         let scrollView = UIScrollView()
@@ -108,6 +109,10 @@ class LoginViewController: UIViewController {
         stackView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         
+        if traitCollection.horizontalSizeClass == .regular {
+            stackView.alignment = .center
+        }
+        
         return stackView
     }
     
@@ -125,11 +130,13 @@ class LoginViewController: UIViewController {
     }
     
     
-    private func setUpPasswordField() -> UITextField {
+    private func setUpPasswordField() -> VisibleTextField {
         let textField = VisibleTextField()
         textField.isSecureTextEntry = true
         textField.borderStyle = .roundedRect
         textField.placeholder = "Password"
+        textField.returnKeyType = .go
+        textField.delegate = self
         return textField
     }
     
@@ -142,5 +149,18 @@ class LoginViewController: UIViewController {
         button.addTarget(self, action: #selector(sendLoginRequest), for: .touchUpInside)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
+    }
+}
+
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            sendLoginRequest()
+        }
+        return false
     }
 }

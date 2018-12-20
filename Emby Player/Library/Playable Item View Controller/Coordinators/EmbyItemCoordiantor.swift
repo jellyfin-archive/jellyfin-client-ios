@@ -17,7 +17,7 @@ class EmbyItemCoordiantor: Coordinating, ItemViewControllerDelegate {
     
     lazy var itemFetcher = SingleItemStoreEmbyFetcher(itemId: self.itemId ?? "")
     lazy var itemController = ItemViewController(fetcher: self.itemFetcher)
-    lazy var contentController = ContentStateViewController(contentController: self.itemController, fetchMode: .onInit, backgroundColor: .black)
+    lazy var contentController = ContentStateViewController(contentController: self.itemController, fetchMode: .onLoad, backgroundColor: .black)
     
     lazy var playerCoordinator = VideoPlayerCoordinator(presenter: self.contentController)
     
@@ -55,8 +55,10 @@ class EmbyItemCoordiantor: Coordinating, ItemViewControllerDelegate {
             try ServerManager.currentServer?.downloadFile(item)
             ItemDownloadManager.shared.add(self, forItemId: item.id)
             ItemDownloadManager.shared.add(itemController.actionsController, forItemId: item.id)
+            itemController.actionsController.updateDownloadStatus()
         } catch {
             print("Error downloading file: \(error)")
+            itemController.actionsController.present(error)
         }
     }
 }

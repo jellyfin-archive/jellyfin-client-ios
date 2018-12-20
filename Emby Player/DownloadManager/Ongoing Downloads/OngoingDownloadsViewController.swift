@@ -58,6 +58,7 @@ class OngoingDownloadsViewController: UIViewController {
         view.delegate = self
         view.backgroundColor = .black
         view.rowHeight = UITableView.automaticDimension
+        view.separatorColor = UIColor(white: 0.25, alpha: 1)
         view.register(OngoingDownloadTableViewCell.self)
         return view
     }
