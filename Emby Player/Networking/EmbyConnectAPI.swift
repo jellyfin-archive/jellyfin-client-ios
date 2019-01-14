@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// An object making it easier to connect to the Emby Connect API / Service
 class EmbyConnectAPI {
     
     enum Errors: Error {
@@ -19,6 +21,7 @@ class EmbyConnectAPI {
     
     private let applicationHeader = NetworkRequestHeaderValue(header: "X-Application", value: "Emby Player SPAM/1.0.0")
     
+    /// Loggin in to the service
     func login(with request: LoginRequest, completion: @escaping (NetworkRequesterResponse<EmbyConnectLogin>) -> Void) {
         let url = baseUrl.appendingPathExtension("service/user/authenticate")
         
@@ -28,6 +31,8 @@ class EmbyConnectAPI {
         NetworkRequester().post(at: url, body: request, completion: completion)
     }
     
+    
+    /// Fetching the servers for with some login info
     func fetchServers(for connectLogin: EmbyConnectLogin, completion: @escaping (NetworkRequesterResponse<String>) -> Void) {
         let urlPath = baseUrl.appendingPathExtension("service/servers")
         guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: false) else {

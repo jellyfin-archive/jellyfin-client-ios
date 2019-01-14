@@ -73,7 +73,9 @@ class ItemViewController: UIViewController, ContentViewControlling {
     lazy var seasonLabel: UILabel                           = self.setUpSeasonLabel()
     lazy var durationLabel: UILabel                         = self.setUpQualityLabel()
     lazy var qualityLabel: UILabel                          = self.setUpQualityLabel()
+    lazy var generesLabel: UILabel                         = self.setUpQualityLabel()
     
+    private var imageFetchTask: URLSessionTask?
     
     weak var delegate: ItemViewControllerDelegate?
     
@@ -123,11 +125,16 @@ class ItemViewController: UIViewController, ContentViewControlling {
         qualityLabel.isHidden = item.mediaStreams.first == nil
         imageView.isHidden = true
         
+        if let genres = item.genres {
+            generesLabel.text = String(genres.reduce("", { $0 + $1 + ", " }).dropLast(2))
+        }
+        
         actionsController.itemId = item.id
         
+        imageFetchTask?.cancel()
         if let imageUrl = item.imageUrl(with: .primary) {
             imageView.isHidden = false
-            imageView.fetch(imageUrl) { [weak self] (_) in
+            imageFetchTask = imageView.fetch(imageUrl) { [weak self] (_) in
                 DispatchQueue.main.async {
                     self?.imageView.isHidden = true
                 }
@@ -157,7 +164,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
     }
     
     private func setUpContentView() -> UIStackView {
-        let views: [UIView] = [imageView, titleLabel, seasonLabel, actionsController.view, durationLabel, qualityLabel, overviewTextView]
+        let views: [UIView] = [imageView, titleLabel, seasonLabel, actionsController.view, durationLabel, qualityLabel, generesLabel, overviewTextView]
         let view = UIStackView(arrangedSubviews: views)
         view.axis = .vertical
         view.spacing = 10
@@ -178,6 +185,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         label.textColor = .white
+        label.numberOfLines = 0
         return label
     }
     
@@ -195,7 +203,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
         view.backgroundColor = .clear
         view.isEditable = false
         view.font = UIFont.systemFont(ofSize: 14)
-        view.textColor = .white
+        view.textColor = UIColor(white: 0.7, alpha: 1)
         return view
     }
     
@@ -203,13 +211,15 @@ class ItemViewController: UIViewController, ContentViewControlling {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textColor = .white
+        label.numberOfLines = 0
         return label
     }
     
     private func setUpQualityLabel() -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .white
+        label.textColor = UIColor(white: 0.9, alpha: 1)
+        label.numberOfLines = 0
         return label
     }
 }

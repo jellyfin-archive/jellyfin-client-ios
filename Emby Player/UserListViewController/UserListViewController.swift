@@ -146,7 +146,7 @@ extension UserListViewContentController: UICollectionViewDataSource, UICollectio
         
         cell.imageView.image = UIImage(named: "User Image")
         if let userImageUrl = ServerManager.currentServer?.baseUrl.appendingPathComponent("emby/Users/\(user.id)/Images/Primary") {
-            cell.imageView.fetch(userImageUrl)
+            _ = cell.imageView.fetch(userImageUrl)
         }
         cell.titleLabel.text = user.name
         return cell

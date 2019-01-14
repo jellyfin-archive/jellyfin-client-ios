@@ -19,14 +19,16 @@ class EpisodeTableViewCell: UITableViewCell {
         }
     }
     
-    lazy var horizontalStackView: UIStackView = self.setUpHorizontalStackView()
-    lazy var textStackView: UIStackView = self.setUpTextStackView()
-    lazy var titleLabel: UILabel = self.setUpTitleLabel()
-    lazy var indexLabel: UILabel = self.setUpIndexLabel()
-    lazy var playedLabel: UILabel = self.setUpPlayedLabel()
-    lazy var descriptionTextView: UITextView = self.setUpDescriptionTextView()
-    lazy var previewImageView: UIImageView = self.setUpImageView()
+    lazy var horizontalStackView: UIStackView   = self.setUpHorizontalStackView()
+    lazy var textStackView: UIStackView         = self.setUpTextStackView()
+    lazy var titleLabel: UILabel                = self.setUpTitleLabel()
+    lazy var indexLabel: UILabel                = self.setUpIndexLabel()
+    lazy var playedLabel: UILabel               = self.setUpPlayedLabel()
+    lazy var descriptionTextView: UITextView    = self.setUpDescriptionTextView()
+    lazy var previewImageView: UIImageView      = self.setUpImageView()
     
+    
+    private var imageFetchTask: URLSessionTask?
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -111,8 +113,9 @@ class EpisodeTableViewCell: UITableViewCell {
         playedLabel.text = episode.userData.played ? "Watched" : "Unwatched"
         descriptionTextView.text = episode.overview
         
+        imageFetchTask?.cancel()
         if let url = ServerManager.currentServer?.imageUrl(of: .primary, itemId: episode.id) {
-            previewImageView.fetch(url)
+            imageFetchTask = previewImageView.fetch(url)
         }
     }
 }

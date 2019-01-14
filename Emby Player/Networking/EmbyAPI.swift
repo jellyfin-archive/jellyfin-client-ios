@@ -59,6 +59,8 @@ struct PlaybackStart: Codable {
     }
 }
 
+
+/// An object used to make calls to the Emby Librariy
 class EmbyAPI {
     
     enum Errors: LocalizedError {

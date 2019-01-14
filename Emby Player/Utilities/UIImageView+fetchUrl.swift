@@ -9,23 +9,23 @@
 import UIKit
 
 extension UIImageView {
-    func fetch(_ url: URL, with cache: NSCache<NSString, UIImage>? = nil, errorHandler: ((Error) -> Void)? = nil) {
+    func fetch(_ url: URL, with cache: NSCache<NSString, UIImage>? = nil, errorHandler: ((Error) -> Void)? = nil) -> URLSessionTask? {
         
         if let cache = cache,
             let image = cache.object(forKey: NSString(string: url.absoluteString)) {
             self.image = image
+            return nil
         } else {
-            DispatchQueue.global().async { [weak self] in
-                do {
-                    let data = try Data(contentsOf: url)
+            return NetworkRequester().getData(from: url) { [weak self] (response) in
+                switch response {
+                case .success(let data):
                     guard let image = UIImage(data: data) else { return }
                     cache?.setObject(image, forKey: NSString(string: url.absoluteString))
                     DispatchQueue.main.async {
                         self?.image = image
                     }
-                } catch let error {
+                case .failed(let error):
                     errorHandler?(error)
-                    print("Error fetching image: \(error)")
                 }
             }
         }

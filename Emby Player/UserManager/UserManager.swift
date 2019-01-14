@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import KeychainSwift
 
 
 protocol UserManaging {
@@ -24,12 +25,13 @@ class UserManager: UserManaging {
     }
     
     static let shared = UserManager()
+    private let keychain = KeychainSwift()
     
     
-    
+    /// The current logged in user
     var current: User? {
         get {
-            guard let data = UserDefaults.standard.data(forKey: Strings.userDataKey) else { return nil }
+            guard let data = keychain.getData(Strings.userDataKey) else { return nil }
             return try? JSONDecoder().decode(User.self, from: data)
         }
         set {
@@ -37,32 +39,48 @@ class UserManager: UserManaging {
             if let user = newValue {
                 userData = try? JSONEncoder().encode(user)
             }
-            UserDefaults.standard.set(userData, forKey: Strings.userDataKey)
+            if let userData = userData {
+                keychain.set(userData, forKey: Strings.userDataKey)
+            } else {
+                keychain.delete(Strings.userDataKey)
+            }
         }
     }
     private var accessToken: String? {
         get {
-            return UserDefaults.standard.string(forKey: Strings.accessTokenKey)
+            return keychain.get(Strings.accessTokenKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Strings.accessTokenKey)
+            if let accessToken = newValue {
+                keychain.set(accessToken, forKey: Strings.accessTokenKey)
+            } else {
+                keychain.delete(Strings.accessTokenKey)
+            }
         }
     }
     
+    
+    /// The emby auth header based on the current user
+    /// This is needed for each network call to the library
     var embyAuthHeader: NetworkRequestHeaderValue {
         let userId = current == nil ? "" : "UserId: \(current!.id), "
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"
         return NetworkRequestHeaderValue(header: "X-Emby-Authorization", value: "Emby \(userId)Client=\"Emby Player SPAM\", Device=\"iPhone\", DeviceId=\"\(deviceId)\", Version=\"1.0.0\"")
     }
+    
+    /// The emby token header needed for each network call to the library
     var embyTokenHeader: NetworkRequestHeaderValue {
         return NetworkRequestHeaderValue(header: "X-Emby-Token", value: accessToken ?? "")
     }
     
+    
+    /// Update the kychain to the logged in user
     func login(with authResult: AuthenticationResult) {
         current = authResult.user
         accessToken = authResult.accessToken
     }
     
+    /// Deletes the values in the keychain
     func logout() {
         current = nil
         accessToken = nil

@@ -8,6 +8,7 @@ target 'Emby Player' do
   # Pods for Emby Player
 
 pod 'CryptoSwift', :git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
+pod 'KeychainSwift', '~> 13.0'
 # pod 'TS2MP4', :git => "https://github.com/Keemotion/TS2MP4", :branch => "master"
 
   target 'Emby PlayerTests' do

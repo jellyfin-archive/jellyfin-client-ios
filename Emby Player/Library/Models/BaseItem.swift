@@ -240,6 +240,7 @@ struct PlayableItem: PlayableIteming, Hashable {
     let type: String
     let userData: UserData?
     let runTime: Int
+    let genres: [String]?
     
     /// Used to store the url for an item that is saved offline
     var diskUrlPath: String?
@@ -260,6 +261,7 @@ struct PlayableItem: PlayableIteming, Hashable {
         case userData       = "UserData"
         case diskUrlPath    = "DiskUrlPath"
         case runTime        = "RunTimeTicks"
+        case genres         = "Genres"
     }
 }
 

@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
     lazy var passwordTextField: UITextField = self.setUpPasswordField()
     lazy var loginButton: UIButton = self.setUpLoginButton()
     
+    private var imageFetchTask: URLSessionTask?
     
     init(user: User) {
         self.user = user
@@ -50,7 +51,8 @@ class LoginViewController: UIViewController {
         scrollView.fillSuperView()
         imageView.image = UIImage(named: "User Image")
         guard let userImageUrl = ServerManager.currentServer?.baseUrl.appendingPathComponent("emby/Users/\(user.id)/Images/Primary") else { return }
-        imageView.fetch(userImageUrl)
+        imageFetchTask?.cancel()
+        imageFetchTask = imageView.fetch(userImageUrl)
     }
     
     private func getUserLoginBody() -> AuthenticateUserByName? {

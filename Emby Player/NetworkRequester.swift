@@ -36,6 +36,7 @@ enum NetworkRequesterError: Int, Error {
 }
 
 
+/// An object making it easier to make network calls
 class NetworkRequester {
     
     static let defaultHeader: NetworkRequesterHeader = [.accept, .acceptEncoding, .acceptLanguage, .contentType]
