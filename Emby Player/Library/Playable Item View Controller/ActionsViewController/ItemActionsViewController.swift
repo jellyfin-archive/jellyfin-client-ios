@@ -74,6 +74,7 @@ class ItemActionsViewController: UIViewController {
         guard let itemId = itemId else { return }
         downloadLabel.isHidden = true
         downloadLabel.textColor = .white
+        downloadButton.alpha = 1
         
         if downloadedItemManager.getItemWith(id: itemId) != nil {
             downloadButton.setTitle(Strings.deleteTitle, for: .normal)
@@ -81,6 +82,7 @@ class ItemActionsViewController: UIViewController {
         } else if itemDownloadManager.activeDownloads[itemId] != nil {
             downloadButton.setTitle(Strings.downloadingTitle, for: .normal)
             downloadButton.isEnabled = false
+            downloadButton.alpha = 0.7
         }
     }
     
@@ -90,6 +92,12 @@ class ItemActionsViewController: UIViewController {
         downloadLabel.textColor = .red
         downloadLabel.text = "Error: \(error.localizedDescription)"
     }
+    
+    
+    func hideDownload() {
+        downloadButton.isHidden = true
+    }
+    
     
     // MARK: - Creating the views
     
@@ -125,11 +133,10 @@ class ItemActionsViewController: UIViewController {
 
 
 extension ItemActionsViewController: DownloadManagerObserverable {
-    
-    func downloadDidUpdate(_ progress: DownloadRequest) {
+    func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.downloadLabel.isHidden = false
-            self?.downloadLabel.text = "Download Progress: \(Double(Int(progress.progress*1000))/10)%"
+            self?.downloadLabel.text = "Download Progress: \(Double(downloaded*1000/progress.expectedContentLength)/10)%"
         }
     }
     

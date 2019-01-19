@@ -10,33 +10,31 @@ import Foundation
 
 protocol DownloadManagerObserverable {
     var id: String { get }
-    func downloadDidUpdate(_ progress: DownloadRequest)
+    func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int)
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>)
 }
 
 extension DownloadManagerObserverable {
     var id: String { return String(describing: type(of: self)) }
-    func downloadDidUpdate(_ progress: DownloadRequest) {}
+    func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int) {}
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {}
 }
 
 
 protocol DownloadProgressable {
-    var writtenBytes: Int { get }
     var expectedContentLength: Int { get }
-    var progress: Double { get }
+    func progress(with writtenBytes: Int) -> Double
 }
 
 typealias DownloadManagerLocalPath = String
 typealias DownloadManagerDownloadPath = String
 
 
-class DownloadRequest: DownloadProgressable {
+class DownloadRequest: DownloadProgressable, Codable {
     
     /// The url used to download the item
     /// Used to id which DownloadRequest to update on URLSessionDelegate
     let downloadPath: String
-    var writtenBytes: Int = 0
     var expectedContentLength: Int
     let saveUrlPath: String
     var saveUrl: URL? {
@@ -49,7 +47,7 @@ class DownloadRequest: DownloadProgressable {
         return nil
     }
     
-    var progress: Double {
+    func progress(with writtenBytes: Int) -> Double {
         return Double(writtenBytes) / Double(expectedContentLength)
     }
     
@@ -75,6 +73,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
     private struct Strings {
         static let errorNotificatonKey = "error"
         static let progressNotificationKey = "progress"
+        static let activeDownloads = "activeDownloads"
     }
     
     enum Errors: Error {
@@ -93,8 +92,11 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
     
     override init() {
         super.init()
-        session.getAllTasks { (tasks) in
-            tasks.forEach { $0.cancel() }
+        loadActiveDownloads()
+        session.getAllTasks { tasks in
+            tasks.forEach {
+                $0.resume()
+            }
         }
     }
     
@@ -107,6 +109,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         
         let progress = DownloadRequest(downloadPath: downloadUrl.path, expectedContentLength: 0, saveUrlPath: saveUrlPath)
         activeDownloads[progress.downloadPath] = progress
+        saveActiveDownloads()
         
         let body: String? = nil
         let requester = NetworkRequester()
@@ -132,6 +135,21 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         observers[path]?.removeAll(where: { $0.id == observer.id })
     }
     
+    private func loadActiveDownloads() {
+        guard let savedDownloadsData = UserDefaults.standard.data(forKey: Strings.activeDownloads),
+            let savedDownloads = try? JSONDecoder().decode([String : DownloadRequest].self, from: savedDownloadsData) else {
+                return
+        }
+        for (key, value) in savedDownloads {
+            activeDownloads[key] = value
+        }
+    }
+    
+    private func saveActiveDownloads() {
+        let data = try? JSONEncoder().encode(activeDownloads)
+        UserDefaults.standard.set(data, forKey: Strings.activeDownloads)
+    }
+    
     
 //    /// Sets a delegate for a download
 //    /// - parameter delegate: The delegate to set
@@ -153,11 +171,13 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         guard let downloadPath = downloadTask.originalRequest?.url?.path else { return }
         guard let currentDownload = activeDownloads[downloadPath] else { return }
         
-        currentDownload.writtenBytes = Int(totalBytesWritten)
-        currentDownload.expectedContentLength = Int(totalBytesExpectedToWrite)
+        if currentDownload.expectedContentLength == 0 {
+            currentDownload.expectedContentLength = Int(totalBytesExpectedToWrite)
+            saveActiveDownloads()
+        }
         
         if let observers = self.observers[downloadPath] {
-            observers.forEach { $0.downloadDidUpdate(currentDownload) }
+            observers.forEach { $0.downloadDidUpdate(currentDownload, downloaded: Int(totalBytesWritten)) }
         }
     }
     
@@ -168,6 +188,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         
         do {
             activeDownloads[downloadPath] = nil
+            saveActiveDownloads()
             guard let httpResponse = downloadTask.response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode) else {
                     print ("Server error when downloading file")

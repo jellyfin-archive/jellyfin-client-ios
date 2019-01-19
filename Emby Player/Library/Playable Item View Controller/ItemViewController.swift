@@ -73,7 +73,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
     lazy var seasonLabel: UILabel                           = self.setUpSeasonLabel()
     lazy var durationLabel: UILabel                         = self.setUpQualityLabel()
     lazy var qualityLabel: UILabel                          = self.setUpQualityLabel()
-    lazy var generesLabel: UILabel                         = self.setUpQualityLabel()
+    lazy var generesLabel: UILabel                          = self.setUpQualityLabel()
     
     private var imageFetchTask: URLSessionTask?
     
@@ -118,6 +118,11 @@ class ItemViewController: UIViewController, ContentViewControlling {
         
         if let videoStream = item.mediaStreams.first(where: { $0.type == "Video" }) {
             qualityLabel.text = "Video Quality: \(videoStream.displayTitle ?? ""), \(videoStream.aspectRatio ?? "")"
+        }
+        
+        if let source = item.mediaSource.first,
+            !PlayerViewController().supports(format: source.container) {
+            actionsController.hideDownload()
         }
         
         seasonLabel.isHidden = item.seriesName == nil

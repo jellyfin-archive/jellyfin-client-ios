@@ -9,7 +9,7 @@
 import UIKit
 
 
-class EmbyItemCoordiantor: Coordinating, ItemViewControllerDelegate {
+class EmbyItemCoordiantor: Coordinating {
     
     let presenter: UINavigationController
     
@@ -40,7 +40,9 @@ class EmbyItemCoordiantor: Coordinating, ItemViewControllerDelegate {
         itemController.delegate = self
         presenter.pushViewController(contentController, animated: true)
     }
-    
+}
+
+extension EmbyItemCoordiantor: ItemViewControllerDelegate {
     
     func playItem(_ item: PlayableItem) {
         guard let server = ServerManager.currentServer,

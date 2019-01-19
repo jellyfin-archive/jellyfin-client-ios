@@ -12,8 +12,13 @@ import UIKit
 /// A table view cell that presents a ongoing download
 class OngoingDownloadTableViewCell: UITableViewCell {
     
-    var item: PlayableIteming? { didSet { updateContent() } }
-    var progress: DownloadProgressable? { didSet { updateContent() } }
+    var item: PlayableIteming? {
+        didSet {
+            if let item = item {
+                titleLabel.text = item.name
+            }
+        }
+    }
     
     lazy var titleLabel: UILabel = self.createLabel(fontSize: 20, fontWeight: .bold, alpha: 1)
     lazy var totalSizeLabel: UILabel = self.createLabel(fontSize: 16, fontWeight: .medium, alpha: 0.8)
@@ -43,19 +48,15 @@ class OngoingDownloadTableViewCell: UITableViewCell {
     }
     
     
-    private func updateContent() {
-        if let item = item {
-            titleLabel.text = item.name
-        }
-        if let progress = progress {
-            progressView.progress = Float(progress.progress)
-            totalSizeLabel.text = "\(string(fromBytes: progress.writtenBytes)) of \(string(fromBytes: progress.expectedContentLength))"
-            
-            if !progress.progress.isNaN {
-                progressLabel.text = "\(Double(Int(progress.progress*1000))/10)%"
-            } else {
-                progressLabel.text = "Not started"
-            }
+    func updateContent(progress: DownloadProgressable, written: Int) {
+        let progressValue = progress.progress(with: written)
+        progressView.progress = Float(progressValue)
+        totalSizeLabel.text = "\(string(fromBytes: written)) of \(string(fromBytes: progress.expectedContentLength))"
+        
+        if !progressValue.isNaN {
+            progressLabel.text = "\(Double(Int(progressValue*1000))/10)%"
+        } else {
+            progressLabel.text = "Not started"
         }
     }
     
@@ -126,10 +127,9 @@ class OngoingDownloadTableViewCell: UITableViewCell {
 
 
 extension OngoingDownloadTableViewCell: DownloadManagerObserverable {
-    
-    func downloadDidUpdate(_ progress: DownloadRequest) {
+    func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int) {
         DispatchQueue.main.async { [weak self] in
-            self?.progress = progress
+            self?.updateContent(progress: progress, written: downloaded)
         }
     }
     

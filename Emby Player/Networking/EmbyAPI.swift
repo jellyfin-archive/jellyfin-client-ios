@@ -284,7 +284,7 @@ class EmbyAPI {
         NetworkRequester().post(at: authUrl, header: headers, body: login, completion: completion)
     }
     
-    func downloadFile<T: PlayableIteming>(_ item: T) throws {
+    func downloadFile(_ item: PlayableItem) throws {
         
         guard let video = startPlaybackSession(for: item, in: PlayerViewController()) else { throw Errors.urlComponents }
         

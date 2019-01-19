@@ -12,6 +12,12 @@ import Foundation
 /// A class used to coordinate the downloads of a PlayableItem object
 class ItemDownloadManager {
     
+    struct Strings {
+        static let activeDownloads = "ItemActiveDownloads"
+        static let urlPathAlias = "ItemUrlPathAlias"
+    }
+    
+    
     enum Errors: LocalizedError {
         case unsupportedFormat
         
@@ -21,10 +27,18 @@ class ItemDownloadManager {
     
     static let shared = ItemDownloadManager()
     
-    var activeDownloads = [String : PlayableIteming]()
+    init() {
+        loadActiveDownloads()
+        _ = DownloadManager.shared // Just initing the variable
+    }
+    
+    typealias ItemDownloadingItems = [String : PlayableItem]
+    typealias ItemDownloadingPathAlias = [DownloadManagerDownloadPath : String]
+    
+    private(set) var activeDownloads = ItemDownloadingItems()
     
     /// Containing the id associated with any url
-    private var downloadPathAssociation = [DownloadManagerDownloadPath : String]()
+    private var downloadPathAssociation = ItemDownloadingPathAlias()
     
     
     /// Returns all the active downloads
@@ -47,12 +61,13 @@ class ItemDownloadManager {
     /// - parameter savePath: The path to save the item
     /// - parameter headers: The headers needed to download the file
     /// - throws: Errors.unsupprotedFormat if the video is a HLS stream
-    func startDownload(for item: PlayableIteming, with video: Video, to savePath: String, headers: NetworkRequesterHeader) throws {
+    func startDownload(for item: PlayableItem, with video: Video, to savePath: String, headers: NetworkRequesterHeader) throws {
         
         guard !video.isHLS else { throw Errors.unsupportedFormat }
         
         activeDownloads[item.id] = item
         downloadPathAssociation[video.url.path] = item.id
+        saveActiceDownloads()
         DownloadManager.shared.startDownload(from: video.url, to: savePath, with: headers)
         DownloadManager.shared.add(observer: self, forPath: video.url.path)
     }
@@ -62,6 +77,7 @@ class ItemDownloadManager {
         DownloadManager.shared.cancleTask(withUrlPath: urlPath)
         activeDownloads[itemId] = nil
         downloadPathAssociation[urlPath] = nil
+        saveActiceDownloads()
     }
     
     func add(_ observer: DownloadManagerObserverable, forItemId itemId: String)  {
@@ -73,6 +89,33 @@ class ItemDownloadManager {
     func remove(observer: DownloadManagerObserverable, forItemId itemId: String) {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }
         DownloadManager.shared.remove(observer: observer, forPath: urlPath)
+    }
+    
+    
+    private func saveActiceDownloads() {
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(activeDownloads)
+        let urlData = try? encoder.encode(downloadPathAssociation)
+        UserDefaults.standard.set(data, forKey: Strings.activeDownloads)
+        UserDefaults.standard.set(urlData, forKey: Strings.urlPathAlias)
+    }
+    
+    
+    private func loadActiveDownloads() {
+        guard let data = UserDefaults.standard.data(forKey: Strings.activeDownloads),
+            let downloads = try? JSONDecoder().decode(ItemDownloadingItems.self, from: data) else {
+            return
+        }
+        for (key, value) in downloads {
+            activeDownloads[key] = value
+        }
+        guard let urlData = UserDefaults.standard.data(forKey: Strings.urlPathAlias),
+            let paths = try? JSONDecoder().decode(ItemDownloadingPathAlias.self, from: urlData) else {
+                return
+        }
+        for (key, value) in paths {
+            downloadPathAssociation[key] = value
+        }
     }
 }
 

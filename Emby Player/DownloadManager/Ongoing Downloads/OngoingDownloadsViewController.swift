@@ -79,7 +79,9 @@ extension OngoingDownloadsViewController: UITableViewDataSource, UITableViewDele
         let item = store.item(at: indexPath.row)
         let cell = tableView.cellForItem(at: indexPath, ofType: OngoingDownloadTableViewCell.self)
         cell.item = item
-        cell.progress = store.progress(for: item)
+        if let progress = store.progress(for: item) {
+            cell.updateContent(progress: progress, written: 0)
+        }
         ItemDownloadManager.shared.add(cell, forItemId: item.id)
         return cell
     }
