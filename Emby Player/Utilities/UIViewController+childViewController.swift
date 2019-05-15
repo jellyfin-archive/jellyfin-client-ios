@@ -8,9 +8,8 @@
 
 import UIKit
 
-
 extension UIViewController {
-    
+
     /// Addes a subviewcontroller on the called instance
     /// - parameter chiled: The view controller to be added
     func add(_ child: UIViewController) {
@@ -18,12 +17,11 @@ extension UIViewController {
         view.addSubview(child.view)
         child.didMove(toParent: self)
     }
-    
-    
+
     /// Removes itself as a subviewcontroller
     func remove() {
         guard parent != nil else { return }
-        
+
         willMove(toParent: nil)
         removeFromParent()
         view.removeFromSuperview()

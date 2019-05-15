@@ -8,26 +8,26 @@
 
 import Foundation
 
-typealias HLSHeader = [String : String]
+typealias HLSHeader = [String: String]
 
 class HLSFile: Hashable {
     let header: HLSHeader
     let items: [HLSItem]
-    
+
     init(header: HLSHeader, items: [HLSItem]) {
         self.header = header
         self.items = items
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(header)
         hasher.combine(items)
     }
-    
+
     static func == (lhs: HLSFile, rhs: HLSFile) -> Bool {
         return lhs.header == rhs.header && lhs.items == rhs.items
     }
-    
+
     func writeToFile(at url: URL) throws {
         var file = "#EXTM3U\n"
         file += header.reduce("") { $0 + "EXT-X-" + $1.key + ":" + $1.value + "\n" }
@@ -44,24 +44,23 @@ struct HLSItem: Hashable {
     let lenght: TimeInterval
 }
 
-
 class HLSDecoder {
-    
+
     enum Errors: Error {
         case unableToDecodeItemLine
         case uncbleToDecodeData
     }
-    
+
     func decode(data: Data, encoding: String.Encoding) throws -> HLSFile {
         guard let file = String(data: data, encoding: encoding) else { throw Errors.uncbleToDecodeData }
         return try decode(file: file)
     }
-    
+
     func decode(file: String) throws -> HLSFile {
-        var header = [String : String]()
+        var header = [String: String]()
         var items = [HLSItem]()
         let lines = file.components(separatedBy: "\n#")
-        
+
         for line in lines {
             if line.hasPrefix("EXTINF:") { // HLS Item
                 let sublines = line.components(separatedBy: "\n")
@@ -83,15 +82,14 @@ class HLSDecoder {
                 }
             }
         }
-        
+
         return HLSFile(header: header, items: items)
     }
-    
-    
+
     func urlQueryItems(from path: String) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         let querys = path.components(separatedBy: "&")
-        
+
         for query in querys {
             let components = query.components(separatedBy: "=")
             if components.count == 2 {

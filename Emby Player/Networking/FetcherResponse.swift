@@ -11,7 +11,7 @@ import Foundation
 enum FetcherResponse<T> {
     case success(T)
     case failed(Error)
-    
+
     init(response: NetworkRequesterResponse<T>) {
         switch response {
         case .success(let value): self = FetcherResponse<T>.success(value)

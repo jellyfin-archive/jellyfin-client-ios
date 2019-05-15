@@ -14,7 +14,7 @@ struct User: Codable {
     let serverId: String
     let serverName: String?
     let hasPassword: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
         case id             = "Id"
@@ -22,5 +22,5 @@ struct User: Codable {
         case serverName     = "ServerName"
         case hasPassword    = "HasPassword"
     }
-    
+
 }

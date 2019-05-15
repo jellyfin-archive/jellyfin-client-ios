@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		037AEFF4D9FAC2F85480FAE9 /* Pods_Emby_PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33F5BE93C32C14CD853811C /* Pods_Emby_PlayerTests.framework */; };
 		351715D72156943200765C4D /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715D62156943200765C4D /* UserView.swift */; };
-		351715D92156A8A000765C4D /* VisibleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715D82156A8A000765C4D /* VisibleTextField.swift */; };
 		351715E52158FE9000765C4D /* EmbyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E42158FE9000765C4D /* EmbyLoginViewController.swift */; };
 		351715E8215933CC00765C4D /* CustomServerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E7215933CC00765C4D /* CustomServerSelectionViewController.swift */; };
 		351715EA2159367400765C4D /* EmbyLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E92159367400765C4D /* EmbyLoginCoordinator.swift */; };
@@ -35,6 +34,8 @@
 		351CFF1121621F27005743CE /* AppCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CFF1021621F27005743CE /* AppCache.swift */; };
 		351CFF14216227B5005743CE /* ItemActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CFF13216227B5005743CE /* ItemActionsViewController.swift */; };
 		351ECB17215CE2F8003020C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 351ECB16215CE2F8003020C4 /* README.md */; };
+		352745F5228C871300C61285 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352745F4228C871300C61285 /* UIViewExtension.swift */; };
+		352745F7228C874900C61285 /* VisibleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352745F6228C874900C61285 /* VisibleTextField.swift */; };
 		352B5F28213165A300E346C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F27213165A300E346C6 /* AppDelegate.swift */; };
 		352B5F2F213165A500E346C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 352B5F2E213165A500E346C6 /* Assets.xcassets */; };
 		352B5F32213165A500E346C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 352B5F30213165A500E346C6 /* LaunchScreen.storyboard */; };
@@ -90,7 +91,6 @@
 		35DDA1732133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */; };
 		35DDA17621335AF900840B95 /* MediaFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */; };
 		35E9BB6E21ED2DFA00E609FD /* CellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E9BB6D21ED2DFA00E609FD /* CellRegister.swift */; };
-		35E9BB7621ED314300E609FD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E9BB7521ED314300E609FD /* UIViewExtension.swift */; };
 		35F59671215E1B9500E3117D /* OngoingDownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */; };
 		35F59673215E2B1700E3117D /* OngoingDownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */; };
 		485D3C875F9CF93AFE4C26C9 /* Pods_Emby_PlayerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750445B871A56DC5558172D2 /* Pods_Emby_PlayerUITests.framework */; };
@@ -119,7 +119,6 @@
 		0BFA8F431F1D967359C19D6D /* Pods-Emby PlayerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerUITests/Pods-Emby PlayerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		14CAAA0CC80E6576C35A3668 /* Pods-Emby PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerTests/Pods-Emby PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
 		351715D62156943200765C4D /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
-		351715D82156A8A000765C4D /* VisibleTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VisibleTextField.swift; path = ../../../Frameworks/Views/VisibleTextField.swift; sourceTree = "<group>"; };
 		351715E42158FE9000765C4D /* EmbyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyLoginViewController.swift; sourceTree = "<group>"; };
 		351715E7215933CC00765C4D /* CustomServerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerSelectionViewController.swift; sourceTree = "<group>"; };
 		351715E92159367400765C4D /* EmbyLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyLoginCoordinator.swift; sourceTree = "<group>"; };
@@ -144,6 +143,8 @@
 		351CFF1021621F27005743CE /* AppCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCache.swift; sourceTree = "<group>"; };
 		351CFF13216227B5005743CE /* ItemActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemActionsViewController.swift; sourceTree = "<group>"; };
 		351ECB16215CE2F8003020C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		352745F4228C871300C61285 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../../../../Frameworks/Views/UIViewExtension.swift; sourceTree = "<group>"; };
+		352745F6228C874900C61285 /* VisibleTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleTextField.swift; sourceTree = "<group>"; };
 		352B5F24213165A300E346C6 /* Emby Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emby Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		352B5F27213165A300E346C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		352B5F2E213165A500E346C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		35DDA1722133526200840B95 /* HorizontalCatagoryLatestLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCatagoryLatestLibraryViewController.swift; sourceTree = "<group>"; };
 		35DDA17521335AF900840B95 /* MediaFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFolderTableViewCell.swift; sourceTree = "<group>"; };
 		35E9BB6D21ED2DFA00E609FD /* CellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRegister.swift; sourceTree = "<group>"; };
-		35E9BB7521ED314300E609FD /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../../../../Frameworks/Views/UIViewExtension.swift; sourceTree = "<group>"; };
 		35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadsViewController.swift; sourceTree = "<group>"; };
 		35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadTableViewCell.swift; sourceTree = "<group>"; };
 		3BFCD38A397298BD7646CA90 /* Pods-Emby PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emby PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emby PlayerTests/Pods-Emby PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -407,9 +407,9 @@
 				3574283621415DAA00713FC5 /* DeviceRotateManager.swift */,
 				351A80FF2146A3F60028AC73 /* PlayableOfflineManager.swift */,
 				35897AA1214A55E2005A1D07 /* Coordinating.swift */,
+				352745F6228C874900C61285 /* VisibleTextField.swift */,
 				35E9BB7421ED2E7700E609FD /* Networking */,
 				35E9BB7321ED2E5300E609FD /* App Start */,
-				351715D82156A8A000765C4D /* VisibleTextField.swift */,
 				351715E22158FE3B00765C4D /* Server Selection */,
 				351A80F421455EFC0028AC73 /* Subtitles */,
 				357428422141DDB900713FC5 /* DownloadManager */,
@@ -610,9 +610,9 @@
 			children = (
 				35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */,
 				35667BF42137465A000A20A0 /* UIImageView+fetchUrl.swift */,
-				35E9BB7521ED314300E609FD /* UIViewExtension.swift */,
 				351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */,
 				35E9BB6D21ED2DFA00E609FD /* CellRegister.swift */,
+				352745F4228C871300C61285 /* UIViewExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -681,6 +681,7 @@
 				352B5F21213165A300E346C6 /* Frameworks */,
 				352B5F22213165A300E346C6 /* Resources */,
 				724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */,
+				356A302E21FA47690064740E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -805,13 +806,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		356A302E21FA47690064740E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 			);
@@ -822,7 +840,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Emby Player/Pods-Emby Player-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		80EA6F73C9C06413B23C39B7 /* [CP] Check Pods Manifest.lock */ = {
@@ -909,7 +927,6 @@
 				35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */,
 				35897AB7214ACE02005A1D07 /* SearchCoordinator.swift in Sources */,
 				351715F0215A1F4300765C4D /* EmbyConnectAPI.swift in Sources */,
-				35E9BB7621ED314300E609FD /* UIViewExtension.swift in Sources */,
 				35DDA16221331CE000840B95 /* AuthenticationResult.swift in Sources */,
 				35667BEF2136C9EE000A20A0 /* TvShowLibraryViewController.swift in Sources */,
 				351CDB69215BE60B00ACB83A /* TvShowLigraryStoreEmbyFetcher.swift in Sources */,
@@ -918,6 +935,7 @@
 				35897AB5214ABC91005A1D07 /* EmbyItemCoordiantor.swift in Sources */,
 				35897AA4214A9208005A1D07 /* ApplicationCoordinator.swift in Sources */,
 				3598CF06215E380D00E390FD /* ItemDownloadManager.swift in Sources */,
+				352745F7228C874900C61285 /* VisibleTextField.swift in Sources */,
 				351A80FB214574920028AC73 /* PlayerSettingViewController.swift in Sources */,
 				35667BF52137465A000A20A0 /* UIImageView+fetchUrl.swift in Sources */,
 				351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */,
@@ -926,7 +944,6 @@
 				357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */,
 				351CFF14216227B5005743CE /* ItemActionsViewController.swift in Sources */,
 				351A80F221454C8C0028AC73 /* SubtitleViewController.swift in Sources */,
-				351715D92156A8A000765C4D /* VisibleTextField.swift in Sources */,
 				35667BF32136F9EF000A20A0 /* ImageLoaderViewController.swift in Sources */,
 				35667BEB2136741C000A20A0 /* PlayerViewController.swift in Sources */,
 				351CDB5F215BE46F00ACB83A /* FetcherResponse.swift in Sources */,
@@ -936,6 +953,7 @@
 				35DDA16821331D1100840B95 /* User.swift in Sources */,
 				35897AB3214ABA78005A1D07 /* TvShowCoordinator.swift in Sources */,
 				35DDA16B2133203F00840B95 /* TopLevelLibraryViewController.swift in Sources */,
+				352745F5228C871300C61285 /* UIViewExtension.swift in Sources */,
 				35667BF12136CAAB000A20A0 /* EpisodeTableViewCell.swift in Sources */,
 				351715EA2159367400765C4D /* EmbyLoginCoordinator.swift in Sources */,
 				35897AA2214A55E2005A1D07 /* Coordinating.swift in Sources */,

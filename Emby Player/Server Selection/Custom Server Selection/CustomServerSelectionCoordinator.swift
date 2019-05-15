@@ -9,22 +9,21 @@
 import UIKit
 
 class CustomServerSelectionCoordinator: Coordinating, CustomServerSelectionViewControllerDelegate {
-    
+
     let presenter: UINavigationController
-    
+
     lazy var selectionController = CustomServerSelectionViewController()
-    
+
     init(presenter: UINavigationController) {
         self.presenter = presenter
     }
-    
+
     func start() {
         selectionController.delegate = self
         selectionController.errorTextLabel.isHidden = true
         presenter.pushViewController(selectionController, animated: true)
     }
-    
-    
+
     func connectToServer(_ server: ServerConnection) {
         do {
             try ServerManager.shared.connect(to: server)

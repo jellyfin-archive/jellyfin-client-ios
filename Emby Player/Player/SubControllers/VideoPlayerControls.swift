@@ -9,58 +9,51 @@
 import UIKit
 import AVFoundation
 
-
 protocol VideoPlayerControllsDelegate: class {
     func controllerDidTogglePlay(in controller: VideoPlayerControls)
     func controllerDidScrub(to time: CMTime, in controls: VideoPlayerControls)
 }
 
-
 class VideoPlayerControls: UIViewController {
-    
-    
+
     lazy var verticalStackView: UIStackView = self.setUpVerticalStackView()
-    
+
     lazy var progressSliderView: UISlider = self.setUpProgressSliderView()
-    
+
     lazy var horizontalStackView: UIStackView = self.setUpHorizontalStackView()
-    
+
     lazy var currentTimeLabel: UILabel = self.setUpTimeLabel()
     lazy var totalTimeLabel: UILabel = self.setUpTimeLabel()
-    
+
     lazy var scrubBackButton: UIButton = self.setUpScrubBackButton()
     lazy var pauseButton: UIButton = self.setUpPauseButton()
     lazy var playButton: UIButton = self.setUpPlayButton()
     lazy var scrubForwardButton: UIButton = self.setUpScrubForwardButton()
-    
-    
+
     weak var player: PlayerViewControllable? { didSet { startTimeObserver() } }
     var timer: Timer = Timer()
     weak var delegate: VideoPlayerControllsDelegate?
-    
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
         setUpViewController()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUpViewController()
     }
-    
+
     deinit {
         timer.invalidate()
     }
-    
-    
+
     private func setUpViewController() {
         view.addSubview(verticalStackView)
         verticalStackView.fillSuperView()
         playButton.isHidden = true
     }
-    
-    
+
     func updateTimeLabels() {
         guard let currentTime = player?.currentTime,
             !currentTime.seconds.isNaN,
@@ -71,25 +64,25 @@ class VideoPlayerControls: UIViewController {
             let loaded = player?.loadedRange,
             !loaded.isNaN,
             !loaded.isInfinite else { return }
-        
+
         currentTimeLabel.text = timeString(for: currentTime.seconds)
         totalTimeLabel.text = timeString(for: duration.seconds)
-        
+
         progressSliderView.value = Float(currentTime.seconds/duration.seconds)
     }
-    
+
     func startTimeObserver() {
         timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self] (_) in
             self?.updateTimeLabels()
         })
     }
-    
+
     // MARK: - Behavior
-    
+
     @objc
     private func togglePlayer() {
-        
+
         guard let player = player else { return }
         startTimeObserver()
         if player.isPlaying == true {
@@ -99,10 +92,10 @@ class VideoPlayerControls: UIViewController {
         }
         playButton.isHidden = player.isPlaying
         pauseButton.isHidden = !player.isPlaying
-        
+
         delegate?.controllerDidTogglePlay(in: self)
     }
-    
+
     @objc
     private func scrubBack() {
         guard let currentTime = player?.currentTime else { return }
@@ -110,7 +103,7 @@ class VideoPlayerControls: UIViewController {
         player?.seek(to: time)
         delegate?.controllerDidScrub(to: time, in: self)
     }
-    
+
     @objc
     private func scrubForward() {
         guard let currentTime = player?.currentTime else { return }
@@ -118,27 +111,25 @@ class VideoPlayerControls: UIViewController {
         player?.seek(to: time)
         delegate?.controllerDidScrub(to: time, in: self)
     }
-    
+
     @objc
     private func progressSliderDidChangeValue() {
         guard let duration = player?.duration else { return }
         let newTime = CMTime(seconds: duration.seconds * Double(progressSliderView.value), preferredTimescale: duration.timescale)
         delegate?.controllerDidScrub(to: newTime, in: self)
     }
-    
-    
+
     private func timeString(for duration: Double) -> String {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = [.pad]
-        
+
         return formatter.string(from: duration) ?? ""
     }
-    
-    
+
     // MARK: - View setup
-    
+
     private func setUpVerticalStackView() -> UIStackView {
         let arrangedViews = [progressSliderView, horizontalStackView]
         let view = UIStackView(arrangedSubviews: arrangedViews)
@@ -148,7 +139,7 @@ class VideoPlayerControls: UIViewController {
         view.isLayoutMarginsRelativeArrangement = true
         return view
     }
-    
+
     private func setUpProgressSliderView() -> UISlider {
         let view = UISlider()
         view.minimumValue = 0
@@ -158,20 +149,20 @@ class VideoPlayerControls: UIViewController {
         view.addTarget(self, action: #selector(progressSliderDidChangeValue), for: .valueChanged)
         return view
     }
-    
+
     private func setUpHorizontalStackView() -> UIStackView {
         let strechViewOne = self.streatchableView()
         let strechViewTwo = self.streatchableView()
-        
+
         let arrangedViews = [currentTimeLabel, strechViewOne, scrubBackButton, pauseButton, playButton, scrubForwardButton, strechViewTwo, totalTimeLabel]
         let view = UIStackView(arrangedSubviews: arrangedViews)
         view.spacing = 30
-        
+
         strechViewOne.widthAnchor.constraint(equalTo: strechViewTwo.widthAnchor, multiplier: 1).isActive = true
         currentTimeLabel.widthAnchor.constraint(equalTo: totalTimeLabel.widthAnchor, multiplier: 1).isActive = true
         return view
     }
-    
+
     private func setUpTimeLabel() -> UILabel {
         let view = UILabel()
         view.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -181,31 +172,31 @@ class VideoPlayerControls: UIViewController {
         view.layer.shadowOpacity = 0.3
         return view
     }
-    
+
     private func setUpScrubBackButton() -> UIButton {
         let view = self.buttonWithImageName("playback-rewind")
         view.addTarget(self, action: #selector(scrubBack), for: .touchUpInside)
         return view
     }
-    
+
     private func setUpPauseButton() -> UIButton {
         let view = self.buttonWithImageName("pause")
         view.addTarget(self, action: #selector(togglePlayer), for: .touchUpInside)
         return view
     }
-    
+
     private func setUpPlayButton() -> UIButton {
         let view = self.buttonWithImageName("play")
         view.addTarget(self, action: #selector(togglePlayer), for: .touchUpInside)
         return view
     }
-    
+
     private func setUpScrubForwardButton() -> UIButton {
         let view = self.buttonWithImageName("playback-fast-forward")
         view.addTarget(self, action: #selector(scrubForward), for: .touchUpInside)
         return view
     }
-    
+
     private func buttonWithImageName(_ imageName: String) -> UIButton {
         let view = UIButton()
         if let image = UIImage(named: imageName) {
@@ -215,7 +206,7 @@ class VideoPlayerControls: UIViewController {
         }
         return view
     }
-    
+
     private func streatchableView() -> UIView {
         let view = UIView()
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)

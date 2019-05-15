@@ -8,18 +8,17 @@
 
 import Foundation
 
-
 class UserListStoreEmbyPublicFetcher: UserListStoreFetchable {
-    
+
     var isFetching: Bool = false
-    
+
     func fetchUserList(completion: @escaping (FetcherResponse<[User]>) -> Void) -> Operation? {
-        
+
         guard let server = ServerManager.currentServer else {
             completion(.failed(EmbyAPI.Errors.urlComponents))
             return nil
         }
-        
+
         isFetching = true
         server.fetchPublicUsers { [weak self] (response) in
             switch response {
@@ -34,7 +33,7 @@ class UserListStoreEmbyPublicFetcher: UserListStoreFetchable {
 
 class UserListStoreErrorFetcher: UserListStoreFetchable {
     var isFetching: Bool { return false }
-    
+
     func fetchUserList(completion: @escaping (FetcherResponse<[User]>) -> Void) -> Operation? {
         completion(.failed( NetworkRequesterError.badRequest))
         return nil

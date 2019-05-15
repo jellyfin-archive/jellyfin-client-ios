@@ -8,7 +8,7 @@
 import UIKit
 
 extension UICollectionView {
-    
+
     /**
      Registrates a UICollectionViewCell in a UICollectionView with a reuseIdentifier same as the cell class name
      
@@ -17,7 +17,7 @@ extension UICollectionView {
     func register<Cell: UICollectionViewCell>(_ cellType: Cell.Type) {
         self.register(cellType, forCellWithReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Registrates a UICollectionViewCell with a xib file in a UICollectionView with a reuseIdentifier same as the cell class name
      
@@ -27,7 +27,7 @@ extension UICollectionView {
         let nib = UINib(nibName: "\(cellType)", bundle: nil)
         register(nib, forCellWithReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Registrates a UICollectionViewCell in a UICollectionView with a reuseIdentifier same ass the cell class name
      
@@ -37,7 +37,7 @@ extension UICollectionView {
     func register<Cell: UICollectionReusableView>(_ cellType: Cell.Type, forSupplementryViewOfKind: String) {
         self.register(cellType, forSupplementaryViewOfKind: forSupplementryViewOfKind, withReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Registrates a UICollectionViewCell with a xib file in a UICollectionView with a reuseIdentifier same ass the cell class name
      
@@ -48,7 +48,7 @@ extension UICollectionView {
         let nib = UINib(nibName: "\(cellType)", bundle: nil)
         self.register(nib, forSupplementaryViewOfKind: forSupplementryViewOfKind, withReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Dequeue a reusable UICollectionViewCell in a UICollectionView with a reuseIdentifier same ass the cell class name
      
@@ -60,7 +60,7 @@ extension UICollectionView {
     func cellForItem<Cell: UICollectionViewCell>(at indexPath: IndexPath, ofType type: Cell.Type) -> Cell {
         return self.dequeueReusableCell(withReuseIdentifier: "\(type)", for: indexPath) as! Cell
     }
-    
+
     /**
      Dequeue a reusable UICollectionViewCell in a UICollectionView with a reuseIdentifier same ass the cell class name
      
@@ -76,7 +76,7 @@ extension UICollectionView {
 }
 
 extension UITableView {
-    
+
     /**
      Registrates a UITableViewCell in a UITableView with a reuseIdentifier same as the cell class name
      
@@ -85,7 +85,7 @@ extension UITableView {
     func register<Cell: UITableViewCell>(_ cellType: Cell.Type) {
         self.register(cellType, forCellReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Registrates a UITableViewCell with a xib file in a UITableView with a reuseIdentifier same as the cell class name
      
@@ -103,7 +103,7 @@ extension UITableView {
     func registerHeaderOrFooter<Cell: UITableViewCell>(ofType cellType: Cell.Type) {
         self.register(cellType, forHeaderFooterViewReuseIdentifier: "\(cellType)")
     }
-    
+
     /**
      Dequeue a reusable UITableViewCell in a UITableView with a reuseIdentifier same ass the cell class name
      
@@ -115,7 +115,7 @@ extension UITableView {
     func cellForItem<Cell: UITableViewCell>(at indexPath: IndexPath, ofType type: Cell.Type) -> Cell {
         return self.dequeueReusableCell(withIdentifier: "\(type)", for: indexPath) as! Cell
     }
-    
+
     /**
      Dequeue a reusable UITableViewCell in a UITableView with a reuseIdentifier same ass the cell class name
      
@@ -126,7 +126,7 @@ extension UITableView {
     func cellForItem<Cell: UITableViewCell>(at indexPath: IndexPath) -> Cell {
         return self.dequeueReusableCell(withIdentifier: "\(Cell.self)", for: indexPath) as! Cell
     }
-    
+
     /**
      Dequeue a reusable UITableViewCell header or footer in a UITableView with a reuseIdentifier same ass the cell class name
      
@@ -138,4 +138,3 @@ extension UITableView {
         return self.dequeueReusableHeaderFooterView(withIdentifier: "\(type)") as! Cell
     }
 }
-

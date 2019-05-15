@@ -9,24 +9,22 @@
 import UIKit
 
 class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
-    
+
     lazy var topLevelFetcher = LibraryStoreEmbyTopLevelFetcher()
     lazy var topLevelViewController = TopLevelLibraryViewController(fetcher: self.topLevelFetcher)
     lazy var contentViewController = ContentStateViewController(contentController: self.topLevelViewController, fetchMode: .onAppeare)
     lazy var navigationController = UINavigationController(rootViewController: self.contentViewController)
-    
+
     lazy var authCoordinator = UserListCoordinator(presenter: self.navigationController)
-    
+
     var coordinator: Coordinating?
-    
+
     let tabBarController: UITabBarController
-    
-    
+
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
     }
-    
-    
+
     func start() {
         topLevelViewController.delegate = self
         var viewControllers = tabBarController.viewControllers ?? []
@@ -34,16 +32,16 @@ class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
         tabBarController.setViewControllers(viewControllers, animated: true)
         contentViewController.leftBarButton = topLevelViewController.logoutBarButton
     }
-    
+
     func folderWasSelected(_ folder: MediaFolder) {
         coordinator = MediaLibraryCoordinator(presenter: navigationController, mediaFolder: folder)
         coordinator?.start()
     }
-    
+
     func userDidLogout() {
         authCoordinator.start()
     }
-    
+
     func itemWasSelected(_ item: BaseItem) {
         if item.type == "Series" {
             coordinator = TvShowCoordinator(presenter: navigationController, item: item)
@@ -53,7 +51,7 @@ class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
         } else {
             coordinator = EmbyItemCoordiantor(presenter: navigationController, itemId: item.id)
         }
-        
+
         coordinator?.start()
     }
 }

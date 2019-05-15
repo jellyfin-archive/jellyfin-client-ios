@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// A protocol used to coordinate the navigations between view controllers
 protocol Coordinating {
     /// Starts the navigation

@@ -10,24 +10,21 @@ import Foundation
 import UIKit
 import KeychainSwift
 
-
 protocol UserManaging {
     var embyAuthHeader: NetworkRequestHeaderValue { get }
     var embyTokenHeader: NetworkRequestHeaderValue { get }
 }
 
-
 class UserManager: UserManaging {
-    
+
     private struct Strings {
         static let accessTokenKey   = "AccessToken"
         static let userDataKey      = "UserDataKey"
     }
-    
+
     static let shared = UserManager()
     private let keychain = KeychainSwift()
-    
-    
+
     /// The current logged in user
     var current: User? {
         get {
@@ -35,7 +32,7 @@ class UserManager: UserManaging {
             return try? JSONDecoder().decode(User.self, from: data)
         }
         set {
-            var userData: Data? = nil
+            var userData: Data?
             if let user = newValue {
                 userData = try? JSONEncoder().encode(user)
             }
@@ -58,8 +55,7 @@ class UserManager: UserManaging {
             }
         }
     }
-    
-    
+
     /// The emby auth header based on the current user
     /// This is needed for each network call to the library
     var embyAuthHeader: NetworkRequestHeaderValue {
@@ -67,19 +63,18 @@ class UserManager: UserManaging {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"
         return NetworkRequestHeaderValue(header: "X-Emby-Authorization", value: "Emby \(userId)Client=\"Emby Player SPAM\", Device=\"iPhone\", DeviceId=\"\(deviceId)\", Version=\"1.0.0\"")
     }
-    
+
     /// The emby token header needed for each network call to the library
     var embyTokenHeader: NetworkRequestHeaderValue {
         return NetworkRequestHeaderValue(header: "X-Emby-Token", value: accessToken ?? "")
     }
-    
-    
+
     /// Update the kychain to the logged in user
     func login(with authResult: AuthenticationResult) {
         current = authResult.user
         accessToken = authResult.accessToken
     }
-    
+
     /// Deletes the values in the keychain
     func logout() {
         current = nil

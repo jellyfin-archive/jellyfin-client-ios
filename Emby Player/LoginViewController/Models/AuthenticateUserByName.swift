@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 struct AuthenticateUserByName: Codable {
     let username: String
     let passwordMd5: String?
     let password: String
     let pw: String
-    
+
     enum CodingKeys: String, CodingKey {
         case username       = "Username"
         case passwordMd5    = "PasswordMd5"

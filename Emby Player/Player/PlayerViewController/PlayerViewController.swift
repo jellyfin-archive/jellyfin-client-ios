@@ -17,27 +17,25 @@ struct Video {
 }
 
 protocol PlayerViewControllable: class {
-    
+
     var video: Video? { get set }
     var currentTime: CMTime { get }
     var duration: CMTime { get }
     var loadedRange: Double { get }
     var isPlaying: Bool { get }
-    
+
     func supports(format: String) -> Bool
     func playVideo()
     func pauseVideo()
     func seek(to time: CMTime)
 }
 
-
 protocol PlayerViewControllerDelegate: class {
     func playerWillDisappear(_ player: PlayerViewController)
 }
 
 class PlayerViewController: UIViewController, PlayerViewControllable {
-    
-    
+
     var video: Video? { didSet { updatePlayer() } }
     var subtitleStream: MediaStream? {
         get { return nil }
@@ -61,20 +59,19 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //            subtitleViewController.item = playableItem
         }
     }
-    
+
     weak var delegate: PlayerViewControllerDelegate?
-    
-    var currentTime: CMTime     { return player?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: 0) }
-    var duration: CMTime        { return player?.currentItem?.duration ?? CMTime(seconds: 0, preferredTimescale: 0) }
-    var player: AVPlayer?       { return playerController.player }
-    var isPlaying: Bool         { return player?.rate != 0 && player?.error == nil }
-    var loadedRange: Double     {
+
+    var currentTime: CMTime { return player?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: 0) }
+    var duration: CMTime { return player?.currentItem?.duration ?? CMTime(seconds: 0, preferredTimescale: 0) }
+    var player: AVPlayer? { return playerController.player }
+    var isPlaying: Bool { return player?.rate != 0 && player?.error == nil }
+    var loadedRange: Double {
         guard let range = (player?.currentItem?.loadedTimeRanges.first as? CMTimeRange) else { return 0 }
         return range.start.seconds + range.duration.seconds
     }
     override var prefersHomeIndicatorAutoHidden: Bool { return true }
-    
-    
+
     private lazy var playerController = AVPlayerViewController()
 //    private lazy var genericControlsView: UIStackView = self.setUpGenericControllsContentView()
 //    private lazy var settingsButton: UIButton = self.setUpSettingsButton()
@@ -83,27 +80,27 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //    private lazy var playerInfoViewController: VideoInformationViewController = VideoInformationViewController()
 //    private lazy var overlayView: UIView = self.setUpOverlayView()
 //    private lazy var subtitleViewController: SubtitleViewController = SubtitleViewController(playerController: self)
-    
+
 //    private var errorViewController: ErrorViewController?
 //    private var playerLayer = AVPlayerLayer()
-    
+
     private var hideTimer: Timer?
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
         setUpViewController()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUpViewController()
     }
-    
+
     private func setUpViewController() {
-        
+
         add(playerController)
         playerController.view.fillSuperView()
-        
+
 //        view.layer.addSublayer(playerLayer)
 //
 //        add(subtitleViewController)
@@ -133,26 +130,23 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //
 //        NotificationCenter.default.addObserver(self, selector: #selector(orientationDidUpdate), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
-    
-    
+
     override func viewDidLoad() {
         if #available(iOS 11, *) {
             setNeedsUpdateOfHomeIndicatorAutoHidden()
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
 //        playerLayer.frame = view.bounds
 //        playerControls.player = self
 //        subtitleViewController.playerController = self
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         delegate?.playerWillDisappear(self)
     }
-    
-    
-    
+
     private func updatePlayer() {
 //        self.player?.removeObserver(self, forKeyPath: "rate")
 //        self.player?.removeObserver(self, forKeyPath: "error")
@@ -166,7 +160,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //        player.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
 //        player.addObserver(self, forKeyPath: "error", options: .new, context: nil)
     }
-    
+
     func playVideo() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -174,16 +168,16 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
         } catch let error {
             print("Unable to set mode: \(error)")
         }
-        
+
         player?.play()
 //        updateHideTimer()
     }
-    
+
     func pauseVideo() {
         player?.pause()
 //        subtitleViewController.presentSubtitles()
     }
-    
+
     func seek(to time: CMTime) {
         pauseVideo()
         player?.seek(to: time, completionHandler: { [weak self] (_) in
@@ -191,11 +185,11 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //            self?.subtitleViewController.presentSubtitles()
         })
     }
-    
+
     func supports(format: String) -> Bool {
         return AVURLAsset.audiovisualMIMETypes().contains("video/" + format)
     }
-    
+
 //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 //        switch keyPath {
 //        case "rate": playerControls.updateTimeLabels()
@@ -203,9 +197,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //        default: break
 //        }
 //    }
-    
-    
-    
+
 //    func handleError() {
 //        print("Error: ", player?.error?.localizedDescription ?? "nil")
 //        errorViewController?.remove()
@@ -306,10 +298,9 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //            }
 //        })
 //    }
-    
-    
+
     // MAKR: - View configs / setup code
-    
+
 //    private func setUpGenericControllsContentView() -> UIStackView {
 //        let arrangedViews = [dismissButton, settingsButton]
 //        let view = UIStackView(arrangedSubviews: arrangedViews)
@@ -336,14 +327,14 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //        button.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
 //        return button
 //    }
-    
+
     private func setUpControlls() -> VideoPlayerControls {
         let controller = VideoPlayerControls()
         controller.player = self
         controller.delegate = self
         return controller
     }
-    
+
     private func buttonWithImageName(_ imageName: String) -> UIButton {
         let view = UIButton()
         if let image = UIImage(named: imageName) {
@@ -356,13 +347,12 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     }
 }
 
-
 extension PlayerViewController: VideoPlayerControllsDelegate {
-    
+
     func controllerDidTogglePlay(in controller: VideoPlayerControls) {
 //        updateHideTimer()
     }
-    
+
     func controllerDidScrub(to time: CMTime, in controls: VideoPlayerControls) {
         seek(to: time)
 //        updateHideTimer()

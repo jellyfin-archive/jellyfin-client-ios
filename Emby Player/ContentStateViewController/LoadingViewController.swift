@@ -9,9 +9,9 @@
 import UIKit
 
 class LoadingViewController: UIViewController {
-    
+
     lazy var loadingIndicator = UIActivityIndicatorView(style: .white)
-    
+
     override func viewDidLoad() {
         view.backgroundColor = .clear
         view.addSubview(loadingIndicator)

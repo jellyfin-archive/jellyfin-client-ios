@@ -8,13 +8,12 @@
 
 import UIKit
 
-
 /// A class containing all the cahced files
 class AppCache {
     static let shared = AppCache()
-    
+
     private let imageCache = NSCache<NSString, UIImage>()
-    
+
 //    func imageFor(key: String) -> UIImage? {
 //        return imageCache.object(forKey: NSString(string: key))
 //    }

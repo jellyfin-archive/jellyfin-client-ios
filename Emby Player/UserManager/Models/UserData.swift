@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct UserData: Codable {
     let key: String
     let unplayedItemCount: Int?
@@ -16,7 +15,7 @@ struct UserData: Codable {
     let playCount: Int
     let isFavorite: Bool
     let played: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case key = "Key"
         case unplayedItemCount = "UnplayedItemCount"

@@ -8,17 +8,16 @@
 
 import Foundation
 
-
 class LibraryStoreEmbyCatagoryFetcher: LibraryStoreFetchable {
-    
+
     var catagory: MediaFolder
-    
+
     init(catagory: MediaFolder) {
         self.catagory = catagory
     }
-    
+
     func fetchItems(for user: User, completion: @escaping (FetcherResponse<[BaseItem]>) -> Void) {
-        
+
         guard let server = ServerManager.currentServer else {
             completion(.failed(ServerManager.Errors.unableToConnectToServer))
             return

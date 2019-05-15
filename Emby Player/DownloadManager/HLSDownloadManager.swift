@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 //class HLSItemDownload {
 //    let downloadUrl: URL
 //    let saveUrlPath: String

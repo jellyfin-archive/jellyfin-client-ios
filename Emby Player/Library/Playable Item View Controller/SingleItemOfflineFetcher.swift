@@ -8,19 +8,18 @@
 
 import Foundation
 
-
 class SingleItemOfflineFetcher: SingleItemStoreFetchable {
-    
+
     enum Errors: Error {
         case unableToFetchLocalItem
     }
-    
+
     var itemId: String
-    
+
     init(itemId: String) {
         self.itemId = itemId
     }
-    
+
     func fetchItem(completion: @escaping (FetcherResponse<PlayableItem>) -> Void) {
         if let item = PlayableOfflineManager.shared.getItemWith(id: itemId) {
             completion(.success(item))

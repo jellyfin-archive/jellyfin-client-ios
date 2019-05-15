@@ -8,12 +8,11 @@
 
 import Foundation
 
-
 struct AuthenticationResult: Codable {
     let user: User
     let accessToken: String
     let serverId: String
-    
+
     enum CodingKeys: String, CodingKey {
         case user           = "User"
         case accessToken    = "AccessToken"

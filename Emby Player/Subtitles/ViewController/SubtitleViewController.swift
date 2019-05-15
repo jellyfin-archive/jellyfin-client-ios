@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class SubtitleViewController: UIViewController {
-    
+
     weak var playerController: PlayerViewControllable?
     var item: PlayableIteming?
     var subtitleStream: MediaStream? {
@@ -18,44 +18,42 @@ class SubtitleViewController: UIViewController {
             updateContent()
         }
     }
-    
+
     private(set) var subtitles: Subtitles = [] {
         didSet {
             presentSubtitles()
         }
     }
-    
+
     private var subtitleIndex: Int = 0
     lazy var subtitleLabel: UILabel = self.createSubtitleLabel()
-    
+
     private var timer: Timer?
-    
-    
+
     init(playerController: PlayerViewControllable) {
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         setUpViewController()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         timer?.invalidate()
     }
-    
-    
+
     func presentSubtitles() {
         timer?.invalidate()
-        
+
         guard subtitleIndex < subtitles.count else {
             subtitleIndex = 0
             return
         }
-        
+
         guard var currentTime = playerController?.currentTime.seconds else { return }
-        
+
         while !(subtitles[subtitleIndex].startTime < currentTime && currentTime < subtitles[subtitleIndex].endTime) {
             if subtitles[subtitleIndex].startTime < currentTime,
                 subtitleIndex < subtitles.count {
@@ -66,9 +64,9 @@ class SubtitleViewController: UIViewController {
             currentTime = playerController?.currentTime.seconds ?? 0
             guard playerController != nil else { return }
         }
-        
+
         self.subtitleLabel.attributedText = subtitles[subtitleIndex].subtitle
-        
+
         if subtitleIndex + 1 < subtitles.count {
             let timeInterval = subtitles[subtitleIndex + 1].startTime - currentTime
             timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false, block: { [weak self] (_) in
@@ -76,7 +74,7 @@ class SubtitleViewController: UIViewController {
             })
         }
     }
-    
+
     private func updateContent() {
         subtitleIndex = 0
         guard let subtitleStream = subtitleStream,
@@ -93,19 +91,18 @@ class SubtitleViewController: UIViewController {
             }
         }
     }
-    
+
     private func present(_ error: Error) {
         print("Error: ", error)
         self.subtitleLabel.text = "There was an error when loading subtitles"
         self.subtitleLabel.textColor = .red
     }
-    
-    
+
     private func setUpViewController() {
         view.addSubview(subtitleLabel)
         subtitleLabel.fillSuperView()
     }
-    
+
     private func createSubtitleLabel() -> UILabel {
         let view = UILabel()
         view.textAlignment = .center

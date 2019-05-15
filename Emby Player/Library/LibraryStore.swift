@@ -13,16 +13,14 @@ protocol LibraryStoreFetchable: class {
     func fetchItems(for user: User, completion: @escaping (FetcherResponse<[LibraryItem]>) -> Void)
 }
 
-
 class LibraryStore<Fetcher: LibraryStoreFetchable> {
     var items = [Fetcher.LibraryItem]()
-    
+
     let fetcher: Fetcher
     init(fetcher: Fetcher) {
         self.fetcher = fetcher
     }
-    
-    
+
     func fetchItems(completion: @escaping (FetcherResponse<Void>) -> Void) {
         guard let user = UserManager.shared.current else { return }
         fetcher.fetchItems(for: user) { [weak self] (response) in
@@ -34,11 +32,11 @@ class LibraryStore<Fetcher: LibraryStoreFetchable> {
             completion(storeResponse)
         }
     }
-    
+
     var numberOfItems: Int {
         return items.count
     }
-    
+
     func itemAt(index: Int) -> Fetcher.LibraryItem {
         return items[index]
     }

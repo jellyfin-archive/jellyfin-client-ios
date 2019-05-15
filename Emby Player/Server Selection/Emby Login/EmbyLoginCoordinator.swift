@@ -8,33 +8,29 @@
 
 import UIKit
 
-
 class EmbyLoginCoordinator: Coordinating, EmbyLoginViewControllerDelegate {
-    
+
     enum Errors: LocalizedError {
         case notAbleToUserEmbyConnect
-        
+
         var errorDescription: String? {
             return "This version do not support Emby Connect login, therfore use a custom server connection."
         }
     }
-    
+
     let presenter: UIViewController
-    
+
     lazy var loginController = EmbyLoginViewController()
     lazy var navigationController = UINavigationController(rootViewController: self.loginController)
-    
+
     lazy var customServerCoordinator = CustomServerSelectionCoordinator(presenter: self.navigationController)
-    
+
     init(presenter: UIViewController) {
         self.presenter = presenter
     }
-    
-    
+
     func start() {
-        
-        
-        
+
         guard ServerManager.currentServer == nil, EmbyConnectUserManager.shared.connectLogin == nil else { return }
         navigationController.popToRootViewController(animated: false)
         loginController.delegate = self
@@ -42,15 +38,15 @@ class EmbyLoginCoordinator: Coordinating, EmbyLoginViewControllerDelegate {
             self?.connectToCustomServer()
         }
     }
-    
+
     func connectToCustomServer() {
         customServerCoordinator.start()
     }
-    
+
     func willLogin(with request: LoginRequest) {
-        
+
         loginController.presentError(Errors.notAbleToUserEmbyConnect)
-        
+
         // FIXME: - Make it possible to user emby connect
 //        EmbyConnectAPI.shared.login(with: request) { [weak self] (response) in
 //            switch response {

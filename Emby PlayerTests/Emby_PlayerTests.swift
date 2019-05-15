@@ -61,40 +61,40 @@ Now let's get down to business.
         }
     }
     
-    func testHLSDecoding() {
-        let exampleFile = """
-#EXTM3U
-#EXT-X-PLAYLIST-TYPE:VOD
-#EXT-X-VERSION:3
-#EXT-X-TARGETDURATION:3
-#EXT-X-MEDIA-SEQUENCE:0
-#EXTINF:3.0000, nodesc
-hls1/main/0.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/1.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/2.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/3.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/4.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/5.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/6.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/7.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXTINF:3.0000, nodesc
-hls1/main/8.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
-#EXT-X-ENDLIST
-"""
-        do {
-            let decoder = HLSDecoder()
-            let hlsFile = try decoder.decode(file: exampleFile)
-            XCTAssert(hlsFile.items.count == 9, "The amount of hls items was inncorect: \(hlsFile.items.count)")
-            XCTAssert(hlsFile.header.keys.count == 4, "The amount of hls headers was inncorect: \(hlsFile.header.keys.count)")
-        } catch {
-            XCTFail("Failed with error: \(error.localizedDescription)")
-        }
-    }
+//    func testHLSDecoding() {
+//        let exampleFile = """
+//#EXTM3U
+//#EXT-X-PLAYLIST-TYPE:VOD
+//#EXT-X-VERSION:3
+//#EXT-X-TARGETDURATION:3
+//#EXT-X-MEDIA-SEQUENCE:0
+//#EXTINF:3.0000, nodesc
+//hls1/main/0.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/1.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/2.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/3.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/4.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/5.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/6.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/7.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXTINF:3.0000, nodesc
+//hls1/main/8.ts?mediaSourceId=039a349e28196dace6e019611e8c3732&deviceId=xxxx
+//#EXT-X-ENDLIST
+//"""
+//        do {
+//            let decoder = HLSDecoder()
+//            let hlsFile = try decoder.decode(file: exampleFile)
+//            XCTAssert(hlsFile.items.count == 9, "The amount of hls items was inncorect: \(hlsFile.items.count)")
+//            XCTAssert(hlsFile.header.keys.count == 4, "The amount of hls headers was inncorect: \(hlsFile.header.keys.count)")
+//        } catch {
+//            XCTFail("Failed with error: \(error.localizedDescription)")
+//        }
+//    }
 }

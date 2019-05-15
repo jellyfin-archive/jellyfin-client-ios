@@ -8,23 +8,21 @@
 
 import UIKit
 
-
 class MediaLibraryCoordinator: Coordinating, CatagoryLibraryViewControllerDelegate {
-    
+
     let presenter: UINavigationController
-    
-    
+
     var mediaFolder: MediaFolder?
-    
+
     var mediaController: CatagoryLibraryViewController<LibraryStoreEmbyCatagoryFetcher>?
-    
+
     var coordinator: Coordinating?
-    
+
     init(presenter: UINavigationController, mediaFolder: MediaFolder? = nil) {
         self.presenter = presenter
         self.mediaFolder = mediaFolder
     }
-    
+
     func start() {
         guard let mediaFolder = mediaFolder else { return }
         let fetcher = LibraryStoreEmbyCatagoryFetcher(catagory: mediaFolder)
@@ -34,8 +32,7 @@ class MediaLibraryCoordinator: Coordinating, CatagoryLibraryViewControllerDelega
         let contentViewController = ContentStateViewController(contentController: mediaController!, fetchMode: .onAppeare, backgroundColor: .black)
         presenter.pushViewController(contentViewController, animated: true)
     }
-    
-    
+
     func itemWasSelected(_ item: BaseItem) {
         if item.type == "Series" {
             coordinator = TvShowCoordinator(presenter: presenter, item: item)
@@ -43,9 +40,9 @@ class MediaLibraryCoordinator: Coordinating, CatagoryLibraryViewControllerDelega
             let mediaFoler = MediaFolder(item: item)
             coordinator = MediaLibraryCoordinator(presenter: presenter, mediaFolder: mediaFoler)
         } else {
-            coordinator = EmbyItemCoordiantor(presenter: presenter, itemId: item.id) 
+            coordinator = EmbyItemCoordiantor(presenter: presenter, itemId: item.id)
         }
-        
+
         coordinator?.start()
     }
 }

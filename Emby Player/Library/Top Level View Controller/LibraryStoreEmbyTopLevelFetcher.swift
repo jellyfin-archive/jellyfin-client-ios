@@ -8,15 +8,14 @@
 
 import Foundation
 
-
 class LibraryStoreEmbyTopLevelFetcher: LibraryStoreFetchable {
     func fetchItems(for user: User, completion: @escaping (FetcherResponse<[MediaFolder]>) -> Void) {
-        
+
         guard let server = ServerManager.currentServer else {
             completion(.failed(ServerManager.Errors.unableToConnectToServer))
             return
         }
-        
+
         server.fetchLibraryTopCatagoriesFor(userId: user.id) { (response: NetworkRequesterResponse<QueryResult>) in
             switch response {
             case .success(let result):  completion(.success(result.items))

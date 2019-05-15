@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol UserListStoreFetchable {
     var isFetching: Bool { get }
     func fetchUserList(completion: @escaping (FetcherResponse<[User]>) -> Void) -> Operation?
@@ -17,11 +16,11 @@ protocol UserListStoreFetchable {
 class UserListStore {
     var users = [User]()
     let fetcher: UserListStoreFetchable
-    
+
     init(fetcher: UserListStoreFetchable) {
         self.fetcher = fetcher
     }
-    
+
     func refreshUsers(completion: @escaping (FetcherResponse<Void>) -> Void) {
         _ = fetcher.fetchUserList { [weak self] (response) in
             var storeResponse: FetcherResponse<Void> = .success(())
@@ -32,9 +31,9 @@ class UserListStore {
             completion(storeResponse)
         }
     }
-    
+
     var numberOfUsers: Int { return users.count }
-    
+
     func userAt(index: Int) -> User {
         return users[index]
     }

@@ -9,15 +9,15 @@
 import UIKit
 
 class ErrorViewController: UIViewController {
-    
+
     let error: Error
     var resolvHandler: (() -> Void)
-    
+
     lazy var contentView: UIStackView = self.setUpContentView()
     lazy var errorTitle: UILabel = self.setUpErrorLabel()
     lazy var errorDescription: UITextView = self.setUpErrorDescription()
     lazy var resolvButton: UIButton = self.setUpResolvButton()
-    
+
     init(error: Error, resolvHandler: @escaping (() -> Void)) {
         self.error = error
         self.resolvHandler = resolvHandler
@@ -25,19 +25,18 @@ class ErrorViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setUpViewController()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
     private func setUpViewController() {
         view.backgroundColor = .clear
         view.addSubview(contentView)
         contentView.centerInSuperview()
         contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
     }
-    
+
     private func setUpContentView() -> UIStackView {
         let views = [errorTitle, errorDescription, resolvButton]
         let view = UIStackView(arrangedSubviews: views)
@@ -46,7 +45,6 @@ class ErrorViewController: UIViewController {
         return view
     }
 
-    
     private func setUpErrorLabel() -> UILabel {
         let label = UILabel()
         label.text = "Ups, an error occured"
@@ -54,7 +52,7 @@ class ErrorViewController: UIViewController {
         label.textColor = .white
         return label
     }
-    
+
     private func setUpErrorDescription() -> UITextView {
         let textView = UITextView()
         textView.textAlignment = .center
@@ -65,7 +63,7 @@ class ErrorViewController: UIViewController {
         textView.textColor = .white
         return textView
     }
-    
+
     private func setUpResolvButton() -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle("Try Again", for: .normal)
@@ -73,7 +71,7 @@ class ErrorViewController: UIViewController {
         button.addTarget(self, action: #selector(resolvWasTapped), for: .touchUpInside)
         return button
     }
-    
+
     @objc
     private func resolvWasTapped() {
         resolvHandler()

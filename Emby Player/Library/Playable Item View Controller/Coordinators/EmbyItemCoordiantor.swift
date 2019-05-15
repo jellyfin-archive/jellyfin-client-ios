@@ -8,32 +8,31 @@
 
 import UIKit
 
-
 class EmbyItemCoordiantor: Coordinating {
-    
+
     let presenter: UINavigationController
-    
+
     var itemId: String?
-    
+
     lazy var itemFetcher = SingleItemStoreEmbyFetcher(itemId: self.itemId ?? "")
     lazy var itemController = ItemViewController(fetcher: self.itemFetcher)
     lazy var contentController = ContentStateViewController(contentController: self.itemController, fetchMode: .onLoad, backgroundColor: .black)
-    
+
     lazy var playerCoordinator = VideoPlayerCoordinator(presenter: self.contentController)
-    
+
     var downloadingItem: PlayableItem?
-    
+
     init(presenter: UINavigationController, itemId: String? = nil) {
         self.presenter = presenter
         self.itemId = itemId
     }
-    
+
     deinit {
         if let downloadingItem = downloadingItem {
             ItemDownloadManager.shared.remove(observer: self, forItemId: downloadingItem.id)
         }
     }
-    
+
     func start() {
         guard let itemId = itemId else { return }
         itemFetcher.itemId = itemId
@@ -43,14 +42,14 @@ class EmbyItemCoordiantor: Coordinating {
 }
 
 extension EmbyItemCoordiantor: ItemViewControllerDelegate {
-    
+
     func playItem(_ item: PlayableItem) {
         guard let server = ServerManager.currentServer,
             let video = item.playableVideo(in: playerCoordinator.playerController, from: server) else { return }
         playerCoordinator.info = (item, video)
         playerCoordinator.start()
     }
-    
+
     func downloadItem(_ item: PlayableItem) {
         do {
             downloadingItem = item
@@ -65,14 +64,13 @@ extension EmbyItemCoordiantor: ItemViewControllerDelegate {
     }
 }
 
-
 extension EmbyItemCoordiantor: DownloadManagerObserverable {
-    
+
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
-        
+
         guard var item = downloadingItem else { return }
         ItemDownloadManager.shared.remove(observer: self, forItemId: item.id)
-        
+
         switch response {
         case .success(let savePath):
             item.diskUrlPath = savePath

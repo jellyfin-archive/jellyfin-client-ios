@@ -8,11 +8,10 @@
 
 import UIKit
 
-
 struct LoginRequest: Codable {
     let username: String
     let password: String
-    
+
     enum CodingKeys: String, CodingKey {
         case username = "nameOrEmail"
         case password = "rawpw"
@@ -24,9 +23,8 @@ protocol EmbyLoginViewControllerDelegate: class {
     func willLogin(with request: LoginRequest)
 }
 
-
 class EmbyLoginViewController: UIViewController {
-    
+
     private struct Strings {
         static let missingUsernameTitle = "Missing Username Input"
         static let missingPasswordTitle = "Missing Password Input"
@@ -35,11 +33,11 @@ class EmbyLoginViewController: UIViewController {
         static let loginTitle = "Login"
         static let serverTitle = "Custom Server"
     }
-    
+
     enum Errors: LocalizedError {
         case missingUsername
         case missingPassword
-        
+
         public var errorDescription: String? {
             switch self {
             case .missingUsername: return Strings.missingUsernameTitle
@@ -47,7 +45,7 @@ class EmbyLoginViewController: UIViewController {
             }
         }
     }
-    
+
     lazy var scrollView: UIScrollView       = self.createScrollView()
     lazy var contentView: UIStackView       = self.createStackView()
     lazy var usernameTextField: UITextField = self.createTextField(placeholder: Strings.usernamePlaceholder, isSecure: false)
@@ -55,33 +53,32 @@ class EmbyLoginViewController: UIViewController {
     lazy var errorTextLabel: UILabel        = self.createErrorTextLabel()
     lazy var loginButton: UIButton          = self.createButton(title: Strings.loginTitle, color: .green, selector: #selector(self.loginButtonWasTapped))
     lazy var customServerButton: UIButton   = self.createButton(title: Strings.serverTitle, color: .orange, selector: #selector(self.customServerWasTapped))
-    
+
     weak var delegate: EmbyLoginViewControllerDelegate?
-    
-    
+
     override func viewDidLoad() {
         setupViewController()
     }
-    
+
     private func setupViewController() {
         title = "Emby Connect"
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.fillSuperView()
     }
-    
+
     private func getLoginRequest() throws -> LoginRequest {
         guard let username = usernameTextField.text, !username.isEmpty else { throw Errors.missingUsername }
         guard let password = passwordTextField.text, !password.isEmpty else { throw Errors.missingPassword }
-        
+
         return LoginRequest(username: username, password: password)
     }
-    
+
     func presentError(_ error: Error) {
         errorTextLabel.text = error.localizedDescription
         errorTextLabel.isHidden = false
     }
-    
+
     @objc
     func loginButtonWasTapped() {
         do {
@@ -91,15 +88,14 @@ class EmbyLoginViewController: UIViewController {
             presentError(error)
         }
     }
-    
+
     @objc
     func customServerWasTapped() {
         delegate?.connectToCustomServer()
     }
-    
-    
+
     // MARK: - View Setup
-    
+
     private func createScrollView() -> UIScrollView {
         let view = UIScrollView()
         view.keyboardDismissMode = .onDrag
@@ -108,7 +104,7 @@ class EmbyLoginViewController: UIViewController {
         contentView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
         return view
     }
-    
+
     private func createStackView() -> UIStackView {
         let arrangedViews = [usernameTextField, passwordTextField, errorTextLabel, loginButton, customServerButton]
         let view = UIStackView(arrangedSubviews: arrangedViews)
@@ -118,7 +114,7 @@ class EmbyLoginViewController: UIViewController {
         view.isLayoutMarginsRelativeArrangement = true
         return view
     }
-    
+
     private func createTextField(placeholder: String, isSecure: Bool) -> UITextField {
         let view = VisibleTextField()
         view.placeholder = placeholder
@@ -126,7 +122,7 @@ class EmbyLoginViewController: UIViewController {
         view.borderStyle = .roundedRect
         return view
     }
-    
+
     private func createErrorTextLabel() -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
@@ -135,7 +131,7 @@ class EmbyLoginViewController: UIViewController {
         view.isHidden = true
         return view
     }
-    
+
     private func createButton(title: String, color: UIColor, selector: Selector) -> UIButton {
         let view = UIButton()
         view.setTitle(title, for: .normal)

@@ -11,13 +11,12 @@ import UIKit
 struct QueryResult<T: Codable>: Codable {
     let items: [T]
     let totalRecordCount: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case items              = "Items"
         case totalRecordCount   = "TotalRecordCount"
     }
 }
-
 
 struct MediaSource: Codable {
     let id: String
@@ -29,7 +28,7 @@ struct MediaSource: Codable {
     let supportsDirectStream: Bool
     let supportsTranscoding: Bool
     let tag: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id                     = "Id"
         case container              = "Container"
@@ -42,7 +41,6 @@ struct MediaSource: Codable {
         case tag                    = "Etag"
     }
 }
-
 
 enum ImageType: String {
     case primary    = "Primary"
@@ -58,24 +56,23 @@ enum ImageType: String {
     case chapter    = "Chapter"
 }
 
-
 protocol PlayableIteming: Codable {
-    
-    var name:               String          { get }
-    var id:                 String          { get }
-    var sourceType:         String?         { get }
-    var hasSubtitle:        Bool?           { get }
-    var path:               String?         { get }
-    var overview:           String?         { get }
-    var seasonTitleText:    String?         { get }
-    var mediaSource:        [MediaSource]   { get }
-    var mediaStreams:       [MediaStream]   { get }
-    var type:               String          { get }
-    var userData:           UserData?       { get }
-    var runTime:            Int             { get }
-    
-    var diskUrlPath:        String?         { get }
-    
+
+    var name: String { get }
+    var id: String { get }
+    var sourceType: String? { get }
+    var hasSubtitle: Bool? { get }
+    var path: String? { get }
+    var overview: String? { get }
+    var seasonTitleText: String? { get }
+    var mediaSource: [MediaSource] { get }
+    var mediaStreams: [MediaStream] { get }
+    var type: String { get }
+    var userData: UserData? { get }
+    var runTime: Int { get }
+
+    var diskUrlPath: String? { get }
+
 //    func imageUrl(with type: ImageType) -> URL?
     func playableVideo(in player: PlayerViewControllable, from server: EmbyAPI) -> Video?
 }
@@ -84,21 +81,20 @@ extension PlayableIteming {
     func imageUrl(with type: ImageType) -> URL? {
         return URL(string: "http://server753.seedhost.eu:8096/emby/Items/\(id)/Images/\(type.rawValue)")
     }
-    
+
     func playableVideo(in player: PlayerViewControllable, from server: EmbyAPI) -> Video? {
-        
+
         guard let mediaSource = mediaSource.first else { return nil }
         guard let videoStream = mediaStreams.filter({ $0.type == "Video" }).first else { return nil }
         guard let audioStream = mediaStreams.filter({ $0.type == "Audio" }).first else { return nil }
-        
-        
+
         let baseUrl = server.baseUrl
-        
+
         var urlPathString = "emby/Videos/\(id)/"
-        
+
         if player.supports(format: mediaSource.container),
             videoStream.codec != "mpeg4" {  // AVPlayerLayer do not play mpeg4
-            
+
             urlPathString += "stream.\(mediaSource.container)"
             let urlPath = baseUrl.appendingPathComponent(urlPathString)
             guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }
@@ -107,7 +103,7 @@ extension PlayableIteming {
                 URLQueryItem(name: "mediaSourceId", value: mediaSource.id),
                 URLQueryItem(name: "deviceId", value: UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"),
                 URLQueryItem(name: "AudioCodec", value: audioStream.codec),
-                URLQueryItem(name: "VideoCodec", value: videoStream.codec),
+                URLQueryItem(name: "VideoCodec", value: videoStream.codec)
             ]
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)
@@ -119,13 +115,13 @@ extension PlayableIteming {
                 URLQueryItem(name: "MediaSourceId", value: mediaSource.id),
                 URLQueryItem(name: "DeviceId", value: UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"),
                 URLQueryItem(name: "AudioCodec", value: "mp3"),
-                URLQueryItem(name: "VideoCodec", value: "h264"),
+                URLQueryItem(name: "VideoCodec", value: "h264")
             ]
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)
 
         }
-        
+
     }
 }
 
@@ -148,7 +144,7 @@ struct PlayableMovie: PlayableIteming {
     let seasonTitleText: String? = nil
     var diskUrlPath: String?
     let runTime: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
         case originalTitle  = "OriginalTitle"
@@ -186,14 +182,14 @@ struct PlayableEpisode: Codable {
         return "Episode \(indexNumber)" + (seasonName != nil ? ", \(seasonName!)" : "")
     }
     let type: String
-    
+
     let indexNumber: Int?
     let seriesId: String?
     let seriesName: String?
     let seasonName: String?
-    
+
     let userData: UserData
-    
+
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
         case id             = "Id"
@@ -208,23 +204,22 @@ struct PlayableEpisode: Codable {
         case type           = "Type"
         case userData       = "UserData"
     }
-    
+
 //    func imageUrl(with type: ImageType) -> URL? {
 //        return URL(string: "http://server753.seedhost.eu:8096/emby/Items/\(id)/Images/\(type.rawValue)")
 //    }
 }
 
-
 struct PlayableItem: PlayableIteming, Hashable {
-    
+
     static func == (lhs: PlayableItem, rhs: PlayableItem) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
+
     let name: String
     let id: String
     let sourceType: String?
@@ -241,10 +236,10 @@ struct PlayableItem: PlayableIteming, Hashable {
     let userData: UserData?
     let runTime: Int
     let genres: [String]?
-    
+
     /// Used to store the url for an item that is saved offline
     var diskUrlPath: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
         case id             = "Id"
@@ -264,7 +259,6 @@ struct PlayableItem: PlayableIteming, Hashable {
         case genres         = "Genres"
     }
 }
-
 
 struct BaseItem: Codable {
     let name: String
@@ -286,10 +280,9 @@ struct BaseItem: Codable {
     let indexNumber: Int?
     let isFolder: Bool?
     let type: String?
-    
+
     let userData: UserData
-    
-    
+
     init(name: String, originalTitle: String?, id: String, sourceType: String?, hasSubtitle: Bool?, path: String?, overview: String?, aspectRatio: String?, isHD: Bool?, seriesId: String?, seriesName: String?, seasonName: String?, width: Int?, height: Int?, mediaSource: [MediaSource]?, mediaStreams: [MediaStream]?, indexNumber: Int?, isFolder: Bool?, type: String?, userData: UserData) {
         self.name = name
         self.originalTitle = originalTitle
@@ -312,7 +305,7 @@ struct BaseItem: Codable {
         self.type = type
         self.userData = userData
     }
-    
+
     init(item: PlayableItem) {
         let userData = item.userData ?? UserData(key: "Key",
                                                  unplayedItemCount: nil,
@@ -341,7 +334,7 @@ struct BaseItem: Codable {
                   type: item.type,
                   userData: userData)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
         case originalTitle  = "OriginalTitle"
@@ -364,7 +357,7 @@ struct BaseItem: Codable {
         case mediaStreams   = "MediaStreams"
         case userData       = "UserData"
     }
-    
+
     func session(positionTicks: Int? = nil) -> PlaybackStart {
         return PlaybackStart(queueableMediaTypes: [.video],
                               canSeek: true,
@@ -381,40 +374,40 @@ struct BaseItem: Codable {
                               liveStreamId: "LiveStreamId",
                               playSessionId: "PlaySessionId")
     }
-    
+
 //    func imageUrl(with type: ImageType) -> URL? {
 //        return URL(string: "http://server753.seedhost.eu:8096/emby/Items/\(id)/Images/\(type.rawValue)")
 //    }
-    
+
     func playableVideo(in player: PlayerViewControllable, from server: EmbyAPI) -> Video? {
         guard let mediaSource = mediaSource?.first else { return nil }
         let baseUrl = server.baseUrl
-        
+
         if mediaSource.supportsDirectStream,
             player.supports(format: mediaSource.container) {
-            
+
             let urlPath = baseUrl.appendingPathComponent("emby/Videos/\(id)/stream.\(mediaSource.container)")
             guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }
             urlComponents.queryItems = [
                 URLQueryItem(name: "Static", value: "true"),
                 URLQueryItem(name: "mediaSourceId", value: mediaSource.id),
-                URLQueryItem(name: "deviceId", value: "xxxx"),
+                URLQueryItem(name: "deviceId", value: "xxxx")
             ]
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)
         } else if mediaSource.supportsDirectPlay {
-            
+
             let urlPath = baseUrl.appendingPathComponent("emby/Videos/\(id)/main.m3u8")
             guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }
             urlComponents.queryItems = [
                 //                URLQueryItem(name: "PlaySessionId", value: ""),
                 URLQueryItem(name: "MediaSourceId", value: mediaSource.id),
-                URLQueryItem(name: "DeviceId", value: "xxxx"),
-                
+                URLQueryItem(name: "DeviceId", value: "xxxx")
+
             ]
             guard let url = urlComponents.url else { return nil }
             return Video(url: url)
-            
+
         } else {
             print("Item du not support Direct Stream")
             return nil

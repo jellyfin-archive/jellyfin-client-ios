@@ -16,7 +16,7 @@ struct MediaStream: Codable {
     let type: String
     let index: Int?
     let codec: String
-    
+
     enum CodingKeys: String, CodingKey {
         case displayTitle   = "DisplayTitle"
         case bitRate        = "BitRate"

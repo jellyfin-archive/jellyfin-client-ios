@@ -8,18 +8,16 @@
 
 import UIKit
 
-
 class OngoingDownloadCoordinator: Coordinating {
-    
+
     let presenter: UINavigationController
-    
+
     lazy var ongoingViewController = OngoingDownloadsViewController()
-    
-    
+
     init(presenter: UINavigationController) {
         self.presenter = presenter
     }
-    
+
     func start() {
         presenter.pushViewController(ongoingViewController, animated: true)
     }

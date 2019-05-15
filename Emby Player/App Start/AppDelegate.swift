@@ -16,17 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         window = coordinator.window
         coordinator.start()
-        
+
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().barTintColor = UIColor(white: 0.05, alpha: 1)
         UINavigationBar.appearance().barStyle = .black
-        
+
         UITabBar.appearance().tintColor = .white
         UITabBar.appearance().barTintColor = UIColor(white: 0.05, alpha: 1)
-        
+
         if #available(iOS 11, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
             UINavigationBar.appearance().isTranslucent = true
@@ -35,16 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().isTranslucent = false
             UITabBar.appearance().isTranslucent = false
         }
-        
-        
+
         return true
     }
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return DeviceRotateManager.shared.allowedOrientations
     }
-    
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -67,6 +65,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-
