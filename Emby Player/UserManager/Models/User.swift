@@ -22,5 +22,4 @@ struct User: Codable {
         case serverName     = "ServerName"
         case hasPassword    = "HasPassword"
     }
-
 }

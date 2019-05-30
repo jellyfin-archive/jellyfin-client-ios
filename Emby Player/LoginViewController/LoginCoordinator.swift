@@ -21,19 +21,18 @@ class LoginCoordinator: LoginViewControllerDelegate {
     }
 
     func start() {
-        guard let user = user else { return }
         let loginViewController = LoginViewController(user: user)
         loginViewController.delegate = self
         self.loginViewController = loginViewController
 
-        if !user.hasPassword {
+        if user?.hasPassword == false {
             loginViewController.sendLoginRequest()
         } else {
             presenter.pushViewController(loginViewController, animated: true)
         }
     }
 
-    func loginWasSuccessfull(for user: User) {
+    func loginWasSuccessfull(for user: User?) {
         // Dismissing since the home screen will be presented under the login
         presenter.dismiss(animated: true, completion: nil)
     }

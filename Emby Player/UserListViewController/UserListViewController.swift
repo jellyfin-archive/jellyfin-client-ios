@@ -10,6 +10,7 @@ import UIKit
 
 protocol UserListViewControllerDelegate: class {
     func userWasSelected(_ user: User, from userListViewController: UserListViewContentController)
+    func loginManually(from userListViewController: UserListViewContentController)
     func disconnectFromServer()
 }
 
@@ -27,6 +28,7 @@ class UserListViewContentController: UIViewController, ContentViewControlling {
     lazy var collectionView: UICollectionView = self.createCollectionView()
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = self.createCollectionFlowLayout()
     lazy var disconnectBarButton = UIBarButtonItem(title: "Disconnect", style: .done, target: self, action: #selector(disconnectFromServer))
+    lazy var manuallyLoginButton = UIBarButtonItem(title: "Login Manually", style: .done, target: self, action: #selector(loginManually))
 
     let store: UserListStore
 
@@ -46,11 +48,22 @@ class UserListViewContentController: UIViewController, ContentViewControlling {
         delegate?.disconnectFromServer()
     }
 
+    @objc func loginManually() {
+        delegate?.loginManually(from: self)
+    }
+
     func fetchContent(completion: @escaping (FetcherResponse<Void>) -> Void) {
         store.refreshUsers(completion: completion)
     }
 
     private func updateForTraitCollection() {
+
+        guard store.hasUsers else {
+            let width = view.bounds.width - LayoutConstants.collectionSpacing * 2
+            let height = width + LayoutConstants.minCellHeightPadding * 3
+            collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
+            return
+        }
 
         let usableCollectionWidth =
             LayoutConstants.collectionSpacing + view.frame.width
@@ -76,6 +89,7 @@ class UserListViewContentController: UIViewController, ContentViewControlling {
         view.addSubview(collectionView)
         collectionView.fillSuperView()
         navigationItem.leftBarButtonItem = disconnectBarButton
+        navigationItem.rightBarButtonItem = manuallyLoginButton
         updateForTraitCollection()
     }
 
@@ -102,30 +116,36 @@ class UserListViewContentController: UIViewController, ContentViewControlling {
         }
     }
 }
-
-extension UserListViewContentController: UITableViewDataSource, UITableViewDelegate {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.numberOfUsers
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let user = store.userAt(index: indexPath.row)
-        let cell = tableView.cellForItem(at: indexPath, ofType: UITableViewCell.self)
-        cell.textLabel?.text = user.name
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = store.userAt(index: indexPath.row)
-        delegate?.userWasSelected(user, from: self)
-    }
-}
+//
+//extension UserListViewContentController: UITableViewDataSource, UITableViewDelegate {
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if store.hasUsers {
+//            return store.numberOfUsers
+//        } else {
+//            return 1
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.cellForItem(at: indexPath, ofType: UITableViewCell.self)
+//        if store.hasUsers {
+//            configUserContent(for: cell, at: indexPath.row)
+//        } else {
+//            configNoUsersContent(for: cell)
+//        }
+//        return cell
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let user = store.userAt(index: indexPath.row)
+//        delegate?.userWasSelected(user, from: self)
+//    }
+//}
 
 extension UserListViewContentController: UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -134,14 +154,41 @@ extension UserListViewContentController: UICollectionViewDataSource, UICollectio
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return store.numberOfUsers
+        if store.hasUsers {
+            return store.numberOfUsers
+        } else {
+            return 1
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let user = store.userAt(index: indexPath.row)
         let cell = collectionView.cellForItem(at: indexPath, ofType: UserCollectionViewCell.self)
+        if store.hasUsers {
+            configUserContent(for: cell, at: indexPath.row)
+        } else {
+            configNoUsersContent(for: cell)
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if store.hasUsers {
+            let user = store.userAt(index: indexPath.row)
+            delegate?.userWasSelected(user, from: self)
+        } else {
+            delegate?.loginManually(from: self)
+        }
+    }
+
+    private func configNoUsersContent(for cell: UserCollectionViewCell) {
+        cell.titleLabel.text = "There are no visable users. Tap here to log in manually."
+        cell.imageView.image = nil
+    }
+
+    private func configUserContent(for cell: UserCollectionViewCell, at index: Int) {
+        let user = store.userAt(index: index)
 
         cell.imageView.image = UIImage(named: "User Image")
         if let userImageUrl = ServerManager.currentServer?
@@ -149,11 +196,5 @@ extension UserListViewContentController: UICollectionViewDataSource, UICollectio
             _ = cell.imageView.fetch(userImageUrl)
         }
         cell.titleLabel.text = user.name
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let user = store.userAt(index: indexPath.row)
-        delegate?.userWasSelected(user, from: self)
     }
 }

@@ -77,5 +77,6 @@ class UserCollectionViewCell: UICollectionViewCell {
 
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
     }
 }

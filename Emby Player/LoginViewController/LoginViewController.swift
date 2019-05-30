@@ -12,26 +12,27 @@ import CryptoSwift
 protocol LoginViewControllerDelegate: class {
 
     /// Presenting the home screen
-    func loginWasSuccessfull(for user: User)
+    func loginWasSuccessfull(for user: User?)
 }
 
 class LoginViewController: UIViewController {
 
     /// The user to be authenticated
-    let user: User
+    let user: User?
 
     weak var delegate: LoginViewControllerDelegate?
 
-    lazy var scrollView: UIScrollView = self.setUpScrollView()
-    lazy var contentStackView: UIStackView = self.setUpContentStackView()
+    lazy var scrollView: UIScrollView       = self.setUpScrollView()
+    lazy var contentStackView: UIStackView  = self.setUpContentStackView()
+    lazy var errorTextView: UITextView      = self.setUpTextView()
     lazy var usernameTextField: UITextField = self.setUpUsernameField()
-    lazy var imageView: UIImageView = self.setUpImageView()
+    lazy var imageView: UIImageView         = self.setUpImageView()
     lazy var passwordTextField: UITextField = self.setUpPasswordField()
-    lazy var loginButton: UIButton = self.setUpLoginButton()
+    lazy var loginButton: UIButton          = self.setUpLoginButton()
 
     private var imageFetchTask: URLSessionTask?
 
-    init(user: User) {
+    init(user: User? = nil) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
         setUpViewController()
@@ -42,12 +43,18 @@ class LoginViewController: UIViewController {
     }
 
     private func setUpViewController() {
-        title = user.name
+        title = user?.name ?? "Login"
         view.backgroundColor = .black
         view.addSubview(scrollView)
         scrollView.fillSuperView()
+        errorTextView.isHidden = true
         imageView.image = UIImage(named: "User Image")
-        guard let userImageUrl = ServerManager.currentServer?.baseUrl.appendingPathComponent("emby/Users/\(user.id)/Images/Primary") else { return }
+        guard let user = user,
+            let userImageUrl = ServerManager.currentServer?.baseUrl.appendingPathComponent("emby/Users/\(user.id)/Images/Primary") else {
+                imageView.isHidden = true
+                return
+        }
+        usernameTextField.isHidden = true
         imageFetchTask?.cancel()
         imageFetchTask = imageView.fetch(userImageUrl)
     }
@@ -56,10 +63,12 @@ class LoginViewController: UIViewController {
 
         guard let password = passwordTextField.text else { return nil }
 
+        let username = user?.name ?? usernameTextField.text ?? ""
+
         let sha = password.sha1()
         let md5 = password.md5()
 
-        return AuthenticateUserByName(username: user.name, passwordMd5: md5, password: sha, pw: password)
+        return AuthenticateUserByName(username: username, passwordMd5: md5, password: sha, pw: password)
     }
 
     @objc
@@ -67,11 +76,16 @@ class LoginViewController: UIViewController {
 
         guard let requestBody = getUserLoginBody() else { return }
 
-        ServerManager.currentServer?.authenticateUserWith(id: user.id, login: requestBody) { [weak self] (response) in
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+
+        ServerManager.currentServer?.autenticateUser(with: requestBody) { [weak self] (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let result):  self?.handleSuccess(with: result)
-                case .failed(let error):    print("Network Error: ", error)
+                case .failed(let error):
+                    self?.errorTextView.text = "Error: " + error.localizedDescription
+                    self?.errorTextView.isHidden = false
                 }
             }
         }
@@ -98,7 +112,7 @@ class LoginViewController: UIViewController {
     }
 
     private func setUpContentStackView() -> UIStackView {
-        let views = [imageView, passwordTextField, loginButton]
+        let views = [errorTextView, imageView, usernameTextField, passwordTextField, loginButton]
         let stackView = UIStackView(arrangedSubviews: views)
 
         stackView.spacing = 20
@@ -111,6 +125,16 @@ class LoginViewController: UIViewController {
         }
 
         return stackView
+    }
+
+    private func setUpTextView() -> UITextView {
+        let view = UITextView()
+        view.backgroundColor = .clear
+        view.textColor = .red
+        view.isScrollEnabled = false
+        view.isEditable = false
+        view.font = .boldSystemFont(ofSize: 20)
+        return view
     }
 
     private func setUpImageView() -> UIImageView {

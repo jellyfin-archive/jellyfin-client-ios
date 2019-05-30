@@ -20,7 +20,9 @@ class UserListCoordinator: Coordinating, UserListViewControllerDelegate {
     )
 
     private lazy var contentController          = ContentStateViewController(
-        contentController: self.userListViewController,   fetchMode: .onAppeare,   backgroundColor: .black
+        contentController:  self.userListViewController,
+        fetchMode:          .onAppeare,
+        backgroundColor:    .black
     )
 
     private lazy var navigationController       = UINavigationController(
@@ -50,6 +52,10 @@ class UserListCoordinator: Coordinating, UserListViewControllerDelegate {
 
     func userWasSelected(_ user: User, from userListViewController: UserListViewContentController) {
         loginCoordinator.user = user
+        loginCoordinator.start()
+    }
+
+    func loginManually(from userListViewController: UserListViewContentController) {
         loginCoordinator.start()
     }
 

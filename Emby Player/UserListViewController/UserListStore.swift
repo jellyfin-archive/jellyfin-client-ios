@@ -34,6 +34,8 @@ class UserListStore {
 
     var numberOfUsers: Int { return users.count }
 
+    var hasUsers: Bool { return numberOfUsers != 0 }
+
     func userAt(index: Int) -> User {
         return users[index]
     }

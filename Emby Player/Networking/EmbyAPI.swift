@@ -274,6 +274,15 @@ class EmbyAPI {
         NetworkRequester().post(at: authUrl, header: headers, body: login, completion: completion)
     }
 
+    func autenticateUser(with login: AuthenticateUserByName, completion: @escaping (NetworkRequesterResponse<AuthenticationResult>) -> Void) {
+        let authUrl = baseUrl.appendingPathComponent("emby/Users/AuthenticateByName")
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+
+        NetworkRequester().post(at: authUrl, header: headers, body: login, completion: completion)
+    }
+
     func downloadFile(_ item: PlayableItem) throws {
 
         guard let video = startPlaybackSession(for: item, in: PlayerViewController()) else { throw Errors.urlComponents }

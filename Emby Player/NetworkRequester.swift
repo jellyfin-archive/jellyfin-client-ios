@@ -34,6 +34,17 @@ enum NetworkRequesterError: Int, Error {
     case notFound = 404
 }
 
+struct NetworkingError: LocalizedError {
+    let code: Int
+    let reason: String
+
+    /// A localized message describing what error occurred.
+    var errorDescription: String? { return reason }
+
+    /// A localized message describing the reason for the failure.
+    var failureReason: String? { return reason }
+}
+
 /// An object making it easier to make network calls
 class NetworkRequester {
 
@@ -130,7 +141,7 @@ class NetworkRequester {
                 let responseText = String(data: data, encoding: .utf8) ?? ""
                 print("Network error with code: ", httpResponse.statusCode)
                 print("Response: ", responseText)
-                completion( .failed( NetworkRequesterError(rawValue: httpResponse.statusCode) ?? .unknown))
+                completion( .failed( NetworkingError(code: httpResponse.statusCode, reason: responseText)))
             }
         } else {
             completion( .failed( NetworkRequesterError.unknown))
