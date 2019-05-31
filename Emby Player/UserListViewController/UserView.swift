@@ -10,8 +10,10 @@ import UIKit
 
 class ImageSubtitleView: UIView {
 
-    lazy var imageView: UIImageView = self.createImageView()
+    lazy var imageView: UIImageView = UIImageView()
     lazy var titleLabel: UILabel = UILabel()
+
+    lazy var squareImageConstraint = self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 1)
 
     var imageCornerRadius: CGFloat {
         get { return imageView.layer.cornerRadius }
@@ -29,9 +31,11 @@ class ImageSubtitleView: UIView {
     }
 
     private func setUpView() {
-        backgroundColor = .clear
+        backgroundColor = .black
         addSubview(imageView)
         addSubview(titleLabel)
+
+        showImageView()
 
         imageView.anchorTo(top: topAnchor,
                            leading: leadingAnchor,
@@ -42,10 +46,14 @@ class ImageSubtitleView: UIView {
                                         bottom: bottomAnchor)
     }
 
-    private func createImageView() -> UIImageView {
-        let view = UIImageView()
-        view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-        return view
+    func hideImageView() {
+        squareImageConstraint.isActive = false
+        imageView.isHidden = true
+    }
+
+    func showImageView() {
+        squareImageConstraint.isActive = true
+        imageView.isHidden = false
     }
 }
 

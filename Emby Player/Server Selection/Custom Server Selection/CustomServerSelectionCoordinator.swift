@@ -27,8 +27,12 @@ class CustomServerSelectionCoordinator: Coordinating, CustomServerSelectionViewC
     func connectToServer(_ server: ServerConnection) {
         do {
             try ServerManager.shared.connect(to: server)
-            UserManager.shared.logout()
-            presenter.dismiss(animated: true, completion: nil)
+            UserManager.shared.logout { [weak self] response in
+                switch response {
+                case .failed(let error): self?.selectionController.presentError(error)
+                case .success: self?.presenter.dismiss(animated: true, completion: nil)
+                }
+            }
         } catch {
             selectionController.presentError(error)
         }

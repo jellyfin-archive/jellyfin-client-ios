@@ -15,7 +15,7 @@ class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
     lazy var contentViewController = ContentStateViewController(contentController: self.topLevelViewController, fetchMode: .onAppeare)
     lazy var navigationController = UINavigationController(rootViewController: self.contentViewController)
 
-    lazy var authCoordinator = UserListCoordinator(presenter: self.navigationController)
+//    lazy var authCoordinator = UserListCoordinator(presenter: self.navigationController)
 
     var coordinator: Coordinating?
 
@@ -30,7 +30,6 @@ class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
         var viewControllers = tabBarController.viewControllers ?? []
         viewControllers.append(navigationController)
         tabBarController.setViewControllers(viewControllers, animated: true)
-        contentViewController.leftBarButton = topLevelViewController.logoutBarButton
     }
 
     func folderWasSelected(_ folder: MediaFolder) {
@@ -39,7 +38,7 @@ class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
     }
 
     func userDidLogout() {
-        authCoordinator.start()
+//        authCoordinator.start()
     }
 
     func itemWasSelected(_ item: BaseItem) {

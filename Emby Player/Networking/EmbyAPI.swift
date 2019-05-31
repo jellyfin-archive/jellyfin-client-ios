@@ -62,6 +62,8 @@ struct PlaybackStart: Codable {
 /// An object used to make calls to the Emby Librariy
 class EmbyAPI {
 
+    struct NoContent: Codable {}
+
     enum Errors: LocalizedError {
         case urlComponents
         case dataDecoding
@@ -124,6 +126,10 @@ class EmbyAPI {
             case .success:           print("Success")
             }
         }
+    }
+
+    func profileImageUrl(for user: User) -> URL {
+        return baseUrl.appendingPathComponent("emby/Users/\(user.id)/Images/Primary")
     }
 
     func fetchItemsIn(catagory: MediaFolder, forUserId userId: String, filter: String? = nil, completion: @escaping (NetworkRequesterResponse<[BaseItem]>) -> Void) {
@@ -281,6 +287,15 @@ class EmbyAPI {
         headers.insert(userManager.embyAuthHeader)
 
         NetworkRequester().post(at: authUrl, header: headers, body: login, completion: completion)
+    }
+
+    func logout(_ user: User, completion: @escaping (NetworkRequesterResponse<NoContent>) -> Void) {
+        let logutUrl = baseUrl.appendingPathComponent("Sessions/Logout")
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+
+        NetworkRequester().post(at: logutUrl, header: headers, body: NoContent(), completion: completion)
     }
 
     func downloadFile(_ item: PlayableItem) throws {

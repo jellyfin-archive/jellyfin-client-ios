@@ -17,6 +17,10 @@ protocol UserManaging {
 
 class UserManager: UserManaging {
 
+    enum Errors: Error {
+        case unableToLogout
+    }
+
     private struct Strings {
         static let accessTokenKey   = "AccessToken"
         static let userDataKey      = "UserDataKey"
@@ -76,8 +80,22 @@ class UserManager: UserManaging {
     }
 
     /// Deletes the values in the keychain
-    func logout() {
-        current = nil
-        accessToken = nil
+    func logout(completion: @escaping (NetworkRequesterResponse<Void>) -> Void) {
+
+        guard let user = current else {
+            completion(.failed(Errors.unableToLogout))
+            return
+        }
+
+        ServerManager.currentServer?.logout(user) { [weak self] response in
+
+            self?.current = nil
+            self?.accessToken = nil
+
+            switch response {
+            case .success(_): completion( .success(()))
+            case .failed(let error): completion( .failed(error))
+            }
+        }
     }
 }

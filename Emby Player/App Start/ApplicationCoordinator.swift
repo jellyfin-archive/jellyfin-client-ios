@@ -18,20 +18,20 @@ class ApplicationCoordinator: Coordinating {
     private lazy var topLevelCoordinator    = TopLevelCoordinator(tabBarController: self.tabBarController)
     private lazy var searchCoordinator      = SearchCoordinator(tabBarController: self.tabBarController)
     private lazy var downloadCoordinator    = LocalLibraryCoordinator(tabBarController: self.tabBarController)
-
-    private lazy var authCoordinator        = UserListCoordinator(presenter: self.tabBarController)
+    private lazy var profileCoordinator     = UserProfileCoordinator(tabBarController: self.tabBarController)
 
     init(window: UIWindow) {
         self.window = window
+        downloadCoordinator.start()
         topLevelCoordinator.start()
         searchCoordinator.start()
-        downloadCoordinator.start()
+        profileCoordinator.start()
+        tabBarController.selectedIndex = 1
     }
 
     func start() {
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-        authCoordinator.start()
         _ = ItemDownloadManager.shared
     }
 }

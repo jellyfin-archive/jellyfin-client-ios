@@ -18,7 +18,6 @@ class TopLevelLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewContr
     let topCatagoryStore: LibraryStore<Fetcher>
 
     lazy var tableView: UITableView = self.setUpTableView()
-    lazy var logoutBarButton = UIBarButtonItem(title: "Log out", style: .done, target: self, action: #selector(logout))
 
     weak var delegate: TopLevelLibraryViewControllerDelegate? {
         didSet { tableView.reloadData() }
@@ -63,12 +62,6 @@ class TopLevelLibraryViewController<Fetcher: LibraryStoreFetchable>: UIViewContr
         tableView.estimatedRowHeight = 300
         tableView.register(MediaFolderTableViewCell.self)
         return tableView
-    }
-
-    @objc
-    private func logout() {
-        UserManager.shared.logout()
-        delegate?.userDidLogout()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
