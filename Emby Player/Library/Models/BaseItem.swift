@@ -70,6 +70,7 @@ protocol PlayableIteming: Codable {
     var type: String { get }
     var userData: UserData? { get }
     var runTime: Int { get }
+    var externalLinks: [ExternalLinks]? { get }
 
     var diskUrlPath: String? { get }
 
@@ -125,6 +126,17 @@ extension PlayableIteming {
     }
 }
 
+struct ExternalLinks: Codable {
+
+    let name: String
+    let url: URL
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case url = "Url"
+    }
+}
+
 struct PlayableMovie: PlayableIteming {
     let userData: UserData?
     let id: String
@@ -144,6 +156,7 @@ struct PlayableMovie: PlayableIteming {
     let seasonTitleText: String? = nil
     var diskUrlPath: String?
     let runTime: Int
+    let externalLinks: [ExternalLinks]?
 
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
@@ -163,6 +176,7 @@ struct PlayableMovie: PlayableIteming {
         case userData       = "UserData"
         case diskUrlPath    = "DiskUrlPath"
         case runTime        = "RunTimeTicks"
+        case externalLinks  = "ExternalLinks"
     }
 }
 
@@ -236,6 +250,7 @@ struct PlayableItem: PlayableIteming, Hashable {
     let userData: UserData?
     let runTime: Int
     let genres: [String]?
+    let externalLinks: [ExternalLinks]?
 
     /// Used to store the url for an item that is saved offline
     var diskUrlPath: String?
@@ -257,6 +272,7 @@ struct PlayableItem: PlayableIteming, Hashable {
         case diskUrlPath    = "DiskUrlPath"
         case runTime        = "RunTimeTicks"
         case genres         = "Genres"
+        case externalLinks  = "ExternalUrls"
     }
 }
 

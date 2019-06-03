@@ -22,16 +22,16 @@ class ApplicationCoordinator: Coordinating {
 
     init(window: UIWindow) {
         self.window = window
-        downloadCoordinator.start()
-        topLevelCoordinator.start()
-        searchCoordinator.start()
-        profileCoordinator.start()
-        tabBarController.selectedIndex = 1
     }
 
     func start() {
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         _ = ItemDownloadManager.shared
+        downloadCoordinator.start()
+        topLevelCoordinator.start()
+        searchCoordinator.start()
+        profileCoordinator.start()
+        tabBarController.selectedIndex = 1
     }
 }

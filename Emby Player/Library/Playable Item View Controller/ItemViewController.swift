@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol SingleItemStoreFetchable {
     func fetchItem(completion: @escaping (FetcherResponse<PlayableItem>) -> Void)
@@ -60,6 +61,8 @@ class ItemViewController: UIViewController, ContentViewControlling {
     var contentViewController: UIViewController { return self }
 
     var store: SingleItemStore
+
+    private var externalLinksButtons                        = [UIButton]()
 
     lazy var scrollView: UIScrollView                       = self.setUpScrollView()
     lazy var contentView: UIStackView                       = self.setUpContentView()
@@ -137,6 +140,30 @@ class ItemViewController: UIViewController, ContentViewControlling {
                 DispatchQueue.main.async {
                     self?.imageView.isHidden = true
                 }
+            }
+        }
+        addExternalLinks(for: item)
+    }
+
+    @objc
+    func linkWasTapped(_ sender: UIButton) {
+        guard let item = store.item,
+            let externalLinks = item.externalLinks else { return }
+        for link in externalLinks {
+            if link.name == sender.title(for: .normal) {
+                let webController = SFSafariViewController(url: link.url)
+                present(webController, animated: true, completion: nil)
+            }
+        }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { [weak self] (_) in
+            guard let unownedSelf = self else { return }
+            let offset = unownedSelf.contentView.layoutMargins.left + unownedSelf.contentView.layoutMargins.right
+            for button in unownedSelf.externalLinksButtons {
+                button.imageEdgeInsets = UIEdgeInsets(top: 0, left: unownedSelf.view.bounds.width - offset - 30, bottom: 0, right: 0)
             }
         }
     }
@@ -219,6 +246,36 @@ class ItemViewController: UIViewController, ContentViewControlling {
         label.textColor = UIColor(white: 0.9, alpha: 1)
         label.numberOfLines = 0
         return label
+    }
+
+    private func addExternalLinks(for item: PlayableItem) {
+        if let externalLinks = item.externalLinks,
+            externalLinks.isEmpty == false {
+
+            let externalLinksLabel = setUpQualityLabel()
+            externalLinksLabel.text = "Links"
+            contentView.addArrangedSubview(externalLinksLabel)
+
+            for link in externalLinks {
+                let button = UIButton(type: .system)
+                button.setTitle(link.name, for: .normal)
+                button.addTarget(self, action: #selector(linkWasTapped), for: .touchUpInside)
+                button.titleLabel?.textAlignment = .left
+                button.setImage(#imageLiteral(resourceName: "External Link"), for: .normal)
+                button.semanticContentAttribute = .forceRightToLeft
+                button.setTitleColor(UIColor(white: 0.7, alpha: 1), for: .normal)
+                button.tintColor = UIColor(white: 0.7, alpha: 1)
+                let offset = contentView.layoutMargins.left + contentView.layoutMargins.right
+                button.imageEdgeInsets = UIEdgeInsets(top: 0, left: view.bounds.width - offset - 30, bottom: 0, right: 0)
+                button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+                button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+                if #available(iOS 11, *) {
+                    button.contentHorizontalAlignment = .trailing
+                }
+                externalLinksButtons.append(button)
+                contentView.addArrangedSubview(button)
+            }
+        }
     }
 }
 
