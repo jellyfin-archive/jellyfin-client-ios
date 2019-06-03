@@ -71,6 +71,7 @@ protocol PlayableIteming: Codable {
     var userData: UserData? { get }
     var runTime: Int { get }
     var externalLinks: [ExternalLinks]? { get }
+    var communityRating: Double? { get }
 
     var diskUrlPath: String? { get }
 
@@ -157,6 +158,7 @@ struct PlayableMovie: PlayableIteming {
     var diskUrlPath: String?
     let runTime: Int
     let externalLinks: [ExternalLinks]?
+    let communityRating: Double?
 
     enum CodingKeys: String, CodingKey {
         case name           = "Name"
@@ -177,6 +179,7 @@ struct PlayableMovie: PlayableIteming {
         case diskUrlPath    = "DiskUrlPath"
         case runTime        = "RunTimeTicks"
         case externalLinks  = "ExternalLinks"
+        case communityRating = "CommunityRating"
     }
 }
 
@@ -251,6 +254,7 @@ struct PlayableItem: PlayableIteming, Hashable {
     let runTime: Int
     let genres: [String]?
     let externalLinks: [ExternalLinks]?
+    let communityRating: Double?
 
     /// Used to store the url for an item that is saved offline
     var diskUrlPath: String?
@@ -273,6 +277,7 @@ struct PlayableItem: PlayableIteming, Hashable {
         case runTime        = "RunTimeTicks"
         case genres         = "Genres"
         case externalLinks  = "ExternalUrls"
+        case communityRating = "CommunityRating"
     }
 }
 

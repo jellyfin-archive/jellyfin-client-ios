@@ -74,6 +74,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
     lazy var durationLabel: UILabel                         = self.setUpQualityLabel()
     lazy var qualityLabel: UILabel                          = self.setUpQualityLabel()
     lazy var generesLabel: UILabel                          = self.setUpQualityLabel()
+    lazy var communityRatingLabel: UILabel                  = self.setUpQualityLabel()
 
     private var imageFetchTask: URLSessionTask?
 
@@ -126,9 +127,14 @@ class ItemViewController: UIViewController, ContentViewControlling {
         overviewTextView.isHidden = item.overview == nil
         qualityLabel.isHidden = item.mediaStreams.first == nil
         imageView.isHidden = true
+        communityRatingLabel.isHidden = item.communityRating == nil
 
         if let genres = item.genres {
             generesLabel.text = String(genres.reduce("", { $0 + $1 + ", " }).dropLast(2))
+        }
+
+        if let communityRating = item.communityRating {
+            communityRatingLabel.text = "Community Rating: \(communityRating)"
         }
 
         actionsController.itemId = item.id
@@ -189,7 +195,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
     }
 
     private func setUpContentView() -> UIStackView {
-        let views: [UIView] = [imageView, titleLabel, seasonLabel, actionsController.view, durationLabel, qualityLabel, generesLabel, overviewTextView]
+        let views: [UIView] = [imageView, titleLabel, seasonLabel, actionsController.view, durationLabel, qualityLabel, generesLabel, communityRatingLabel, overviewTextView]
         let view = UIStackView(arrangedSubviews: views)
         view.axis = .vertical
         view.spacing = 10
