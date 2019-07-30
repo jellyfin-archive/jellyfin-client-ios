@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserData: Codable {
-    let key: String
+    let key: String?
     let unplayedItemCount: Int?
     let playbackPositionTicks: Int
     let playCount: Int
