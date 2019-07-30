@@ -14,6 +14,20 @@ struct Video {
     var isHLS: Bool {
         return url.pathExtension == "m3u8"
     }
+    var asset: AVAsset {
+        if url.absoluteString.contains("http") {
+            let headers = [
+                UserManager.shared.embyAuthHeader.header : UserManager.shared.embyAuthHeader.value,
+                UserManager.shared.embyTokenHeader.header : UserManager.shared.embyTokenHeader.value
+            ]
+            print(headers)
+            return AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey" : headers])
+        } else {
+            return AVAsset(url: url)
+        }
+    }
+
+    var playerItem: AVPlayerItem { AVPlayerItem(asset: asset) }
 }
 
 protocol PlayerViewControllable: class {
@@ -152,7 +166,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //        self.player?.removeObserver(self, forKeyPath: "error")
         guard let video = video else { return }
         print("Playing video at:", video.url)
-        playerController.player = AVPlayer(url: video.url)
+        playerController.player = AVPlayer(playerItem: video.playerItem)
 //        playerLayer.removeFromSuperlayer()
 //        playerLayer = AVPlayerLayer(player: player)
 //        view.layer.insertSublayer(playerLayer, at: 0)
