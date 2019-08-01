@@ -16,11 +16,13 @@ struct Video {
     }
     var asset: AVAsset {
         if url.absoluteString.contains("http") {
+
             let headers = [
-                UserManager.shared.embyAuthHeader.header : UserManager.shared.embyAuthHeader.value,
-                UserManager.shared.embyTokenHeader.header : UserManager.shared.embyTokenHeader.value
-            ]
-            print(headers)
+                UserManager.shared.embyAuthHeader,
+                UserManager.shared.embyTokenHeader
+            ].reduce(into: [:]) {
+                $0[$1.header] = $1.value
+            }
             return AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey" : headers])
         } else {
             return AVAsset(url: url)
@@ -64,7 +66,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
                     let url = directory.appendingPathComponent(urlPath)
                     video = Video(url: url)
                 } catch {
-                    print("Error Loadin directory:", error)
+                    print("Error Loading directory:", error)
                 }
             } else if let server = ServerManager.currentServer {
                 video = playableItem?.playableVideo(in: self, from: server)

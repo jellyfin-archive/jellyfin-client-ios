@@ -77,6 +77,7 @@
 		3593959E2135F0EA00374D91 /* BaseItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */; };
 		3598CF06215E380D00E390FD /* ItemDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF05215E380D00E390FD /* ItemDownloadManager.swift */; };
 		3598CF08215E42ED00E390FD /* OngoingDownloadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */; };
+		35C412EE22F2BAEF005E03BE /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C412ED22F2BAEF005E03BE /* ViewBuilder.swift */; };
 		35DDA1522133006E00840B95 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1512133006E00840B95 /* UserManager.swift */; };
 		35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15321330AAD00840B95 /* ErrorViewController.swift */; };
 		35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */; };
@@ -195,6 +196,7 @@
 		3593959D2135F0EA00374D91 /* BaseItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		3598CF05215E380D00E390FD /* ItemDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDownloadManager.swift; sourceTree = "<group>"; };
 		3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadCoordinator.swift; sourceTree = "<group>"; };
+		35C412ED22F2BAEF005E03BE /* ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		35DDA1512133006E00840B95 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		35DDA15321330AAD00840B95 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+childViewController.swift"; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 				351A80FC2145C04F0028AC73 /* UIColor+hexColor.swift */,
 				35E9BB6D21ED2DFA00E609FD /* CellRegister.swift */,
 				3516B0F422F03A000037598E /* UIViewExtension.swift */,
+				35C412ED22F2BAEF005E03BE /* ViewBuilder.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 				35F763A822A19FF400018AB2 /* UserProfileStore.swift in Sources */,
 				35667BF72137C66D000A20A0 /* EmbyAPI.swift in Sources */,
 				352B5F28213165A300E346C6 /* AppDelegate.swift in Sources */,
+				35C412EE22F2BAEF005E03BE /* ViewBuilder.swift in Sources */,
 				35897AAF214AADC4005A1D07 /* VideoPlayerCoordinator.swift in Sources */,
 				3574283B2141728100713FC5 /* SearchViewController.swift in Sources */,
 				357428442141DDCC00713FC5 /* DownloadManager.swift in Sources */,

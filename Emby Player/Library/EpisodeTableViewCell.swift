@@ -104,7 +104,7 @@ class EpisodeTableViewCell: UITableViewCell {
     func update(with episode: PlayableEpisode) {
         titleLabel.text = episode.name
         indexLabel.text = episode.episodeText
-        playedLabel.text = episode.userData.played ? "Watched" : "Unwatched"
+        playedLabel.text = episode.userData.played ? "Watched ✅" : "Unwatched 🙈"
         descriptionTextView.text = episode.overview
 
         imageFetchTask?.cancel()

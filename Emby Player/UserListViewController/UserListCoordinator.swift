@@ -14,27 +14,14 @@ class UserListCoordinator: Coordinating, UserListViewControllerDelegate {
     let presenter: UIViewController
 
     private lazy var userListFetcher            = UserListStoreEmbyPublicFetcher()
-
-    private lazy var userListViewController     = UserListViewContentController(
-        fetcher: self.userListFetcher
-    )
-
+    private lazy var userListViewController     = UserListViewContentController(fetcher: self.userListFetcher)
+    private lazy var navigationController       = UINavigationController(rootViewController: self.contentController)
+    private lazy var loginCoordinator           = LoginCoordinator(presenter: self.navigationController)
+    private lazy var embyConnectCoordinator     = EmbyLoginCoordinator(presenter: self.navigationController)
     private lazy var contentController          = ContentStateViewController(
         contentController:  self.userListViewController,
         fetchMode:          .onAppeare,
         backgroundColor:    .black
-    )
-
-    private lazy var navigationController       = UINavigationController(
-        rootViewController: self.contentController
-    )
-
-    private lazy var loginCoordinator           = LoginCoordinator(
-        presenter: self.navigationController
-    )
-
-    private lazy var embyConnectCoordinator     = EmbyLoginCoordinator(
-        presenter: self.navigationController
     )
 
     init(presenter: UIViewController) {
@@ -45,6 +32,7 @@ class UserListCoordinator: Coordinating, UserListViewControllerDelegate {
         guard UserManager.shared.current == nil else { return }
         userListViewController.delegate = self
         contentController.leftBarButton = userListViewController.disconnectBarButton
+        navigationController.modalPresentationStyle = .fullScreen
         presenter.present(navigationController, animated: true) { [weak self] in
             self?.embyConnectCoordinator.start()
         }

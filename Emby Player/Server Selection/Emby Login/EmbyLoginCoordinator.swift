@@ -20,10 +20,9 @@ class EmbyLoginCoordinator: Coordinating, EmbyLoginViewControllerDelegate {
 
     let presenter: UIViewController
 
-    lazy var loginController = EmbyLoginViewController()
-    lazy var navigationController = UINavigationController(rootViewController: self.loginController)
-
-    lazy var customServerCoordinator = CustomServerSelectionCoordinator(presenter: self.navigationController)
+    lazy var loginController            = EmbyLoginViewController()
+    lazy var navigationController       = UINavigationController(rootViewController: self.loginController)
+    lazy var customServerCoordinator    = CustomServerSelectionCoordinator(presenter: self.navigationController)
 
     init(presenter: UIViewController) {
         self.presenter = presenter
@@ -34,6 +33,7 @@ class EmbyLoginCoordinator: Coordinating, EmbyLoginViewControllerDelegate {
         guard ServerManager.currentServer == nil, EmbyConnectUserManager.shared.connectLogin == nil else { return }
         navigationController.popToRootViewController(animated: false)
         loginController.delegate = self
+        navigationController.modalPresentationStyle = .fullScreen
         presenter.present(navigationController, animated: true) { [weak self] in
             self?.connectToCustomServer()
         }

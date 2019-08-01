@@ -22,13 +22,15 @@ class LoginViewController: UIViewController {
 
     weak var delegate: LoginViewControllerDelegate?
 
-    lazy var scrollView: UIScrollView       = self.setUpScrollView()
+    lazy var scrollView: UIScrollView       = ViewBuilder.scrollView(subview: self.contentStackView)
     lazy var contentStackView: UIStackView  = self.setUpContentStackView()
     lazy var errorTextView: UITextView      = self.setUpTextView()
-    lazy var usernameTextField: UITextField = self.setUpUsernameField()
+    lazy var usernameLabel                  = ViewBuilder.textLabel(font: .title3, text: "Username")
+    lazy var usernameTextField: UITextField = ViewBuilder.textField(placeholder: "John Appleseed", keybordType: .emailAddress)
     lazy var imageView: UIImageView         = self.setUpImageView()
-    lazy var passwordTextField: UITextField = self.setUpPasswordField()
-    lazy var loginButton: UIButton          = self.setUpLoginButton()
+    lazy var passwordLabel                  = ViewBuilder.textLabel(font: .title3, text: "Password")
+    lazy var passwordTextField: UITextField = ViewBuilder.textField(placeholder: "Password", isSecureTextEntry: true, delegate: self, returnKeyType: .go)
+    lazy var loginButton: UIButton          = ViewBuilder.button(title: "Login", color: .orange, target: self, selector: #selector(sendLoginRequest))
 
     private var imageFetchTask: URLSessionTask?
 
@@ -98,21 +100,16 @@ class LoginViewController: UIViewController {
 
     // MARK: - View Setup
 
-    private func setUpScrollView() -> UIScrollView {
-        let scrollView = UIScrollView()
-
-        scrollView.alwaysBounceVertical = true
-        scrollView.keyboardDismissMode = .onDrag
-
-        scrollView.addSubview(contentStackView)
-        contentStackView.fillSuperView()
-        contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1).isActive = true
-
-        return scrollView
-    }
-
     private func setUpContentStackView() -> UIStackView {
-        let views = [errorTextView, imageView, usernameTextField, passwordTextField, loginButton]
+        let views = [
+            errorTextView,
+            imageView,
+            usernameLabel,
+            usernameTextField,
+            passwordLabel,
+            passwordTextField,
+            loginButton
+        ]
         let stackView = UIStackView(arrangedSubviews: views)
 
         stackView.spacing = 20

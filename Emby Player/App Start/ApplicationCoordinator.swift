@@ -27,7 +27,7 @@ class ApplicationCoordinator: Coordinating {
     func start() {
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-        _ = ItemDownloadManager.shared
+        _ = ItemDownloadManager.shared // initing the download manager
         downloadCoordinator.start()
         topLevelCoordinator.start()
         searchCoordinator.start()

@@ -10,10 +10,10 @@ import UIKit
 
 class TopLevelCoordinator: Coordinating, TopLevelLibraryViewControllerDelegate {
 
-    lazy var topLevelFetcher = LibraryStoreEmbyTopLevelFetcher()
+    lazy var topLevelFetcher        = LibraryStoreEmbyTopLevelFetcher()
     lazy var topLevelViewController = TopLevelLibraryViewController(fetcher: self.topLevelFetcher)
-    lazy var contentViewController = ContentStateViewController(contentController: self.topLevelViewController, fetchMode: .onAppeare)
-    lazy var navigationController = UINavigationController(rootViewController: self.contentViewController)
+    lazy var contentViewController  = ContentStateViewController(contentController: self.topLevelViewController, fetchMode: .onAppeare)
+    lazy var navigationController   = UINavigationController(rootViewController: self.contentViewController)
 
 //    lazy var authCoordinator = UserListCoordinator(presenter: self.navigationController)
 
