@@ -85,7 +85,7 @@ class EmbyAPI {
         self.baseUrl = baseUrl
     }
 
-    func startPlaybackSession(for item: PlayableIteming, in player: PlayerViewControllable) -> Video? {
+    func startPlaybackSession(for item: PlayableIteming, in player: SupportedContainerController) -> Video? {
 
         guard let video = item.playableVideo(in: player, from: self) else { return nil }
 
@@ -298,9 +298,9 @@ class EmbyAPI {
         NetworkRequester().post(at: logutUrl, header: headers, body: NoContent(), completion: completion)
     }
 
-    func downloadFile(_ item: PlayableItem) throws {
+    func downloadFile(_ item: PlayableItem, supportedContainer: SupportedContainerController) throws {
 
-        guard let video = startPlaybackSession(for: item, in: PlayerViewController()) else { throw Errors.urlComponents }
+        guard let video = startPlaybackSession(for: item, in: supportedContainer) else { throw Errors.urlComponents }
 
         var headers = NetworkRequester.defaultHeader
         headers.insert(userManager.embyAuthHeader)
@@ -308,14 +308,31 @@ class EmbyAPI {
 
         var savePath = item.id
 
-        guard let container = item.mediaSource.first?.container else { throw Errors.dataDecoding }
+        guard let container = item.mediaSources
+            .first(where: { supportedContainer.supports(container: $0.container) })?
+            .container else { throw Errors.dataDecoding }
         savePath += "." + container
         try ItemDownloadManager.shared.startDownload(for: item, with: video, to: savePath, headers: headers)
     }
 
+    func downloadFile(_ item: SyncItem, supportedContainer: SupportedContainerController) throws -> DownloadManagerDownloadPath {
+
+        guard let container = item.mediaSource?.container else { throw Errors.dataDecoding }
+        guard supportedContainer.supports(container: container) else { throw Errors.unsupportedFile(container) }
+
+        let video = Video(url: baseUrl.appendingPathComponent("emby/Sync/JobItems/\(item.id)/File"))
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+        headers.insert(userManager.embyTokenHeader)
+
+        let savePath = "\(item.itemId).\(container)"
+        try ItemDownloadManager.shared.startDownload(for: item.playableItem, with: video, to: savePath, headers: headers)
+        return video.url.path
+}
+
     func fetchSubtitle(_ subtitleStream: MediaStream, for item: PlayableIteming, completion: @escaping (NetworkRequesterResponse<Subtitles>) -> Void) {
 
-        guard let mediaSource = item.mediaSource.first,
+        guard let mediaSource = item.mediaSources.first,
             let streamIndex = subtitleStream.index else { return }
         let urlPath = baseUrl.appendingPathComponent("emby/Videos/\(item.id)/\(mediaSource.id)/Subtitles/\(streamIndex)/Stream.vtt")
 
@@ -337,8 +354,54 @@ class EmbyAPI {
     }
 
     func subtitleUrl(for subtitleStream: MediaStream, in item: PlayableIteming) -> String {
-        guard let mediaSource = item.mediaSource.first,
+        guard let mediaSource = item.mediaSources.first,
             let streamIndex = subtitleStream.index else { return "" }
         return baseUrl.appendingPathComponent("emby/Videos/\(item.id)/\(mediaSource.id)/Subtitles/\(streamIndex)/Stream.vtt").absoluteString
+    }
+
+    func send(_ jobRequest: SyncManager.JobRequest, completion: @escaping (NetworkRequesterResponse<SyncManager.RequestedJob>) -> Void) {
+        let requester = NetworkRequester()
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+        headers.insert(userManager.embyTokenHeader)
+
+        let url = baseUrl.appendingPathComponent("emby/Sync/Jobs")
+        requester.post(at: url, header: headers, body: jobRequest, completion: completion)
+    }
+
+    func cancelJob(_ job: SyncManager.RequestedJob, completion: @escaping (NetworkRequesterResponse<NoContent>) -> Void) {
+
+        guard let jobId = job.id else { return }
+        let requester = NetworkRequester()
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+        headers.insert(userManager.embyTokenHeader)
+
+        let url = baseUrl.appendingPathComponent("emby/Sync/Jobs/\(jobId)")
+        requester.delete(at: url, header: headers, completion: completion)
+    }
+
+    func fetchJobs(completion: @escaping (NetworkRequesterResponse<QueryResult<SyncManager.RequestedJob>>) -> Void) {
+        let requester = NetworkRequester()
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(userManager.embyAuthHeader)
+        headers.insert(userManager.embyTokenHeader)
+
+        let url = baseUrl.appendingPathComponent("emby/Sync/Jobs")
+        requester.get(at: url, header: headers, completion: completion)
+    }
+
+    func fetchJobItems(completion: @escaping (NetworkRequesterResponse<QueryResult<SyncItem>>) -> Void) {
+
+        let url = baseUrl.appendingPathComponent("emby/Sync/JobItems")
+
+        var headers = NetworkRequester.defaultHeader
+        headers.insert(UserManager.shared.embyAuthHeader)
+        headers.insert(UserManager.shared.embyTokenHeader)
+
+        NetworkRequester().get(at: url, header: headers, completion: completion)
     }
 }

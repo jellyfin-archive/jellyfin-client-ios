@@ -78,6 +78,8 @@
 		3598CF06215E380D00E390FD /* ItemDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF05215E380D00E390FD /* ItemDownloadManager.swift */; };
 		3598CF08215E42ED00E390FD /* OngoingDownloadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */; };
 		35C412EE22F2BAEF005E03BE /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C412ED22F2BAEF005E03BE /* ViewBuilder.swift */; };
+		35C412F022F366F5005E03BE /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C412EF22F366F5005E03BE /* SyncManager.swift */; };
+		35C412F222F419F7005E03BE /* SyncJobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C412F122F419F7005E03BE /* SyncJobTableViewCell.swift */; };
 		35DDA1522133006E00840B95 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA1512133006E00840B95 /* UserManager.swift */; };
 		35DDA15421330AAD00840B95 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15321330AAD00840B95 /* ErrorViewController.swift */; };
 		35DDA15621330C1200840B95 /* UIViewController+childViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */; };
@@ -197,6 +199,8 @@
 		3598CF05215E380D00E390FD /* ItemDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDownloadManager.swift; sourceTree = "<group>"; };
 		3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingDownloadCoordinator.swift; sourceTree = "<group>"; };
 		35C412ED22F2BAEF005E03BE /* ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
+		35C412EF22F366F5005E03BE /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
+		35C412F122F419F7005E03BE /* SyncJobTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncJobTableViewCell.swift; sourceTree = "<group>"; };
 		35DDA1512133006E00840B95 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		35DDA15321330AAD00840B95 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		35DDA15521330C1200840B95 /* UIViewController+childViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+childViewController.swift"; sourceTree = "<group>"; };
@@ -524,6 +528,7 @@
 			children = (
 				35F5966F215E1B7900E3117D /* Ongoing Downloads */,
 				357428432141DDCC00713FC5 /* DownloadManager.swift */,
+				35C412EF22F366F5005E03BE /* SyncManager.swift */,
 				3598CF05215E380D00E390FD /* ItemDownloadManager.swift */,
 			);
 			path = DownloadManager;
@@ -652,6 +657,7 @@
 				35F59670215E1B9500E3117D /* OngoingDownloadsViewController.swift */,
 				35F59672215E2B1700E3117D /* OngoingDownloadTableViewCell.swift */,
 				3598CF07215E42ED00E390FD /* OngoingDownloadCoordinator.swift */,
+				35C412F122F419F7005E03BE /* SyncJobTableViewCell.swift */,
 			);
 			path = "Ongoing Downloads";
 			sourceTree = "<group>";
@@ -957,6 +963,7 @@
 				351A80FB214574920028AC73 /* PlayerSettingViewController.swift in Sources */,
 				35667BF52137465A000A20A0 /* UIImageView+fetchUrl.swift in Sources */,
 				351CDB67215BE5DF00ACB83A /* LibraryStoreEmbyTopLevelFetcher.swift in Sources */,
+				35C412F222F419F7005E03BE /* SyncJobTableViewCell.swift in Sources */,
 				351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */,
 				35F59673215E2B1700E3117D /* OngoingDownloadTableViewCell.swift in Sources */,
 				357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */,
@@ -993,6 +1000,7 @@
 				35E9BB6E21ED2DFA00E609FD /* CellRegister.swift in Sources */,
 				35667BF9213809A3000A20A0 /* CatagoryLibraryViewController.swift in Sources */,
 				35DDA15921331BAD00840B95 /* ContentStateViewController.swift in Sources */,
+				35C412F022F366F5005E03BE /* SyncManager.swift in Sources */,
 				352B60722132DF5200E346C6 /* NetworkRequester.swift in Sources */,
 				351A81002146A3F60028AC73 /* PlayableOfflineManager.swift in Sources */,
 				35897AB9214AD0D5005A1D07 /* LocalLibraryCoordinator.swift in Sources */,

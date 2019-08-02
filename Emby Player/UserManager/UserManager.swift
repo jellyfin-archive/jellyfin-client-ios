@@ -13,6 +13,7 @@ import KeychainSwift
 protocol UserManaging {
     var embyAuthHeader: NetworkRequestHeaderValue { get }
     var embyTokenHeader: NetworkRequestHeaderValue { get }
+    var deviceId: String { get }
 }
 
 class UserManager: UserManaging {
@@ -60,11 +61,14 @@ class UserManager: UserManaging {
         }
     }
 
+    var deviceId: String {
+        UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"
+    }
+
     /// The emby auth header based on the current user
     /// This is needed for each network call to the library
     var embyAuthHeader: NetworkRequestHeaderValue {
         let userId = current == nil ? "" : "UserId: \(current!.id), "
-        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "xxxx"
         return NetworkRequestHeaderValue(header: "X-Emby-Authorization", value: "Emby \(userId)Client=\"Emby Player SPAM\", Device=\"iPhone\", DeviceId=\"\(deviceId)\", Version=\"1.0.0\"")
     }
 

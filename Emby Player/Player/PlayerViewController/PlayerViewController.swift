@@ -32,7 +32,11 @@ struct Video {
     var playerItem: AVPlayerItem { AVPlayerItem(asset: asset) }
 }
 
-protocol PlayerViewControllable: class {
+protocol SupportedContainerController {
+    func supports(container: String) -> Bool
+}
+
+protocol PlayerViewControllable: class, SupportedContainerController {
 
     var video: Video? { get set }
     var currentTime: CMTime { get }
@@ -40,7 +44,7 @@ protocol PlayerViewControllable: class {
     var loadedRange: Double { get }
     var isPlaying: Bool { get }
 
-    func supports(format: String) -> Bool
+    func supports(container: String) -> Bool
     func playVideo()
     func pauseVideo()
     func seek(to time: CMTime)
@@ -202,7 +206,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
         })
     }
 
-    func supports(format: String) -> Bool {
+    func supports(container format: String) -> Bool {
         return AVURLAsset.audiovisualMIMETypes().contains("video/" + format)
     }
 

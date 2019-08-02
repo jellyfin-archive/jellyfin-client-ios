@@ -116,8 +116,18 @@ extension ItemDownloadManager: DownloadManagerObserverable {
 
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
         guard let itemId = downloadPathAssociation[downloadPath] else { return }
+        guard var item = activeDownloads[itemId] else { return }
+        
         activeDownloads[itemId] = nil
         downloadPathAssociation[downloadPath] = nil
         DownloadManager.shared.remove(observer: self, forPath: downloadPath)
+
+        switch response {
+        case .success(let savePath):
+            item.diskUrlPath = savePath
+            try? PlayableOfflineManager.shared.add(item)
+        case .failed(let error):
+            print("Error downloading file: \(error)")
+        }
     }
 }

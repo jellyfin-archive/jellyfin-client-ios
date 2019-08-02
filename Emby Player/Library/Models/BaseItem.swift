@@ -42,6 +42,18 @@ struct MediaSource: Codable {
     }
 }
 
+struct SyncMediaSource: Codable {
+    let container: String
+    let path: String
+    let mediaStreams: [MediaStream]
+
+    enum CodingKeys: String, CodingKey {
+        case container              = "Container"
+        case path                   = "Path"
+        case mediaStreams           = "MediaStreams"
+    }
+}
+
 enum ImageType: String {
     case primary    = "Primary"
     case art        = "Art"
@@ -65,7 +77,7 @@ protocol PlayableIteming: Codable {
     var path: String? { get }
     var overview: String? { get }
     var seasonTitleText: String? { get }
-    var mediaSource: [MediaSource] { get }
+    var mediaSources: [MediaSource] { get }
     var mediaStreams: [MediaStream] { get }
     var type: String { get }
     var userData: UserData? { get }
@@ -76,17 +88,21 @@ protocol PlayableIteming: Codable {
     var diskUrlPath: String? { get }
 
 //    func imageUrl(with type: ImageType) -> URL?
-    func playableVideo(in player: PlayerViewControllable, from server: EmbyAPI) -> Video?
+    func playableVideo(in player: SupportedContainerController, from server: EmbyAPI) -> Video?
 }
 
 extension PlayableIteming {
+
     func imageUrl(with type: ImageType) -> URL? {
         return URL(string: "http://server753.seedhost.eu:8096/emby/Items/\(id)/Images/\(type.rawValue)")
     }
 
-    func playableVideo(in player: PlayerViewControllable, from server: EmbyAPI) -> Video? {
+    func playableVideo(in player: SupportedContainerController, from server: EmbyAPI) -> Video? {
 
-        guard let mediaSource = mediaSource.first else { return nil }
+        guard var mediaSource = mediaSources.first else { return nil }
+        if let perferedMediaSource = self.mediaSources.first(where: { player.supports(container: $0.container) }) {
+            mediaSource = perferedMediaSource
+        }
         guard let videoStream = mediaStreams.filter({ $0.type == "Video" }).first else { return nil }
         guard let audioStream = mediaStreams.filter({ $0.type == "Audio" }).first else { return nil }
 
@@ -94,7 +110,7 @@ extension PlayableIteming {
 
         var urlPathString = "emby/Videos/\(id)/"
 
-        if player.supports(format: mediaSource.container),
+        if player.supports(container: mediaSource.container),
             videoStream.codec != "mpeg4" {  // AVPlayerLayer do not play mpeg4
 
             urlPathString += "stream.\(mediaSource.container)"
@@ -139,13 +155,14 @@ struct ExternalLinks: Codable {
 }
 
 struct PlayableMovie: PlayableIteming {
+
     let userData: UserData?
     let id: String
     var hasSubtitle: Bool?
     var aspectRatio: String
     var width: Int
     var height: Int
-    var mediaSource: [MediaSource]
+    var mediaSources: [MediaSource]
     var mediaStreams: [MediaStream]
     var type: String
     let name: String
@@ -172,7 +189,7 @@ struct PlayableMovie: PlayableIteming {
         case isHD           = "IsHD"
         case width          = "Width"
         case height         = "Height"
-        case mediaSource    = "MediaSources"
+        case mediaSources   = "MediaSources"
         case type           = "Type"
         case mediaStreams   = "MediaStreams"
         case userData       = "UserData"
@@ -230,7 +247,7 @@ struct PlayableEpisode: Codable {
 struct PlayableItem: PlayableIteming, Hashable {
 
     static func == (lhs: PlayableItem, rhs: PlayableItem) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
@@ -247,7 +264,7 @@ struct PlayableItem: PlayableIteming, Hashable {
     let seriesName: String?
     let indexNumber: Int?
     var seasonTitleText: String? { return seasonName }
-    let mediaSource: [MediaSource]
+    let mediaSources: [MediaSource]
     let mediaStreams: [MediaStream]
     let type: String
     let userData: UserData?
@@ -269,7 +286,7 @@ struct PlayableItem: PlayableIteming, Hashable {
         case seriesName     = "SeriesName"
         case seasonName     = "SeasonName"
         case indexNumber    = "IndexNumber"
-        case mediaSource    = "MediaSources"
+        case mediaSources   = "MediaSources"
         case mediaStreams   = "MediaStreams"
         case type           = "Type"
         case userData       = "UserData"
@@ -278,6 +295,85 @@ struct PlayableItem: PlayableIteming, Hashable {
         case genres         = "Genres"
         case externalLinks  = "ExternalUrls"
         case communityRating = "CommunityRating"
+    }
+}
+
+struct SyncItem: PlayableIteming, Hashable {
+
+    static func == (lhs: SyncItem, rhs: SyncItem) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    var name: String { itemName }
+    let itemName: String
+    var id: String { String(idAsNumber) }
+    let idAsNumber: Int
+    let itemId: Int
+    let jobId: Int
+    let sourceType: String?
+    let hasSubtitle: Bool?
+    let path: String?
+    let overview: String?
+    let seasonName: String?
+    let seriesName: String?
+    let indexNumber: Int?
+    var seasonTitleText: String? { return seasonName }
+    var mediaSources: [MediaSource] { [] }
+    let mediaSource: SyncMediaSource?
+    var mediaStreams: [MediaStream] { mediaSource?.mediaStreams ?? [] }
+    var type: String { "Movie" }
+    let userData: UserData?
+    var runTime: Int { 0 }
+    let genres: [String]?
+    let externalLinks: [ExternalLinks]?
+    let communityRating: Double?
+
+    /// Used to store the url for an item that is saved offline
+    var diskUrlPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case itemName       = "ItemName"
+        case idAsNumber     = "Id"
+        case itemId         = "ItemId"
+        case jobId          = "JobId"
+        case sourceType     = "SourceType"
+        case hasSubtitle    = "HasSubtitles"
+        case path           = "Path"
+        case overview       = "Overview"
+        case seriesName     = "SeriesName"
+        case seasonName     = "SeasonName"
+        case indexNumber    = "IndexNumber"
+        case mediaSource    = "MediaSource"
+        case userData       = "UserData"
+        case diskUrlPath    = "DiskUrlPath"
+        case genres         = "Genres"
+        case externalLinks  = "ExternalUrls"
+        case communityRating = "CommunityRating"
+    }
+
+    var playableItem: PlayableItem {
+        PlayableItem(name: name,
+                     id: id,
+                     sourceType: sourceType,
+                     hasSubtitle: hasSubtitle,
+                     path: path,
+                     overview: overview,
+                     seasonName: seasonName,
+                     seriesName: seriesName,
+                     indexNumber: indexNumber,
+                     mediaSources: mediaSources,
+                     mediaStreams: mediaStreams,
+                     type: "Unknown",
+                     userData: userData,
+                     runTime: 0,
+                     genres: genres,
+                     externalLinks: externalLinks,
+                     communityRating: communityRating,
+                     diskUrlPath: diskUrlPath)
     }
 }
 
@@ -348,7 +444,7 @@ struct BaseItem: Codable {
                   seasonName: item.seasonName,
                   width: nil,
                   height: nil,
-                  mediaSource: item.mediaSource,
+                  mediaSource: item.mediaSources,
                   mediaStreams: item.mediaStreams,
                   indexNumber: item.indexNumber,
                   isFolder: false,
@@ -405,7 +501,7 @@ struct BaseItem: Codable {
         let baseUrl = server.baseUrl
 
         if mediaSource.supportsDirectStream,
-            player.supports(format: mediaSource.container) {
+            player.supports(container: mediaSource.container) {
 
             let urlPath = baseUrl.appendingPathComponent("emby/Videos/\(id)/stream.\(mediaSource.container)")
             guard var urlComponents = URLComponents(url: urlPath, resolvingAgainstBaseURL: true) else { return nil }

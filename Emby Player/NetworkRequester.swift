@@ -74,6 +74,10 @@ class NetworkRequester {
         makeRequestWith(httpMethod: "GET", at: url, header: header, body: nil, completion: completion)
     }
 
+    func delete<Response: Codable>(at url: URL, header: NetworkRequesterHeader = NetworkRequester.defaultHeader, completion: @escaping (_ response: NetworkRequesterResponse<Response>) -> Void) {
+        makeRequestWith(httpMethod: "DELETE", at: url, header: header, body: nil, completion: completion)
+    }
+
     func makeRequestWith<T: Codable>(httpMethod: String, at url: URL, header: NetworkRequesterHeader, body: Data?, completion: @escaping (_ response: NetworkRequesterResponse<T>) -> Void) {
 
         var request = URLRequest(url: url)

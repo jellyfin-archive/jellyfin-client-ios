@@ -89,7 +89,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         super.init()
         loadActiveDownloads()
         session.getAllTasks { tasks in
-            tasks.forEach {
+            tasks.group(by: \.originalRequest?.url).compactMap({ $0.value.first }).forEach {
                 $0.resume()
             }
         }
@@ -103,6 +103,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
     func startDownload(from downloadUrl: URL, to saveUrlPath: String, with headers: NetworkRequesterHeader) {
 
         let progress = DownloadRequest(downloadPath: downloadUrl.path, expectedContentLength: 0, saveUrlPath: saveUrlPath)
+        guard activeDownloads[progress.downloadPath] == nil else { return }
         activeDownloads[progress.downloadPath] = progress
         saveActiveDownloads()
 
@@ -170,7 +171,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
             saveActiveDownloads()
         }
 
-        if let observers = self.observers[downloadPath] {
+        if let observers = observers[downloadPath] {
             observers.forEach { $0.downloadDidUpdate(currentDownload, downloaded: Int(totalBytesWritten)) }
         }
     }

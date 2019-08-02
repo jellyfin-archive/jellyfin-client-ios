@@ -62,19 +62,21 @@ class ItemViewController: UIViewController, ContentViewControlling {
 
     var store: SingleItemStore
 
-    private var externalLinksButtons                        = [UIButton]()
+    private var externalLinksButtons                            = [UIButton]()
 
-    lazy var scrollView: UIScrollView                       = self.setUpScrollView()
-    lazy var contentView: UIStackView                       = self.setUpContentView()
-    lazy var imageView: UIImageView                         = self.setUpImageView()
-    lazy var titleLabel: UILabel                            = self.setUpTitleLabel()
-    lazy var actionsController: ItemActionsViewController   = self.createActionController()
-    lazy var overviewTextView: UITextView                   = self.setUpOverviewTextView()
-    lazy var seasonLabel: UILabel                           = self.setUpSeasonLabel()
-    lazy var durationLabel: UILabel                         = self.setUpQualityLabel()
-    lazy var qualityLabel: UILabel                          = self.setUpQualityLabel()
-    lazy var generesLabel: UILabel                          = self.setUpQualityLabel()
-    lazy var communityRatingLabel: UILabel                  = self.setUpQualityLabel()
+    lazy var supportedContainer: SupportedContainerController   = PlayerViewController()
+
+    lazy var scrollView: UIScrollView                           = self.setUpScrollView()
+    lazy var contentView: UIStackView                           = self.setUpContentView()
+    lazy var imageView: UIImageView                             = self.setUpImageView()
+    lazy var titleLabel: UILabel                                = self.setUpTitleLabel()
+    lazy var actionsController: ItemActionsViewController       = self.createActionController()
+    lazy var overviewTextView: UITextView                       = self.setUpOverviewTextView()
+    lazy var seasonLabel: UILabel                               = self.setUpSeasonLabel()
+    lazy var durationLabel: UILabel                             = self.setUpQualityLabel()
+    lazy var qualityLabel: UILabel                              = self.setUpQualityLabel()
+    lazy var generesLabel: UILabel                              = self.setUpQualityLabel()
+    lazy var communityRatingLabel: UILabel                      = self.setUpQualityLabel()
 
     private var imageFetchTask: URLSessionTask?
 
@@ -118,11 +120,11 @@ class ItemViewController: UIViewController, ContentViewControlling {
             qualityLabel.text = "Video Quality: \(videoStream.displayTitle ?? ""), \(videoStream.aspectRatio ?? "")"
         }
 
-        if let source = item.mediaSource.first,
-            !PlayerViewController().supports(format: source.container) {
-            actionsController.disableDownload()
-        }
-
+        item.mediaSources.forEach { print($0.container) }
+//        if item.mediaSources.contains(where: { supportedContainer.supports(container: $0.container) }) == false {
+//            actionsController.disableDownload()
+//        }
+        
         seasonLabel.isHidden = item.seriesName == nil
         overviewTextView.isHidden = item.overview == nil
         qualityLabel.isHidden = item.mediaStreams.first == nil

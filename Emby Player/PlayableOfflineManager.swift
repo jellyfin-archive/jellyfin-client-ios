@@ -27,7 +27,7 @@ class PlayableOfflineManager {
     private var downloadedItems: [String: PlayableItem] {
         get {
             do {
-                guard let data = UserDefaults.standard.data(forKey: Strings.downloadedItemsKey) else { throw Errors.unableToEncodeItems }
+                guard let data = UserDefaults.standard.data(forKey: Strings.downloadedItemsKey) else { return [:] }
                 return try JSONDecoder().decode([String: PlayableItem].self, from: data)
             } catch let error {
                 print("Error:", error)
