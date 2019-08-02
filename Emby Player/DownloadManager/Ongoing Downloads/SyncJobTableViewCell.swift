@@ -44,9 +44,9 @@ class SyncJobTableViewCell: UITableViewCell {
 
     @objc
     func stopButtonWasTapped() {
-//        guard let itemId = job?.job.id else { return }
-//        ItemDownloadManager.shared.cancleDownload(forItemId: itemId)
-        totalSizeLabel.text = "Not Working Yet"
+        guard let job = job else { return }
+        SyncManager.shared.cancel(job)
+        totalSizeLabel.text = "Canceled"
     }
 
     func updateViews() {

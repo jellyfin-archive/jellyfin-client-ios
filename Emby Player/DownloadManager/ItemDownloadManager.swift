@@ -117,10 +117,11 @@ extension ItemDownloadManager: DownloadManagerObserverable {
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
         guard let itemId = downloadPathAssociation[downloadPath] else { return }
         guard var item = activeDownloads[itemId] else { return }
-        
+
         activeDownloads[itemId] = nil
         downloadPathAssociation[downloadPath] = nil
         DownloadManager.shared.remove(observer: self, forPath: downloadPath)
+        saveActiceDownloads()
 
         switch response {
         case .success(let savePath):

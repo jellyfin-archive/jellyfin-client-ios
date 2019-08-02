@@ -125,6 +125,19 @@ class SyncManager {
         })
     }
 
+    func cancel(_ job: ActiveJob) {
+        ServerManager.currentServer?.cancelJob(job.job) { [weak self] (response) in
+            switch response {
+            case .success(_):
+                _ = self?.activeJobs.removeValue(forKey: job.job.id ?? 0)
+                if let unownedSelf = self {
+                    self?.delegate?.jobsDidUpdate(in: unownedSelf)
+                }
+            case .failed(let error): print(error)
+            }
+        }
+    }
+
     @objc
     func fetchJobs() {
         ServerManager.currentServer?.fetchJobs(completion: { [weak self] (response) in
@@ -144,8 +157,11 @@ class SyncManager {
                 activeJobs[jobId] = updatedJob
                 delegate?.jobsDidUpdate(in: self)
 
-                if job.status == .readyToTransfer {
+                if activeJob.item.mediaSource != nil {
                     startDownloading(updatedJob)
+                } else if job.status == .readyToTransfer {
+                    fetchItems(for: jobs)
+                    return
                 }
             } else {
                 fetchItems(for: jobs)

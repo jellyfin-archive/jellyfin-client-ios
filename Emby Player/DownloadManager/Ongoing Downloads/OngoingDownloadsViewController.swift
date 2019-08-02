@@ -101,7 +101,7 @@ extension OngoingDownloadsViewController: UITableViewDataSource, UITableViewDele
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let text = section == 0 ? "Downloading" : "Syncing"
+        let text = section == 0 ? "Downloading - \(store.numberOfDownloadingItems)" : "Converting - \(store.numberOfSyncingJobs)"
         let label = ViewBuilder.textLabel(font: .title2, text: text)
         let stackView = ViewBuilder.stackView(arrangedSubviews: [label],
                                               layoutMargins: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
