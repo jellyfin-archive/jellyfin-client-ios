@@ -205,7 +205,7 @@ class SyncManager {
         guard activeJob.job.status == .readyToTransfer, let id = activeJob.job.id else { return }
         guard let server = ServerManager.currentServer else { return }
         do {
-            let downloadPath = try server.downloadFile(activeJob.item, supportedContainer: PlayerViewController())
+            let downloadPath = try server.downloadFile(activeJob.item, supportedContainer: PlayerViewController.supportedContainers)
             downloadingJobs[downloadPath] = activeJobs.removeValue(forKey: id)
             DownloadManager.shared.add(observer: self, forPath: downloadPath)
             delegate?.jobsDidUpdate(in: self)
@@ -216,11 +216,21 @@ class SyncManager {
 }
 
 extension SyncManager : DownloadManagerObserverable {
-    func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
+
+    private func stopSync(with downloadPath: DownloadManagerDownloadPath) {
         guard let activeJob = downloadingJobs[downloadPath] else { return }
         _ = downloadingJobs.removeValue(forKey: downloadPath)
         _ = activeJobs.removeValue(forKey: activeJob.job.id ?? 0)
         delegate?.jobsDidUpdate(in: self)
         ServerManager.currentServer?.cancelJob(activeJob.job, completion: { (_) in })
+    }
+
+
+    func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
+        stopSync(with: downloadPath)
+    }
+
+    func downloadWasStopped(for downloadPath: DownloadManagerDownloadPath) {
+        stopSync(with: downloadPath)
     }
 }

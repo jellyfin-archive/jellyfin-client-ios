@@ -12,12 +12,14 @@ protocol DownloadManagerObserverable {
     var id: String { get }
     func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int)
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>)
+    func downloadWasStopped(for downloadPath: DownloadManagerDownloadPath)
 }
 
 extension DownloadManagerObserverable {
     var id: String { return String(describing: type(of: self)) }
     func downloadDidUpdate(_ progress: DownloadRequest, downloaded: Int) {}
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {}
+    func downloadWasStopped(for downloadPath: DownloadManagerDownloadPath) {}
 }
 
 protocol DownloadProgressable {
@@ -79,6 +81,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
 
     static let shared = DownloadManager()
 
+    var fileManager: FileManager = .default
     var activeDownloads = [String: DownloadRequest]()
     private var tasks = [DownloadManagerDownloadPath: URLSessionDownloadTask]()
     private var observers = [DownloadManagerDownloadPath: [DownloadManagerObserverable]]()
@@ -121,6 +124,10 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         tasks[path]?.cancel()
         tasks[path] = nil
         activeDownloads[path] = nil
+        if let observers = self.observers[path] {
+            observers.forEach { $0.downloadWasStopped(for: path) }
+        }
+        observers[path] = nil
     }
 
     func add(observer: DownloadManagerObserverable, forPath path: DownloadManagerDownloadPath) {
@@ -200,10 +207,21 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
         }
     }
 
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+
+        guard let downloadPath = task.originalRequest?.url?.path else { return }
+        guard let error = error else { return }
+
+        activeDownloads[downloadPath] = nil
+        saveActiveDownloads()
+        if let observers = self.observers[downloadPath] {
+            observers.forEach { $0.downloadWasCompleted(for: downloadPath, response: .failed(error)) }
+        }
+    }
+
     private func saveDownload(_ download: DownloadRequest, tempLocation: URL) throws {
         guard let saveUrl = download.saveUrl else { throw Errors.missingSaveUrl }
 
-        let fileManager = FileManager.default
         if fileManager.fileExists(atPath: saveUrl.path) {
             try fileManager.removeItem(at: saveUrl)
         }

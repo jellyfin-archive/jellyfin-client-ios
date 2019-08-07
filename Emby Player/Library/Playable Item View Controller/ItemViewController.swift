@@ -64,7 +64,7 @@ class ItemViewController: UIViewController, ContentViewControlling {
 
     private var externalLinksButtons                            = [UIButton]()
 
-    lazy var supportedContainer: SupportedContainerController   = PlayerViewController()
+    lazy var supportedContainer: SupportedContainerController   = PlayerViewController.supportedContainers
 
     lazy var scrollView: UIScrollView                           = self.setUpScrollView()
     lazy var contentView: UIStackView                           = self.setUpContentView()

@@ -54,7 +54,15 @@ protocol PlayerViewControllerDelegate: class {
     func playerWillDisappear(_ player: PlayerViewController)
 }
 
+class IOSSupportedVideoContainers: SupportedContainerController {
+    func supports(container: String) -> Bool {
+        return AVURLAsset.audiovisualMIMETypes().contains("video/" + container)
+    }
+}
+
 class PlayerViewController: UIViewController, PlayerViewControllable {
+
+    static let supportedContainers: SupportedContainerController = IOSSupportedVideoContainers()
 
     var video: Video? { didSet { updatePlayer() } }
     var subtitleStream: MediaStream? {
@@ -73,7 +81,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
                     print("Error Loading directory:", error)
                 }
             } else if let server = ServerManager.currentServer {
-                video = playableItem?.playableVideo(in: self, from: server)
+                video = playableItem?.playableVideo(in: PlayerViewController.supportedContainers, from: server)
             }
 //            playerInfoViewController.playerInfo = playableItem
 //            subtitleViewController.item = playableItem
@@ -104,17 +112,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
 //    private var errorViewController: ErrorViewController?
 //    private var playerLayer = AVPlayerLayer()
 
-    private var hideTimer: Timer?
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        setUpViewController()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setUpViewController()
-    }
+//    private var hideTimer: Timer?
 
     private func setUpViewController() {
 
@@ -152,6 +150,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     }
 
     override func viewDidLoad() {
+        setUpViewController()
         if #available(iOS 11, *) {
             setNeedsUpdateOfHomeIndicatorAutoHidden()
         }
@@ -207,7 +206,7 @@ class PlayerViewController: UIViewController, PlayerViewControllable {
     }
 
     func supports(container format: String) -> Bool {
-        return AVURLAsset.audiovisualMIMETypes().contains("video/" + format)
+        PlayerViewController.supportedContainers.supports(container: format)
     }
 
 //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

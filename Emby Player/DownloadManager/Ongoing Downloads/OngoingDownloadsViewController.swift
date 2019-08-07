@@ -26,6 +26,7 @@ class OngoingDownloadStore {
     func fetchContent() {
         downloadingItems = ItemDownloadManager.shared.activeItems()
         syncingJobs = Array(syncManager.activeJobs.values)
+            .filter({ $0.job.targetId == UserManager.shared.deviceId })
             .filter({ $0.job.status != .transferring })
             .sorted(by: { $0.item.id < $1.item.id })
     }

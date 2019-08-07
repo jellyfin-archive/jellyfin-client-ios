@@ -22,9 +22,16 @@ class ItemDownloadManager {
         var errorDescription: String? { return "Unsupported format" }
     }
 
+    let downloadManager: DownloadManager
+    let userDefaults: UserDefaults
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+
     static let shared = ItemDownloadManager()
 
-    init() {
+    init(downloadManager: DownloadManager = .shared, userDefaults: UserDefaults = .standard) {
+        self.downloadManager = downloadManager
+        self.userDefaults = userDefaults
         loadActiveDownloads()
         _ = DownloadManager.shared // Just initing the variable
     }
@@ -48,7 +55,7 @@ class ItemDownloadManager {
     /// - returns: The download progress if it exists
     func progressFor(itemId: String) -> DownloadProgressable? {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return nil }
-        return DownloadManager.shared.activeDownloads[urlPath]
+        return downloadManager.activeDownloads[urlPath]
     }
 
     /// Starts a download of a given item
@@ -64,13 +71,13 @@ class ItemDownloadManager {
         activeDownloads[item.id] = item
         downloadPathAssociation[video.url.path] = item.id
         saveActiceDownloads()
-        DownloadManager.shared.startDownload(from: video.url, to: savePath, with: headers)
-        DownloadManager.shared.add(observer: self, forPath: video.url.path)
+        downloadManager.startDownload(from: video.url, to: savePath, with: headers)
+        downloadManager.add(observer: self, forPath: video.url.path)
     }
 
     func cancleDownload(forItemId itemId: String) {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }
-        DownloadManager.shared.cancleTask(withUrlPath: urlPath)
+        downloadManager.cancleTask(withUrlPath: urlPath)
         activeDownloads[itemId] = nil
         downloadPathAssociation[urlPath] = nil
         saveActiceDownloads()
@@ -78,32 +85,31 @@ class ItemDownloadManager {
 
     func add(_ observer: DownloadManagerObserverable, forItemId itemId: String) {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }
-        DownloadManager.shared.add(observer: observer, forPath: urlPath)
+        downloadManager.add(observer: observer, forPath: urlPath)
     }
 
     func remove(observer: DownloadManagerObserverable, forItemId itemId: String) {
         guard let urlPath = downloadPathAssociation.filter({ $0.value == itemId }).first?.key else { return }
-        DownloadManager.shared.remove(observer: observer, forPath: urlPath)
+        downloadManager.remove(observer: observer, forPath: urlPath)
     }
 
     private func saveActiceDownloads() {
-        let encoder = JSONEncoder()
         let data = try? encoder.encode(activeDownloads)
         let urlData = try? encoder.encode(downloadPathAssociation)
-        UserDefaults.standard.set(data, forKey: Strings.activeDownloads)
-        UserDefaults.standard.set(urlData, forKey: Strings.urlPathAlias)
+        userDefaults.set(data, forKey: Strings.activeDownloads)
+        userDefaults.set(urlData, forKey: Strings.urlPathAlias)
     }
 
     private func loadActiveDownloads() {
-        guard let data = UserDefaults.standard.data(forKey: Strings.activeDownloads),
-            let downloads = try? JSONDecoder().decode(ItemDownloadingItems.self, from: data) else {
+        guard let data = userDefaults.data(forKey: Strings.activeDownloads),
+            let downloads = try? decoder.decode(ItemDownloadingItems.self, from: data) else {
             return
         }
         for (key, value) in downloads {
             activeDownloads[key] = value
         }
-        guard let urlData = UserDefaults.standard.data(forKey: Strings.urlPathAlias),
-            let paths = try? JSONDecoder().decode(ItemDownloadingPathAlias.self, from: urlData) else {
+        guard let urlData = userDefaults.data(forKey: Strings.urlPathAlias),
+            let paths = try? decoder.decode(ItemDownloadingPathAlias.self, from: urlData) else {
                 return
         }
         for (key, value) in paths {
@@ -114,14 +120,21 @@ class ItemDownloadManager {
 
 extension ItemDownloadManager: DownloadManagerObserverable {
 
-    func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
+    private func removeItem(at downloadPath: DownloadManagerDownloadPath) {
         guard let itemId = downloadPathAssociation[downloadPath] else { return }
-        guard var item = activeDownloads[itemId] else { return }
 
         activeDownloads[itemId] = nil
         downloadPathAssociation[downloadPath] = nil
-        DownloadManager.shared.remove(observer: self, forPath: downloadPath)
+        downloadManager.remove(observer: self, forPath: downloadPath)
         saveActiceDownloads()
+    }
+
+    func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
+
+        guard let itemId = downloadPathAssociation[downloadPath] else { return }
+        guard var item = activeDownloads[itemId] else { return }
+
+        removeItem(at: downloadPath)
 
         switch response {
         case .success(let savePath):
@@ -130,5 +143,9 @@ extension ItemDownloadManager: DownloadManagerObserverable {
         case .failed(let error):
             print("Error downloading file: \(error)")
         }
+    }
+
+    func downloadWasStopped(for downloadPath: DownloadManagerDownloadPath) {
+        removeItem(at: downloadPath)
     }
 }
