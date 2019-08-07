@@ -44,6 +44,11 @@ class OngoingDownloadStore {
         guard syncingJobs.count > index else { return nil }
         return syncingJobs[index]
     }
+
+    func clean() {
+        syncingJobs = []
+        downloadingItems = []
+    }
 }
 
 /// View controller that presents the items that are currently beeing downloaded
@@ -66,6 +71,8 @@ class OngoingDownloadsViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         store.delegate = nil
+        store.clean()
+        store.fetchContent()
     }
 
     private func setupViewController() {

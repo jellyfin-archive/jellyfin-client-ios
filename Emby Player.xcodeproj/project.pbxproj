@@ -44,6 +44,7 @@
 		352B5F56213165B500E346C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F55213165B500E346C6 /* LoginViewController.swift */; };
 		352B5F5E21318B4100E346C6 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B5F5D21318B4100E346C6 /* UserListViewController.swift */; };
 		352B60722132DF5200E346C6 /* NetworkRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B60712132DF5100E346C6 /* NetworkRequester.swift */; };
+		3546633822FB0F9E0077BA03 /* QualitySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546633722FB0F9E0077BA03 /* QualitySelectorViewController.swift */; };
 		35667BEB2136741C000A20A0 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEA2136741C000A20A0 /* PlayerViewController.swift */; };
 		35667BED2136B3C2000A20A0 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEC2136B3C2000A20A0 /* ItemViewController.swift */; };
 		35667BEF2136C9EE000A20A0 /* TvShowLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35667BEE2136C9EE000A20A0 /* TvShowLibraryViewController.swift */; };
@@ -165,6 +166,7 @@
 		352B5F55213165B500E346C6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		352B5F5D21318B4100E346C6 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		352B60712132DF5100E346C6 /* NetworkRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequester.swift; sourceTree = "<group>"; };
+		3546633722FB0F9E0077BA03 /* QualitySelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualitySelectorViewController.swift; sourceTree = "<group>"; };
 		35667BEA2136741C000A20A0 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		35667BEC2136B3C2000A20A0 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		35667BEE2136C9EE000A20A0 /* TvShowLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowLibraryViewController.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 				357428432141DDCC00713FC5 /* DownloadManager.swift */,
 				35C412EF22F366F5005E03BE /* SyncManager.swift */,
 				3598CF05215E380D00E390FD /* ItemDownloadManager.swift */,
+				3546633722FB0F9E0077BA03 /* QualitySelectorViewController.swift */,
 			);
 			path = DownloadManager;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				35897AAD214AAC8A005A1D07 /* LocalItemCoordinator.swift in Sources */,
 				351715EC2159369C00765C4D /* CustomServerSelectionCoordinator.swift in Sources */,
 				35897AAB214AA3E9005A1D07 /* TopLevelCoordinator.swift in Sources */,
+				3546633822FB0F9E0077BA03 /* QualitySelectorViewController.swift in Sources */,
 				352B5F56213165B500E346C6 /* LoginViewController.swift in Sources */,
 				357428302140351800713FC5 /* VideoPlayerControls.swift in Sources */,
 				351715F2215A6F4500765C4D /* EmbyConnectUserManager.swift in Sources */,

@@ -65,4 +65,12 @@ class ViewBuilder {
         view.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
         return view
     }
+
+    static func picker(dataSource: UIPickerViewDataSource, delegate: UIPickerViewDelegate? = nil) -> UIPickerView {
+        let view = UIPickerView()
+        view.dataSource = dataSource
+        view.delegate = delegate
+        view.tintColor = .white
+        return view
+    }
 }

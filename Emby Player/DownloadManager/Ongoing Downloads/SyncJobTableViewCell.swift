@@ -52,7 +52,7 @@ class SyncJobTableViewCell: UITableViewCell {
     func updateViews() {
         guard let job = job else { return }
         titleLabel.text = job.item.name
-        totalSizeLabel.text = job.job.status.rawValue
+        totalSizeLabel.text = job.job.quality
 
         let progressValue = job.job.progress
         progressView.progress = Float(job.job.progress / 100)

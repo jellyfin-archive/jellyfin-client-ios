@@ -20,6 +20,8 @@ class EmbyItemCoordiantor: Coordinating {
 
     lazy var playerCoordinator = VideoPlayerCoordinator(presenter: self.contentController)
 
+    lazy var qualityController = QualitySelectorViewController()
+
     var downloadingItem: PlayableItem?
 
     init(presenter: UINavigationController, itemId: String? = nil) {
@@ -39,6 +41,12 @@ class EmbyItemCoordiantor: Coordinating {
         itemController.delegate = self
         presenter.pushViewController(contentController, animated: true)
     }
+
+    func presentQualityPicker(for item: PlayableIteming) {
+        qualityController.delegate = self
+        qualityController.item = item
+        itemController.present(UINavigationController(rootViewController: qualityController), animated: true, completion: nil)
+    }
 }
 
 extension EmbyItemCoordiantor: ItemViewControllerDelegate {
@@ -52,7 +60,7 @@ extension EmbyItemCoordiantor: ItemViewControllerDelegate {
 
     func downloadItem(_ item: PlayableItem) {
         guard item.mediaSources.contains(where: { itemController.supportedContainer.supports(container: $0.container) }) else {
-            SyncManager.shared.request(item, in: "1500000")
+            presentQualityPicker(for: item)
             return
         }
         do {
@@ -71,8 +79,15 @@ extension EmbyItemCoordiantor: ItemViewControllerDelegate {
 extension EmbyItemCoordiantor: DownloadManagerObserverable {
 
     func downloadWasCompleted(for downloadPath: DownloadManagerDownloadPath, response: FetcherResponse<DownloadManagerLocalPath>) {
-
-        guard var item = downloadingItem else { return }
+        guard let item = downloadingItem else { return }
         ItemDownloadManager.shared.remove(observer: self, forItemId: item.id)
+    }
+}
+
+extension EmbyItemCoordiantor : QualitySelectorViewControllerDelegate {
+    func didSelect(_ quality: QualitySelectorViewController.Quality, in picker: QualitySelectorViewController) {
+        if let item = picker.item {
+            SyncManager.shared.request(item, in: quality.bitrate)
+        }
     }
 }
