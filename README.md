@@ -1,6 +1,6 @@
 # Jellyfin Player iOS
 
-An iOS app that makes it possible to stream and download JellyFin media content for free.
+An iOS app that makes it possible to stream and download Jellyfin media content for free.
 
 
 ## Installation instructions
