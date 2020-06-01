@@ -97,7 +97,10 @@ protocol PlayableIteming: Codable {
 extension PlayableIteming {
 
     func imageUrl(with type: ImageType) -> URL? {
-        return URL(string: "http://server753.seedhost.eu:8096/emby/Items/\(id)/Images/\(type.rawValue)")
+        let server = ServerManager.currentServer
+        let baseUrl = server!.baseUrl
+        let urlPath = baseUrl.appendingPathComponent("emby/Items/\(id)/Images/\(type.rawValue)")
+        return urlPath
     }
 
     func playableVideo(in player: SupportedContainerController, from server: EmbyAPI) -> Video? {
