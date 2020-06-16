@@ -23,14 +23,13 @@ protocol CustomServerSelectionViewControllerDelegate: class {
 class CustomServerSelectionViewController: UIViewController {
 
     private struct Strings {
-        static let missingIPTitle           = "Missing IP Address"
-        static let invalidPortTitle         = "Invalid Server Port"
-        static let serverAddressLabel       = "Server address"
+        static let missingIPTitle = "Missing IP Address"
+        static let invalidPortTitle = "Invalid Server Port"
+        static let serverAddressLabel = "Server address"
         static let serverAddressPlaceholder = "https://your-server.com"
-        static let serverPortLabel          = "Server Port"
-        static let serverPortPlaceholder    = "8096"
-        static let connectTitle             = "Connect to Server"
-
+        static let serverPortLabel = "Server Port"
+        static let serverPortPlaceholder = "8096"
+        static let connectTitle = "Connect to Server"
     }
 
     enum Errors: LocalizedError {
@@ -39,40 +38,28 @@ class CustomServerSelectionViewController: UIViewController {
 
         public var errorDescription: String? {
             switch self {
-            case .missingIP:            return Strings.missingIPTitle
-            case .invalidServerPort:    return Strings.invalidPortTitle
+            case .missingIP:
+                return Strings.missingIPTitle
+            case .invalidServerPort:
+                return Strings.invalidPortTitle
             }
         }
     }
 
-    lazy var scrollView: UIScrollView       = ViewBuilder.scrollView(subview: self.contentView)
-    lazy var contentView: UIStackView       = ViewBuilder.stackView(arrangedSubviews: [self.serverIPLabel,
-                                                                                       self.serverIPField,
-                                                                                       self.serverPortLabel,
-                                                                                       self.serverPortField,
-                                                                                       self.errorTextLabel,
-                                                                                       self.connectButton],
-                                                                    layoutMargins: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+    lazy private var serverIPField: UITextField = ViewBuilder.textField(placeholder: Strings.serverAddressPlaceholder,
+                                                           text: "", keybordType: .URL)
 
-    lazy var serverIPLabel                  = ViewBuilder.textLabel(font: .title3,
-                                                                    text: Strings.serverAddressLabel)
-    lazy var serverIPField: UITextField     = ViewBuilder.textField(placeholder: Strings.serverAddressPlaceholder,
-                                                                    text: "",
-                                                                    keybordType: .URL)
+    lazy private var serverPortField: UITextField = ViewBuilder.textField(placeholder: Strings.serverPortPlaceholder,
+                                                                     keybordType: .numberPad)
 
-    lazy var serverPortLabel                = ViewBuilder.textLabel(font: .title3,
-                                                                    text: Strings.serverPortLabel)
-    lazy var serverPortField: UITextField   = ViewBuilder.textField(placeholder: Strings.serverPortPlaceholder,
-                                                                    keybordType: .numberPad)
+    lazy private var errorTextLabel: UILabel = ViewBuilder.textLabel(textColor: .red,
+                                                                font: .callout,
+                                                                isHidden: true)
 
-    lazy var errorTextLabel: UILabel        = ViewBuilder.textLabel(textColor: .red,
-                                                                    font: .callout,
-                                                                    isHidden: true)
-
-    lazy var connectButton: UIButton        = ViewBuilder.button(title: Strings.connectTitle,
-                                                                 color: UIColor(red: 20/255, green: 200/255, blue: 20/255, alpha: 1),
-                                                                 target: self,
-                                                                 selector: #selector(self.connectButtonWasTapped))
+    lazy private var connectButton: UIButton = ViewBuilder.button(title: Strings.connectTitle,
+                                                          color: UIColor(red: 20/255, green: 200/255, blue: 20/255, alpha: 1),
+                                                          target: self,
+                                                          selector: #selector(self.connectButtonWasTapped))
 
     weak var delegate: CustomServerSelectionViewControllerDelegate?
 
@@ -80,21 +67,54 @@ class CustomServerSelectionViewController: UIViewController {
         setupViewController()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        resetViewController()
+    }
+
     private func setupViewController() {
+        let serverIPLabel: UILabel = ViewBuilder.textLabel(font: .title3, text: Strings.serverAddressLabel)
+        let serverPortLabel: UILabel = ViewBuilder.textLabel(font: .title3, text: Strings.serverPortLabel)
+
         title = "Custom Connection"
         view.backgroundColor = .black
+
+        let views = [serverIPLabel,
+                     serverIPField,
+                     serverPortLabel,
+                     serverPortField,
+                     errorTextLabel,
+                     connectButton]
+
+        let contentView: UIStackView = ViewBuilder.stackView(arrangedSubviews: views,
+                                                             layoutMargins: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+
+        let scrollView: UIScrollView = ViewBuilder.scrollView(subview: contentView)
+
         view.addSubview(scrollView)
         scrollView.fillSuperView()
+
+        serverIPField.autocapitalizationType = .none
+    }
+
+    private func resetViewController() {
+        resetError()
     }
 
     private func getServerConnection() throws -> ServerConnection {
 
-        guard var ipAddress = serverIPField.text,
-            !ipAddress.isEmpty else { throw Errors.missingIP }
+        guard var ipAddress = serverIPField.text, ipAddress.isNotBlankOrEmpty else { throw Errors.missingIP }
+
         if !ipAddress.contains(":") {
             ipAddress = "http://" + ipAddress
         }
-        let portString = serverPortField.text?.isEmpty == true ? Strings.serverPortPlaceholder : serverPortField.text!
+
+        let portString: String
+        if let userDefinedPort = serverPortField.text {
+            portString = userDefinedPort.isNotBlankOrEmpty ? userDefinedPort : Strings.serverPortPlaceholder
+        } else {
+            portString = Strings.serverPortPlaceholder
+        }
+
         guard let port = Int(portString) else { throw Errors.invalidServerPort }
 
         return ServerConnection(ipAddress: ipAddress, port: port)
@@ -105,9 +125,15 @@ class CustomServerSelectionViewController: UIViewController {
         errorTextLabel.isHidden = false
     }
 
+    private func resetError() {
+        errorTextLabel.text = ""
+        errorTextLabel.isHidden = true
+    }
+
     @objc
-    func connectButtonWasTapped() {
+    private func connectButtonWasTapped() {
         do {
+            resetError()
             let connection = try getServerConnection()
             delegate?.connectToServer(connection)
         } catch {
