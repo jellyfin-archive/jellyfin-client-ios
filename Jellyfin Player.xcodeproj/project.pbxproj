@@ -101,6 +101,7 @@
 		35F763A622A19F8300018AB2 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F763A522A19F8300018AB2 /* UserProfileViewController.swift */; };
 		35F763A822A19FF400018AB2 /* UserProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F763A722A19FF400018AB2 /* UserProfileStore.swift */; };
 		485D3C875F9CF93AFE4C26C9 /* Pods_Jellyfin_PlayerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */; };
+		8F8236DB2499694F00CAEBF8 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8236DA2499694F00CAEBF8 /* StringExtension.swift */; };
 		B8F8DAFD9BC332389EFFB38F /* Pods_Jellyfin_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1799B14B665EACDC88A913A /* Pods_Jellyfin_Player.framework */; };
 /* End PBXBuildFile section */
 
@@ -226,6 +227,7 @@
 		44CC976103F2E07BB47587C0 /* Pods-Jellyfin Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player.debug.xcconfig"; sourceTree = "<group>"; };
 		48D0C8A94A643FC8E967A534 /* Pods-Jellyfin Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player.release.xcconfig"; sourceTree = "<group>"; };
 		750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_PlayerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F8236DA2499694F00CAEBF8 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		B1799B14B665EACDC88A913A /* Pods_Jellyfin_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E33F5BE93C32C14CD853811C /* Pods_Jellyfin_PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -414,6 +416,7 @@
 		352B5F26213165A300E346C6 /* Jellyfin Player */ = {
 			isa = PBXGroup;
 			children = (
+				8F8236D92499693700CAEBF8 /* Extensions */,
 				351ECB16215CE2F8003020C4 /* README.md */,
 				35E9BB6B21ED2DB400E609FD /* Utilities */,
 				351CFF1021621F27005743CE /* AppCache.swift */,
@@ -683,6 +686,14 @@
 				750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8F8236D92499693700CAEBF8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8F8236DA2499694F00CAEBF8 /* StringExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BB7494443E19B4D84EB4B173 /* Pods */ = {
@@ -971,6 +982,7 @@
 				351A81052146FA370028AC73 /* SingleItemOfflineFetcher.swift in Sources */,
 				35F59673215E2B1700E3117D /* OngoingDownloadTableViewCell.swift in Sources */,
 				357428352141174500713FC5 /* VideoInformationViewController.swift in Sources */,
+				8F8236DB2499694F00CAEBF8 /* StringExtension.swift in Sources */,
 				351CFF14216227B5005743CE /* ItemActionsViewController.swift in Sources */,
 				351A80F221454C8C0028AC73 /* SubtitleViewController.swift in Sources */,
 				35667BF32136F9EF000A20A0 /* ImageLoaderViewController.swift in Sources */,
