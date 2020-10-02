@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		037AEFF4D9FAC2F85480FAE9 /* Pods_Jellyfin_PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33F5BE93C32C14CD853811C /* Pods_Jellyfin_PlayerTests.framework */; };
 		3516B0F522F03A000037598E /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3516B0F422F03A000037598E /* UIViewExtension.swift */; };
 		351715D72156943200765C4D /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715D62156943200765C4D /* UserView.swift */; };
 		351715E52158FE9000765C4D /* EmbyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351715E42158FE9000765C4D /* EmbyLoginViewController.swift */; };
@@ -100,9 +99,7 @@
 		35F59CE122A1C70B00CB2295 /* UserProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F59CE022A1C70B00CB2295 /* UserProfileCoordinator.swift */; };
 		35F763A622A19F8300018AB2 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F763A522A19F8300018AB2 /* UserProfileViewController.swift */; };
 		35F763A822A19FF400018AB2 /* UserProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F763A722A19FF400018AB2 /* UserProfileStore.swift */; };
-		485D3C875F9CF93AFE4C26C9 /* Pods_Jellyfin_PlayerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */; };
 		8F8236DB2499694F00CAEBF8 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8236DA2499694F00CAEBF8 /* StringExtension.swift */; };
-		B8F8DAFD9BC332389EFFB38F /* Pods_Jellyfin_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1799B14B665EACDC88A913A /* Pods_Jellyfin_Player.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,9 +120,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05EBC01BFAC6E70F0462B93D /* Pods-Jellyfin PlayerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin PlayerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin PlayerUITests/Pods-Jellyfin PlayerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		0BFA8F431F1D967359C19D6D /* Pods-Jellyfin PlayerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin PlayerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin PlayerUITests/Pods-Jellyfin PlayerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		14CAAA0CC80E6576C35A3668 /* Pods-Jellyfin PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin PlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin PlayerTests/Pods-Jellyfin PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
 		3516B0F422F03A000037598E /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		351715D62156943200765C4D /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		351715E42158FE9000765C4D /* EmbyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbyLoginViewController.swift; sourceTree = "<group>"; };
@@ -223,13 +217,7 @@
 		35F59CE022A1C70B00CB2295 /* UserProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCoordinator.swift; sourceTree = "<group>"; };
 		35F763A522A19F8300018AB2 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		35F763A722A19FF400018AB2 /* UserProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStore.swift; sourceTree = "<group>"; };
-		3BFCD38A397298BD7646CA90 /* Pods-Jellyfin PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin PlayerTests/Pods-Jellyfin PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		44CC976103F2E07BB47587C0 /* Pods-Jellyfin Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player.debug.xcconfig"; sourceTree = "<group>"; };
-		48D0C8A94A643FC8E967A534 /* Pods-Jellyfin Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jellyfin Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player.release.xcconfig"; sourceTree = "<group>"; };
-		750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_PlayerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8236DA2499694F00CAEBF8 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		B1799B14B665EACDC88A913A /* Pods_Jellyfin_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E33F5BE93C32C14CD853811C /* Pods_Jellyfin_PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jellyfin_PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,7 +225,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8F8DAFD9BC332389EFFB38F /* Pods_Jellyfin_Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +232,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				037AEFF4D9FAC2F85480FAE9 /* Pods_Jellyfin_PlayerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +239,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				485D3C875F9CF93AFE4C26C9 /* Pods_Jellyfin_PlayerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,8 +383,6 @@
 				352B5F3B213165A500E346C6 /* Jellyfin PlayerTests */,
 				352B5F46213165A500E346C6 /* Jellyfin PlayerUITests */,
 				352B5F25213165A300E346C6 /* Products */,
-				BB7494443E19B4D84EB4B173 /* Pods */,
-				73A207A05364DE328AC0CA98 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -678,35 +661,12 @@
 			path = UserProfileViewController;
 			sourceTree = "<group>";
 		};
-		73A207A05364DE328AC0CA98 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B1799B14B665EACDC88A913A /* Pods_Jellyfin_Player.framework */,
-				E33F5BE93C32C14CD853811C /* Pods_Jellyfin_PlayerTests.framework */,
-				750445B871A56DC5558172D2 /* Pods_Jellyfin_PlayerUITests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		8F8236D92499693700CAEBF8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				8F8236DA2499694F00CAEBF8 /* StringExtension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		BB7494443E19B4D84EB4B173 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				44CC976103F2E07BB47587C0 /* Pods-Jellyfin Player.debug.xcconfig */,
-				48D0C8A94A643FC8E967A534 /* Pods-Jellyfin Player.release.xcconfig */,
-				3BFCD38A397298BD7646CA90 /* Pods-Jellyfin PlayerTests.debug.xcconfig */,
-				14CAAA0CC80E6576C35A3668 /* Pods-Jellyfin PlayerTests.release.xcconfig */,
-				0BFA8F431F1D967359C19D6D /* Pods-Jellyfin PlayerUITests.debug.xcconfig */,
-				05EBC01BFAC6E70F0462B93D /* Pods-Jellyfin PlayerUITests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -716,11 +676,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 352B5F4C213165A500E346C6 /* Build configuration list for PBXNativeTarget "Jellyfin Player" */;
 			buildPhases = (
-				80EA6F73C9C06413B23C39B7 /* [CP] Check Pods Manifest.lock */,
 				352B5F20213165A300E346C6 /* Sources */,
 				352B5F21213165A300E346C6 /* Frameworks */,
 				352B5F22213165A300E346C6 /* Resources */,
-				724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */,
 				356A302E21FA47690064740E /* ShellScript */,
 			);
 			buildRules = (
@@ -736,7 +694,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 352B5F4F213165A500E346C6 /* Build configuration list for PBXNativeTarget "Jellyfin PlayerTests" */;
 			buildPhases = (
-				89371B69EB4545AF185A9A6B /* [CP] Check Pods Manifest.lock */,
 				352B5F34213165A500E346C6 /* Sources */,
 				352B5F35213165A500E346C6 /* Frameworks */,
 				352B5F36213165A500E346C6 /* Resources */,
@@ -755,7 +712,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 352B5F52213165A500E346C6 /* Build configuration list for PBXNativeTarget "Jellyfin PlayerUITests" */;
 			buildPhases = (
-				9B1610CB3DD194C3B13A06D4 /* [CP] Check Pods Manifest.lock */,
 				352B5F3F213165A500E346C6 /* Sources */,
 				352B5F40213165A500E346C6 /* Frameworks */,
 				352B5F41213165A500E346C6 /* Resources */,
@@ -862,77 +818,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		724B7769FA8AFFA4868CB105 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Jellyfin Player/Pods-Jellyfin Player-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		80EA6F73C9C06413B23C39B7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Jellyfin Player-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		89371B69EB4545AF185A9A6B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Jellyfin PlayerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B1610CB3DD194C3B13A06D4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Jellyfin PlayerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1193,7 +1078,6 @@
 		};
 		352B5F4D213165A500E346C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44CC976103F2E07BB47587C0 /* Pods-Jellyfin Player.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1213,7 +1097,6 @@
 		};
 		352B5F4E213165A500E346C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48D0C8A94A643FC8E967A534 /* Pods-Jellyfin Player.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1233,7 +1116,6 @@
 		};
 		352B5F50213165A500E346C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BFCD38A397298BD7646CA90 /* Pods-Jellyfin PlayerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1255,7 +1137,6 @@
 		};
 		352B5F51213165A500E346C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14CAAA0CC80E6576C35A3668 /* Pods-Jellyfin PlayerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1277,7 +1158,6 @@
 		};
 		352B5F53213165A500E346C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BFA8F431F1D967359C19D6D /* Pods-Jellyfin PlayerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1298,7 +1178,6 @@
 		};
 		352B5F54213165A500E346C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05EBC01BFAC6E70F0462B93D /* Pods-Jellyfin PlayerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
