@@ -2,6 +2,15 @@
 
 **This is not the same app as on the App Store!**
 
+
+---
+
+## Attention - Not Maintained
+This project is kept here for legacy purposes, but is not used or maintained (see [here](https://github.com/jellyfin-archive/jellyfin-client-ios/issues/16)). It is not used in any deployed Jellyfin app. For active projects, please see the main [Jellyfin](https://github.com/jellyfin) organization.
+
+---
+
+
 An iOS app that makes it possible to stream and download Jellyfin media content for free.
 
 
